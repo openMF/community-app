@@ -1,0 +1,90 @@
+fineract-ui:
+  replicaCount: 1
+  repository: "646245671754.dkr.ecr.us-east-1.amazonaws.com/fiter-frontend-app"
+  pullPolicy: Always
+  tag: "mifos-moniafrica-21SEP22-1651"
+  
+  secretMounts:
+     - mountPath: "/etc/ssl/keys/crt.pem"
+       mountFileName: "crt.pem"
+     - mountPath: "/etc/ssl/keys/key.pem"
+       mountFileName: "key.pem"
+     - mountPath: "/etc/nginx/conf.d/default.conf.template"
+       mountFileName: "default.conf.template"
+
+  env:
+    FINERACT_DOMAIN: "mifos.rank.africa"
+    FINERACT_BASE_URL: "/fineract-provider/api/v1"
+    FINERACT_PROXY_URL: "https://backend-fineract-rest:8443"
+    DOLLAR: "$"
+    
+  argsOverride: [
+    "/bin/bash",
+    "-c",
+    "envsubst < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+  ]
+
+
+
+  service:
+    type: ClusterIP
+    servicePorts:
+      - port: 443
+        containerPort: 443
+        protocol: TCP
+        name: https
+      - port: 80
+        containerPort: 80
+        protocol: TCP
+        name: http
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+  serviceAccount:
+    name: application-sa
+
+  ingress:
+    enabled: true
+    tls:
+    - hosts:
+      - "mifos.rank.africa"
+      secretName: "fineract-tls"
+    host: "mifos.rank.africa"
+    path: "/"
+    pathType: ImplementationSpecific
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prod-issuer"
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"      
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1024Mi
+    requests:
+      cpu: 512m
+      memory: 512Mi
+
+  livenessProbe:
+    failureThreshold: 3
+    httpGet:
+      path: /
+      port: 443
+      scheme: HTTPS
+    initialDelaySeconds: 30
+    periodSeconds: 120
+    successThreshold: 1
+    timeoutSeconds: 10
+  readinessProbe:
+    failureThreshold: 3
+    httpGet:
+      path: /
+      port: 443
+      scheme: HTTPS
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 5

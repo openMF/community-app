@@ -75,7 +75,7 @@
                         <select id="chargeCalculationType" name="chargecalculation"
                                 ng-model="formData.chargeCalculationType"
                                 ng-options="chargecalculation.id as chargecalculation.code | translate for chargecalculation in chargeCalculationTypeOptions | filter:filterChargeCalculations(formData.chargeTimeType)"
-                                value="{{chargecalculation.id}}" class="form-control" required>
+                                value="{{chargecalculation.id}}" ng-change="chargeCalculationTypeChange(formData.chargeCalculationType)" class="form-control" required>
                             <option value="">{{'label.selectone' | translate}}</option>
                         </select>
                     </div>
@@ -246,6 +246,32 @@
                         <form-validate valattributeform="createchargeform" valattribute="amount"/>
                     </div>
                 </div>
+
+                <div class="form-group" ng-show="(showMinAndMaxAmountSettings && formData.chargeCalculationType == 2 && formData.chargeTimeType == 5)
+                || (formData.chargeAppliesTo == 1 && loanChargeCalculationType && loanChargeTimeChange)">
+                    <label class="control-label col-sm-2" for="minAmount">{{'label.input.minAmount' | translate}}<span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="minAmount" name="minAmount" type="text" ng-model="formData.minAmount" class="form-control" number-format
+                               ng-required='loanChargeCalculationType' late-Validate/>
+                    </div>
+                    <div class="col-sm-3" ng-if="loanChargeCalculationType" >
+                        <form-validate valattributeform="createchargeform" valattribute="minAmount"/>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="(showMinAndMaxAmountSettings && formData.chargeCalculationType == 2 && formData.chargeTimeType == 5) || (formData.chargeAppliesTo == 1 && loanChargeCalculationType && loanChargeTimeChange)">
+                    <label class="control-label col-sm-2" for="maxAmount">{{'label.input.maxAmount' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="maxAmount" name="maxAmount" type="text" ng-model="formData.maxAmount" class="form-control" number-format
+                               ng-required='loanChargeCalculationType' late-Validate/>
+                    </div>
+                    <div class="col-sm-3" ng-if="loanChargeCalculationType">
+                        <form-validate valattributeform="createchargeform" valattribute="maxAmount"/>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="active">{{'label.input.active' | translate}}</label>
 

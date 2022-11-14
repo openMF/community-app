@@ -269,6 +269,12 @@
                                     <td><span class="padded-td">{{savingaccountdetails.subStatus.value}}</span>
                                     </td>
                                 </tr>
+                                <tr >
+                                    <th class="table-bold-acc fontnormal">{{'label.blockNarration' | translate}}
+                                    </th>
+                                    <td><span class="padded-td">{{savingaccountdetails.blockNarration.name}}</span>
+                                    </td>
+                                </tr>
                                 <tr data-ng-show="savingaccountdetails.daysToInactive">
                                     <th class="table-bold-acc fontnormal">{{'label.daysToInactive' | translate}}
                                     </th>
@@ -464,6 +470,10 @@
                                 ng-click="viewJournalEntries()" style="margin-right: 8px;">
                             {{'label.button.viewjournalentries' | translate}}
                         </button>
+                        <button class="btn btn-primary pull-right" ng-show="checkStatus()"
+                                ng-click="viewAccrualTransaction()" style="margin-right: 8px;">
+                            {{'label.input.show.accrual.transactions' | translate}}
+                        </button>
                         <br>
                         <table class="table table-bordered">
                             <colgroup span="4"></colgroup>
@@ -477,6 +487,12 @@
                                 </th>
                                 <th class="pointer" ng-click="changeTransactionSort('transactionType.value')">
                                     {{'label.heading.transactiontype' | translate}}
+                                </th>
+                                <th class="pointer" ng-click="changeTransactionSort('transactionType.value')" data-ng-show="isGroupLoan">
+                                    {{'label.heading.transactorName' | translate}}
+                                </th>
+                                <th class="pointer" ng-click="changeTransactionSort('transactionType.value')" data-ng-show="isGroupLoan">
+                                    {{'label.heading.transactorPhoneNumber' | translate}}
                                 </th>
                                 <th class="pointer" ng-click="changeTransactionSort('amount')">{{'label.heading.debit' |
                                     translate}}
@@ -493,8 +509,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="pointer-main" ng-class="{'pointer-main strike-grey' : transaction.reversed, 'pointer-main amber' : transaction.isReversal, 
-                            'pointer-main': !(transaction.reversed || transaction.isReversal)}"
+                            <tr class="pointer-main" ng-hide="transaction.reversed ||  (hideAccrualTransactions && (transaction.transactionType.id == 22 || transaction.transactionType.id == 23 || transaction.transactionType.id == 24 || transaction.transactionType.id == 25))"
                                 ng-repeat="transaction in savingaccountdetails.transactions | orderBy:transactionSort.column[2]:transactionSort.ascending">
                                 <td class="pointer"
                                     data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
@@ -507,6 +522,14 @@
                                 <td class="pointer"
                                     data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
                                     {{transaction.transactionType.value}}<span ng-if=" transaction.isReversal">(R)</span>
+                                </td>
+                                <td class="pointer"
+                                    data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)" data-ng-show="isGroupLoan">
+                                    {{transaction.paymentDetailData.transactorName}}
+                                </td>
+                                <td class="pointer"
+                                    data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)" data-ng-show="isGroupLoan">
+                                    {{transaction.paymentDetailData.transactorPhoneNumber}}
                                 </td>
                                 <td class="pointer"
                                     data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
@@ -734,38 +757,66 @@
                             </tr>
                         </table>
                     </uib-tab>
-                    <!-- <tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_SAVINGNOTE'>
-                        <br/>
-
-                        <form>
-                            <div class="form-group">
-                                <div class="col-sm-12 col-md-12">
-                                    <textarea rows="1" class="form-control marginbottom0px" id="textarea"
-                                              placeholder="{{'label.input.enternote' | translate}}" ng-model="formData.note"></textarea>
-
-                                    <div class="notewrapper col-sm-12 col-md-12">
-                                            <span class="pull-right noteaddbuttonwrapper">
-                                                <button class="btn btn-primary" type="submit" ng-click="saveNote()" has-permission='CREATE_SAVINGNOTE'>{{'label.button.add' | translate}}
-                                                </button>
-                                            </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="col-md-12">
-                            <br/>
-                            <div ng-repeat="savingNote in savingNotes | orderBy:predicate:reverse">
-                                <blockquote>
-                                  <p>{{savingNote.note}}</p>
-                                  {{savingNote.id}}
-                                  <small>{{'label.createdby' | translate}} :&nbsp;{{savingNote.createdByUsername}}</small>
-                                  <small>{{'label.createdon' | translate}} :&nbsp;{{savingNote.createdOn  | DateFormat}}</small>
-                                </blockquote>
-                            </div>
-                        </div>
-                    </tab> -->
+                    <uib-tab heading="{{'label.heading.contributions' | translate}}" ng-show="isGroupLoan">
+                        <br>
+                        <table class="table table-bordered">
+                            <colgroup span="4"></colgroup>
+                            <thead>
+                            <tr>
+                                <th class="pointer" >
+                                    {{'label.heading.id' |  translate}}
+                                </th>
+                                <th class="pointer" >
+                                    {{'label.heading.accountnumber' | translate}}
+                                </th>
+                                <th class="pointer" >
+                                    {{'label.heading.name' | translate}}
+                                </th>
+                                <th class="pointer" >
+                                    {{'label.heading.totaldeposit' | translate}}
+                                </th>
+                                <th class="pointer" >
+                                    {{'label.heading.totalwithdraw' | translate}}
+                                </th>
+                                <th class="pointer" >
+                                    {{'label.heading.eligibility' | translate}}
+                                </th>
+                                <th class="pointer" >
+                                    {{'label.heading.eligibilityRate' | translate}}
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="pointer-main"
+                                ng-repeat="contribution in savingaccountdetails.contributions">
+                                <td class="pointer">
+                                    {{contribution.id}}
+                                </td>
+                                <td class="pointer">
+                                    {{contribution.accountNumber}}
+                                </td>
+                                <td class="pointer">
+                                    {{contribution.name}}
+                                </td>
+                                <td class="pointer">
+                                    {{contribution.totalDeposit | number}}
+                                </td>
+                                <td class="pointer">
+                                    {{contribution.totalWithdraw | number}}
+                                </td>
+                                <td class="pointer">
+                                        {{contribution.eligibility | number}}
+                                </td>
+                                <td class="pointer">
+                                    {{contribution.eligibilityRate | number}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </uib-tab>
                 </uib-tabset>
             </div>
+
         </div>
     </div>
 </div>

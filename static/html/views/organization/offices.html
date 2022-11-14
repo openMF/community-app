@@ -1,0 +1,53 @@
+<div class="content-container" ng-controller="OfficesController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li class="active">{{'label.anchor.manageoffices' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <div class="pull-right">
+                    <a ng-show="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary"><i class="fa fa-list "></i>&nbsp;&nbsp;{{'label.button.listview' | translate}}</a>
+                    <a ng-hide="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary"><i class="fa fa-sitemap "></i>&nbsp;&nbsp;{{'label.button.treeview' | translate}}</a>
+                    <a href="#/createoffice" class="btn btn-primary" has-permission='CREATE_OFFICE'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createoffice' | translate}}</a>&nbsp;&nbsp;
+                		<a href="#/bulkimportoffices" class="btn btn-primary pull-right" has-permission='CREATE_OFFICE'><i
+ +                            class="fa fa-upload"></i>&nbsp;{{'label.button.importoffices' | translate}}</a>
+                </div>
+            </div>
+            <br>
+            <div class="clear"></div>
+            <div ng-hide="isTreeView">
+                <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control span marginbottom0px" placeholder="{{'label.input.filterbynameexternalid' | translate}}">
+                <table class="table">
+                    <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.officeName' | translate}}</th>
+                        <th>{{'label.heading.externalid' | translate}}</th>
+                        <th>{{'label.heading.parentoffice' | translate}}</th>
+                        <th>{{'label.heading.openedon' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="pointer-main" dir-paginate="office in offices | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: OfficesPerPage">
+                        <td class="pointer" data-ng-click="routeTo(office.id)">{{office.name}}</td>
+                        <td class="pointer" data-ng-click="routeTo(office.id)">{{office.externalId}}</td>
+                        <td class="pointer" data-ng-click="routeTo(office.id)">{{office.parentName}}</td>
+                        <td class="pointer" data-ng-click="routeTo(office.id)">{{office.openingDate | DateFormat}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+            </div>
+            <div ng-show="isTreeView">
+                <div
+                        data-angular-treeview="true"
+                        data-tree-id="treeview"
+                        data-tree-model="treedata"
+                        data-node-id="id"
+                        data-node-label="name"
+                        data-node-children="children">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

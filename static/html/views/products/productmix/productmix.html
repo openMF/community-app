@@ -1,0 +1,26 @@
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li class="active">{{'label.anchor.productmix' | translate}}</li>
+    </ul>
+   
+	<div class="card well" ng-controller="ProductMixController">
+	<div class="pull-right paddedbottom20">
+        <a href="#/addproductmix" class="btn btn-primary" has-permission='CREATE_PRODUCTMIX'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.add' |
+            translate}}</a>
+    </div>
+	    <br>
+	    <table class="table">
+	        <thead>
+	        <tr class="graybg">
+	            <th>{{'label.heading.productname' | translate}}</th>
+	        </tr>
+	        </thead>
+	        <tbody>
+	        <tr class="pointer-main" ng-repeat="productmix in productmixes | orderBy:'productName':reverse">
+	            <td class="pointer" data-ng-click="routeTo(productmix.productId)">{{productmix.productName}}</td>
+	        </tr>
+	        </tbody>
+	    </table>
+	</div>
+</div>

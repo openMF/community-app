@@ -1,0 +1,104 @@
+<div class="content-container" ng-controller="ViewUserController">
+    <ul class="breadcrumb">
+        <li><a href="#/users">{{'label.anchor.users' | translate}}</a></li>
+        <li class="active">{{user.firstname}}&nbsp;{{user.lastname}}</li>
+    </ul>
+    <script type="text/ng-template" id="password.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.changepassword' | translate}}</h3>
+        </div>
+
+        <div class="modal-body form-horizontal">
+            <api-validate></api-validate>
+            <br>
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="password">{{ 'label.input.password' | translate }}</label>
+
+                <div class="col-sm-5">
+                    <input type="password" id="password" ng-model="formData.password" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="repeatPassword">{{ 'label.input.repeatpassword' | translate }}</label>
+
+                <div class="col-sm-5">
+                    <input type="password" id="repeatPassword" ng-model="formData.repeatPassword" class="form-control"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer silver">
+            <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="save()">{{'label.button.save' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="deleteuser.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="card well">
+        <div class="pull-right">
+            <div class="form-group">
+                <a href="#/edituser/{{user.id}}" class="btn btn-primary" has-permission='UPDATE_USER'><i class="fa fa-edit "></i>
+                    {{'label.button.edit' | translate}}</a>
+                <button type="button" ng-click="deleteuser()" class="btn btn-danger" has-permission='DELETE_USER'>
+                    <i class="fa fa-trash-o"></i> {{'label.button.delete' | translate}}
+                </button>
+                <button type="button" class="btn btn-primary" data-ng-click="open()" has-permission='UPDATE_USER'><i class="fa fa-cog "></i>
+                    {{'label.button.changepassword' | translate}}
+                </button>
+            </div>
+        </div>
+        <h3 class="bolder">{{user.firstname}}&nbsp;{{user.lastname}}</h3>
+        <div class="row">
+	        <div class="col-md-5">
+		        <table class="table table-bordered table-striped">
+		            <tr>
+		                <td>{{'label.heading.loginname' | translate}}:</td>
+		                <td>{{user.username}}</td>
+		            </tr>
+		            <tr>
+		                <td>{{'label.heading.firstname' | translate}}:</td>
+		                <td>{{user.firstname}}</td>
+		            </tr>
+		            <tr>
+		                <td>{{'label.heading.lastname' | translate}}:</td>
+		                <td>{{user.lastname}}</td>
+		            </tr>
+		            <tr>
+		                <td>{{'label.heading.email' | translate}}:</td>
+		                <td>{{user.email}}</td>
+		            </tr>
+		            <tr>
+		                <td>{{'label.heading.office' | translate}}:</td>
+		                <td>{{user.officeName}}</td>
+		            </tr>
+		            <tr data-ng-show="user.staff">
+		                <td>{{'label.heading.staff' | translate}}:</td>
+		                <td>{{user.staff.displayName}}</td>
+		            </tr>
+		            <tr>
+		                <td valign="top">{{'label.heading.roles' | translate}}:</td>
+		                <td>
+		                    <table>
+		                        <tr ng-repeat="role in user.selectedRoles">
+		                            <td>
+		                                <span>{{role.name}}</span>
+		                            </td>
+		                        </tr>
+		                    </table>
+		                </td>
+		            </tr>
+		        </table>
+			</div>
+		</div>
+    </div>
+</div>
+          

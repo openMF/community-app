@@ -1,0 +1,87 @@
+<div class="content-container" ng-controller="ViewChargeController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/charges">{{'label.anchor.charges' | translate}}</a></li>
+        <li class="active">{{charge.name}}</li>
+    </ul>
+    <div class="card well">
+        <h3 class="bolder">{{charge.name}}
+        	<div class="form-group pull-right">
+             <a href="#/editcharge/{{charge.id}}" class="btn btn-primary" has-permission='UPDATE_CHARGE'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
+             <button type="button" data-ng-click="deleteCharge()" class="btn btn-danger" has-permission='DELETE_CHARGE'><i
+                     class="fa fa-trash-o"></i>&nbsp;&nbsp;{{'label.button.delete' | translate}}
+             </button>
+         </div>
+        </h3>
+        <hr>
+        <script type="text/ng-template" id="deletech.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+            </div>
+            <div class="modal-body ">
+                <api-validate></api-validate>
+                <br>
+                <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+            </div>
+        </script>
+        <div class="row">
+        	<div class="col-md-6">
+	            <table class="table table-bordered table-striped">
+	                <tr>
+	                    <td>{{'label.heading.chargetype' | translate}}</td>
+	                    <td>
+	                        <div ng-switch="charge.penalty">
+	                            <div ng-switch-when="false">{{'label.heading.charge' | translate}}</div>
+	                            <div ng-switch-when="true">{{'label.heading.penalty' | translate}}</div>
+	                        </div>
+	                    </td>
+	                <tr>
+	                    <td>{{'label.heading.currency' | translate}}</td>
+	                    <td>{{charge.currency.name}}</td>
+	                </tr>
+	                <tr>
+	                    <td>{{'label.heading.amount' | translate}}</td>
+	                    <td>{{charge.amount|number}}</td>
+	                </tr>
+	                <tr>
+	                    <td>{{'label.heading.chargetimetype' | translate}}</td>
+	                    <td>{{charge.chargeTimeType.value}}</td>
+	                </tr>
+	                <tr>
+	                    <td>{{'label.heading.chargeappliesto' | translate}}</td>
+	                    <td>{{charge.chargeAppliesTo.value}}</td>
+	                </tr>
+	                <tr>
+	                    <td>{{'label.heading.chargecalculationtype' | translate}}</td>
+	                    <td>{{charge.chargeCalculationType.value}}</td>
+	                </tr>
+	                <tr>
+	                    <td>{{'label.heading.active' | translate}}</td>
+	                    <td>{{charge.active | YesOrNo}}</td>
+	                </tr>
+	                <tr>
+	                    <td>{{'label.heading.chargepaymentmode' | translate}}</td>
+	                    <td>{{charge.chargePaymentMode.value}}</td>
+	                </tr>
+	                <tr ng-show="charge.chargeTimeType.id == 9">
+	                    <td>{{'label.input.feefrequency' | translate}}:</td>
+	                    <td>{{charge.feeFrequency.value}}</td>
+	                </tr>
+	                <tr ng-show="charge.chargeTimeType.id == 9">
+	                    <td>{{'label.input.frequencyInterval' | translate}}</td>
+	                    <td>{{charge.feeInterval}}</td>
+	                </tr>
+					<tr ng-show="charge.incomeOrLiabilityAccount">
+						<td>{{'label.input.incomefromcharges' | translate}}</td>
+						<td>{{charge.incomeOrLiabilityAccount.name}} ({{charge.incomeOrLiabilityAccount.glCode}})</td>
+					</tr>
+                    <tr ng-show="charge.taxGroup">
+                        <td>{{'label.input.taxgroup' | translate}}</td>
+                        <td>{{charge.taxGroup.name}}</td>
+                    </tr>
+	            </table>
+	    	</div>
+        </div>
+    </div>
+</div>

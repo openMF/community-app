@@ -17,6 +17,11 @@
                 scope.genderIdOptions=data.genderIdOptions;
                 scope.maritalStatusIdOptions=data.maritalStatusIdOptions;
                 scope.professionIdOptions=data.professionIdOptions;
+                scope.countryOptions = data.countryIdOptions;
+                scope.stateOptions = data.stateProvinceIdOptions;
+                scope.cityOptions = data.cityIdOptions;
+                scope.addressTypes = data.addressTypeIdOptions;
+
 
             });
 

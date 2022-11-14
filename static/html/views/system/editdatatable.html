@@ -1,0 +1,153 @@
+<div class="content-container" ng-controller="EditDataTableController">
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+            <li><a href="#/datatables">{{'label.anchor.managedatatables' | translate}}</a></li>
+            <li><a href="#/viewdatatable/{{datatable.registeredTableName}}">{{datatable.registeredTableName}}</a></li>
+            <li class="active">{{'label.anchor.editdatatable' | translate}}</li>
+        </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{ 'label.heading.editdatatable' | translate }}</h4>
+            </div>
+            <br/>
+                <form name="editdatatableform" novalidate="" class="form-horizontal" ng-submit="submit()">
+                    <api-validate></api-validate>
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">{{ 'label.input.datatablename' | translate }}<span
+                                    class="required">*</span></label>
+
+                            <div class="col-sm-3">
+                                <input id="registeredTableName" type="text" value="{{datatable.registeredTableName}}" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">{{ 'label.input.apptablename' | translate }}<span class="required">*</span></label>
+
+                            <div class="col-sm-3">
+                                <select id="apptableName" ng-model="formData.apptableName" class="form-control" required="required">
+                                    <option class="width100" value="">{{'label.selectone' | translate}}</option>
+                                    <option value="m_client">{{'label.client' | translate}}</option>
+                                    <option value="m_group">{{'label.group' | translate}}</option>
+                                    <option value="m_center">{{'label.center' | translate}}</option>
+                                    <option value="m_loan">{{'label.loan' | translate}}</option>
+                                    <option value="m_office">{{'label.office' | translate}}</option>
+                                    <option value="m_savings_account">{{'label.savingsaccount' | translate}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">{{ 'label.input.addcolumns' | translate }}</label>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <input name="columnname" ng-model="datatableTemplate.columnName" type="text"
+                                           placeholder="{{'label.input.columnname' | translate}}" class="form-control"/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <select ng-model="datatableTemplate.columnType" class="form-control">&nbsp;&nbsp;
+                                        <option class="width100" value="">{{'label.selectcolumntype' | translate}}</option>
+                                        <option value="string">{{'label.string' | translate}}</option>
+                                        <option value="number">{{'label.number' | translate}}</option>
+                                        <option value="decimal">{{'label.decimal' | translate}}</option>
+                                        <option value="boolean">{{'label.boolean' | translate}}</option>
+                                        <option value="date">{{'label.date' | translate}}</option>
+                                        <option value="datetime">{{'label.datetime' | translate}}</option>
+                                        <option value="text">{{'label.text' | translate}}</option>
+                                        <option value="dropdown">{{'label.dropdown' | translate}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-1">
+                                    <a class="btn btn-primary" ng-click="addColumn()"><i class="fa fa-plus "></i></a>
+                                </div>
+                                <span ng-show="editdatatableform.columnname.$invalid || columnnameerror || columntypeerror">
+                                    <small class="error"
+                                           ng-show="editdatatableform.columnname.$error.req || columnnameerror || columntypeerror">
+                                        {{ 'label.'+labelerror | translate }}
+                                    </small>
+                                </span>
+                            </div>
+                        </div>
+
+                        <table ng-show="columns.length > 0" class="width100">
+                            <tr class="form-group">
+                                <td class="width11">
+                                    <label class="control-label col-sm-2"><h4>{{ 'label.heading.columns' | translate }}</h4></label>
+                                </td>
+                                <td class="blockquoteresult width86">
+                                    <table ng-show="columns.length > 0" class="table width100">
+                                        <thead>
+                                        <tr class="graybg">
+                                            <th>{{'label.heading.name' | translate}}</th>
+                                            <th class="paddedleft0">{{'label.heading.newname' | translate}}</th>
+                                            <th class="paddedleft0">{{'label.heading.type' | translate}}</th>
+                                            <th class="paddedleft0">{{'label.heading.mandatory' | translate}}</th>
+                                            <th class="paddedleft0">{{'label.heading.length' | translate}}</th>
+                                            <th class="paddedleft0">{{'label.heading.code' | translate}}</th>
+                                            <th class="paddedleft0">{{'label.heading.newcode' | translate}}</th>
+                                            <th class="paddedleft0">{{'label.heading.actions' | translate}}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="column in columns">
+                                            <td>
+                                                <input ng-model="column.name" class="input-sm form-control" type="text"
+                                                       placeholder="{{'label.input.columnname' | translate}}"
+                                                       ng-readonly="column.originalName"/>
+                                            </td>
+                                            <td class="paddedleft0">
+                                                <input ng-model="column.newName" class="input-sm form-control" type="text"
+                                                       placeholder="{{'label.input.columnname' | translate}}"
+                                                       ng-show="column.originalName"/>
+                                            </td>
+                                            <td class="paddedleft0">
+                                                <select ng-model="column.type" required="required" class="input-sm form-control"
+                                                        ng-disabled="column.originalName" ng-change="updateDepenedencies($index)">
+                                                    <option class="displaynone" value="">{{'label.selectcolumntype' | translate}}
+                                                    </option>
+                                                    <option value="string">{{'label.string' | translate}}</option>
+                                                    <option value="number">{{'label.number' | translate}}</option>
+                                                    <option value="decimal">{{'label.decimal' | translate}}</option>
+                                                    <option value="boolean">{{'label.boolean' | translate}}</option>
+                                                    <option value="date">{{'label.date' | translate}}</option>
+                                                    <option value="datetime">{{'label.datetime' | translate}}</option>
+                                                    <option value="text">{{'label.text' | translate}}</option>
+                                                    <option value="dropdown">{{'label.dropdown' | translate}}</option>
+                                                </select>
+                                            </td>
+                                            <td align="center" class="paddedleft0"><input ng-model="column.mandatory" type="checkbox"/></td>
+                                            <td class="paddedleft0">
+                                                <input ng-show="column.type == 'string'" ng-model="column.length" type="text"
+                                                       class="input-sm form-control"/>
+                                            </td>
+                                            <td class="paddedleft0">
+                                                <select ng-show="column.type == 'dropdown'" ng-model="column.code"
+                                                        ng-options="code.name as code.name for code in codes" value="{{code.name}}"
+                                                        class="input-sm form-control" ng-disabled="column.originalName"/>
+                                            </td>
+                                            <td class="paddedleft0">
+                                                <select ng-show="column.type == 'dropdown'" ng-disabled="!column.originalName"
+                                                        ng-model="column.newCode"
+                                                        ng-options="code.name as code.name for code in codes" value="{{code.name}}"
+                                                        class="input-sm form-control"/>
+                                            </td>
+                                            <td class="paddedleft0" align="center"><a ng-click="removeColumn($index)"><i
+                                                    class="fa fa-times-circle fa-2x"></i></a></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="col-md-offset-3">
+                            <a id="cancel" href="#/datatables">
+                                <button type="reset" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
+                            </a>
+                            <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_DATATABLE'>{{ 'label.button.save' | translate }}</button>
+                        </div>
+                    </fieldset>
+                </form>
+        </div>
+    </div>
+</div>

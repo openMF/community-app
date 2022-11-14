@@ -1,0 +1,83 @@
+<div class="content-container" ng-controller="AttachMeetingController">
+    <ul class="breadcrumb" ng-show="entityType=='groups'">
+        <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
+        <li><a href="#/viewgroup/{{groupOrCenterId}}">{{'label.anchor.viewgroup' | translate}}</a></li>
+        <li class="active">{{'label.anchor.attachmeeting' | translate }}</li>
+    </ul>
+    <ul class="breadcrumb" ng-show="entityType=='centers'">
+        <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
+        <li><a href="#/viewcenter/{{groupOrCenterId}}">{{'label.anchor.viewcenter' | translate}}</a></li>
+        <li class="active">{{'label.anchor.attachmeeting' | translate }}</li>
+    </ul>
+    <api-validate></api-validate>
+    <div class="card">
+        <div class="content">
+            <form ng-submit="submit()">
+                <div class="form-group">
+                    <label class="control-label offset2"><h3>{{'label.heading.attachmeeting' | translate}}</h3></label>
+                    <table class="form-horizontal width40">
+                        <tr>
+                            <td class="width40">
+                                <label class="control-label">{{'label.input.meetingstartdate' | translate}} <span
+                                        class="required">*</span></label>
+                            </td>
+                            <td class="width60">
+                                <input id="startDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+                                       is-open="opened" min="'2000-01-01'" max="'2050-01-01'" class="form-control"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="control-label">{{'label.input.repeat' | translate}} </label>
+                            </td>
+                            <td>
+                                <input type="checkbox" ng-model="formData.repeating" ng-true-value="true"
+                                       ng-false-value="false">
+                            </td>
+                        </tr>
+                    </table>
+                    <span ng-show="formData.repeating"><label class="control-label offset2 paddedtop"><h4
+                            class="paddedleft paddedtop">{{'label.heading.repeatdetails'
+                        | translate}} </h4></label></span>
+                    <table class="width40" ng-show="formData.repeating">
+                        <tr>
+                            <td class="width30">
+                                <label class="control-label">{{'label.input.repeats' | translate}} </label>
+                                <select class="input-sm form-control" ng-model="formData.frequency"
+                                        ng-options="repeatsOption.id as repeatsOption.value for repeatsOption in repeatsOptions"
+                                        ng-change="selectedPeriod(formData.frequency)" value="{{repeatsOption.id}}"></select>
+                            </td>
+                            <td class="width30 paddedleft">
+                                <label class="control-label">{{'label.input.repeatsevery' | translate}} </label>
+                                <select class="input-sm form-control" ng-model="formData.interval"
+                                        ng-options="repeatsEveryOption for repeatsEveryOption in repeatsEveryOptions">{{repeatsEveryOption}}
+                                </select>
+                            </td>
+                            <td class="width40">
+                                <label class="paddedtop25px">{{periodValue}} </label>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="40%">
+                        <tr ng-show="formData.repeating">
+                            <td ng-show="formData.frequency=='2'" ng-repeat="repeatsOnOption in repeatsOnOptions">
+                                <input type="radio" ng-model="formData.repeatsOnDay" value="{{repeatsOnOption.value}}">
+                                {{repeatsOnOption.name}} <br/>
+                            <td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-offset-1">
+                    <a ng-show="entityType=='groups'" href="#/viewgroup/{{groupOrCenterId}}" class="btn btn-default">{{'label.button.cancel'
+                        | translate}} </a>
+                    <a id="cancel" ng-show="entityType=='centers'" href="#/viewcenter/{{groupOrCenterId}}"
+                       class="btn btn-default">{{'label.button.cancel'
+                        | translate}} </a>
+                    <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_MEETING'>
+                        {{'label.button.save' | translate}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

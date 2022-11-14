@@ -1,0 +1,35 @@
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li class="active">{{'label.anchor.accountingrules' | translate}}</li>
+    </ul>
+
+<div class="card well" ng-controller="AccountingRuleController">
+    <div class="pull-right">
+        <a href="#/add_accrule" class="btn btn-primary" has-permission='CREATE_ACCOUNTINGRULE'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{"label.button.addrule" |
+            translate}}</a>
+    </div>
+    <br>
+    <table class="table" style="table-layout: fixed;">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.office' | translate}}</th>
+            <th>{{'label.heading.debittags' | translate}}</th>
+            <th>{{'label.heading.debitaccount' | translate}}</th>
+            <th>{{'label.heading.credittags' | translate}}</th>
+            <th>{{'label.heading.creditaccount' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="pointer-main" ng-repeat="rule in rules |orderBy:'name':reverse">
+            <td class="pointer width14" data-ng-click="routeTo(rule.id)">{{rule.name}}</td>
+            <td class="pointer width14" data-ng-click="routeTo(rule.id)">{{rule.officeName}}</td>
+            <td class="pointer width overflow" data-ng-click="routeTo(rule.id)"><span ng-repeat="tags in rule.debitTags">{{tags.tag.name}}, </span></td>
+            <td class="pointer width14" data-ng-click="routeTo(rule.id)">{{rule.debitAccounts[0].name}}</td>
+            <td class="pointer width14 overflow" data-ng-click="routeTo(rule.id)"><span ng-repeat="tags in rule.creditTags">{{tags.tag.name}}, </span></td>
+            <td class="pointer width14" data-ng-click="routeTo(rule.id)">{{rule.creditAccounts[0].name}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

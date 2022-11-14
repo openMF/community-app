@@ -198,6 +198,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'reports/XBRLReportController',
             'savings/CreateSavingAccountController',
             'savings/ViewSavingDetailsController',
+            'savings/ViewSavingDepositAccrualTransactionController',
             'savings/HoldSavingsAccountController',
             'savings/HoldSavingsTransactionController',
             'shares/CreateShareAccountController',
@@ -356,7 +357,12 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'savings/ViewGSIMaccountController',
             'savings/GSIMAccountActionsController',
             'savings/EditGSIMAccountController',
-            'savings/AddNewMemberToGSIMController'
+            'savings/AddNewMemberToGSIMController',
+            'client/AddBusinessOwnersController',
+            'client/EditBusinessOwnersController',
+            'client/AddEmploymentInfoController',
+            'client/EditEmploymentInfoController',
+            'client/BusinessOwnerDocumentController',
         ],
         filters: [
             'StatusLookup',

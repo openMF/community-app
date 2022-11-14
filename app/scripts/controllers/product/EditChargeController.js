@@ -6,7 +6,10 @@
             scope.repeatEvery = false;
             scope.first = {};
             scope.flag = false;
-	        scope.showPenalty = true ;
+	          scope.showPenalty = true ;
+	          scope.showMinAndMaxAmountSettings = false;
+	          scope.loanChargeCalculationType = false;
+            scope.loanChargeTimeChange = false;
             scope.paymentTypeOptions = [];
 
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
@@ -39,6 +42,10 @@
                     scope.template.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                     scope.flag = false;
                     scope.showFrequencyOptions = true;
+                    scope.showMinAndMaxAmountSettings = false;
+                    if(typeof scope.paymentTypes !== 'undefined' || scope.paymentTypes != null){
+                    scope.template.chargeCalculationTypeOptions = scope.paymentTypes.loanChargeCalculationTypeOptions;
+                    }
                 } else if (data.chargeAppliesTo.value === "Savings") {
                     scope.chargeTimeTypeOptions = data.savingsChargeTimeTypeOptions;
                     scope.template.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
@@ -46,6 +53,7 @@
                     scope.flag = true;
                     scope.showFrequencyOptions = false;
                     scope.showGLAccount = true;
+                    scope.showMinAndMaxAmountSettings = true;
                     resourceFactory.paymentTypeResource.getAll( function (data) {
                         scope.paymentTypeOptions = data;
                     });
@@ -79,12 +87,14 @@
                     scope.showGLAccount = false;
                     scope.showPenalty = false ;
                     scope.flag = true;
+                    scope.showMinAndMaxAmountSettings = false;
                 }else {
                     scope.flag = true;
                     scope.template.chargeCalculationTypeOptions = data.clientChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.clientChargeTimeTypeOptions;
                     scope.showFrequencyOptions = false;
                     scope.showGLAccount = true;
+                    scope.showMinAndMaxAmountSettings = false;
                 }
 
                 scope.formData = {
@@ -100,8 +110,15 @@
                     chargeAppliesTo: data.chargeAppliesTo.id,
                     chargeTimeType: data.chargeTimeType.id,
                     chargeCalculationType: data.chargeCalculationType.id,
-                    amount: data.amount
+                    amount: data.amount,
+                    minAmount: data.minAmount,
+                    maxAmount: data.maxAmount
                 };
+                
+                if(typeof scope.paymentTypeOptions !== 'undefined' || scope.paymentTypeOptions != null){
+                    scope.formData.paymentTypeId = data.paymentTypeOptions.id;
+                }
+                
                 if(data.incomeOrLiabilityAccount){
                     scope.formData.incomeAccountId = data.incomeOrLiabilityAccount.id;   
                 }
@@ -145,6 +162,12 @@
                 } else {
                     scope.formData.chargePaymentMode = data.chargePaymentMode.id;
                 }
+                if(data.chargeCalculationType){
+                scope.chargeCalculationTypeChange(data.chargeCalculationType.id);
+                }
+                if(data.chargeTimeType){
+                scope.chargeTimeChange(data.chargeTimeType.id);
+                }
             });
             //when chargeAppliesTo is savings, below logic is
             //to display 'Due date' field, if chargeTimeType is
@@ -175,7 +198,22 @@
                         }
                     }
                 }
+                 if(chargeTimeType == 2){
+                                scope.loanChargeTimeChange = false;
+                                }else{
+                                scope.loanChargeTimeChange = true;
+                                }
+                                console.log(chargeTimeType+" Charge Time type  "+scope.loanChargeTimeChange);
             }
+            scope.chargeCalculationTypeChange = function (chargeCalculationType) {
+                                scope.loanChargeCalculationType = false;
+                                if(chargeCalculationType == 1){
+                                scope.loanChargeCalculationType = false;
+                                }else{
+                                scope.loanChargeCalculationType = true;
+                                }
+                                 console.log(chargeCalculationType+" Charge Calculation type  "+scope.loanChargeCalculationType);
+                                    }
 
             scope.filterChargeCalculations = function(chargeTimeType) {
                 return function (item) {

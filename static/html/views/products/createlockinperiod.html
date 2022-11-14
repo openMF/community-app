@@ -1,0 +1,77 @@
+<div class="content-container" ng-controller="CreateLockInPeriodController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/lockinperiod">{{'label.anchor.lockinperiod' | translate}}</a></li>
+        <li class="active">{{'label.anchor.create.lockinperiod' | translate}}</li>
+    </ul>
+    <form name="lockinperiodform" novalidate="" class="card form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.menu.selectsavingproduct' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                                <select id="savingsProductId" ng-model="formData.savingsProductId"
+                                        ng-options="savingProduct.id as savingProduct.name for savingProduct in template.productOptions"
+                                        value="{{savingProduct.id}}"  class="form-control" required>
+                                    <option value="">--{{'label.menu.selectsavingproduct' | translate}}--</option>
+                                </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="lockinperiodform" valattribute="savingsProductId"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="lockinPeriodFrequencyId">{{'label.input.lockinPeriodFrequency' | translate}}
+                        <span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="lockinPeriodFrequencyId" name = "lockinPeriodFrequencyId" type="text" ng-model="formData.lockinPeriodFrequency" class="form-control" number-format  number=true late-Validate required/>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="lockinperiodform" valattribute="lockinPeriodFrequencyId"/>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="lockinPeriodFrequencyTypeId">{{'label.input.lockinPeriodFrequencyType' | translate}}
+                        <span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <select id="lockinPeriodFrequencyTypeId" ng-model="formData.lockinPeriodFrequencyType"
+                                ng-options="type.id as type.value for type in template.lockinPeriodFrequencyTypeOptions"
+                                value="{{type.id}}"  class="form-control" required>
+                            <option value="">--{{'label.selectone' | translate}}--</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="lockinperiodform" valattribute="lockinPeriodFrequencyTypeId"/>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="rateId">{{'label.input.rate' | translate}}
+                        <span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="rateId" name = "rateId" type="text" ng-model="formData.rate" class="form-control" number-format  late-Validate required/>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="lockinperiodform" valattribute="rateId"/>
+                    </div>
+                </div>
+
+                <div class="col-md-offset-3">
+                    <a id="cancel" href="#/lockinperiod">
+                        <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                    </a>
+                    <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_SAVINGSACCOUNTLOCKINPERIOD'>
+                        {{'label.button.save' | translate}}
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

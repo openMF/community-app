@@ -23,7 +23,35 @@
                     }
                 });
             };
-            
+
+            scope.releaseAmount = function (accountId, transactionId) {
+                            $uibModal.open({
+                                templateUrl: 'releaseamount.html',
+                                controller: ReleaseAmountTransactionModel,
+                                resolve: {
+                                    accountId: function () {
+                                      return accountId;
+                                    },
+                                    transactionId: function () {
+                                      return transactionId;
+                                    }
+                                }
+                            });
+                        };
+            var ReleaseAmountTransactionModel = function ($scope, $uibModalInstance, accountId, transactionId) {
+                 $scope.releaseAmountTransaction = function () {
+                     var params = {savingsId: accountId, transactionId: transactionId, command: 'releaseAmount'};
+                     var formData = {dateFormat: scope.df, locale: scope.optlang.code, transactionAmount: 0};
+                     formData.transactionDate = dateFilter(new Date(), scope.df);
+                     resourceFactory.savingsTrxnsResource.save(params, formData, function (data) {
+                         $uibModalInstance.close('delete');
+                         location.path('/viewsavingaccount/' + data.savingsId);
+                     });
+                 };
+                 $scope.cancel = function () {
+                     $uibModalInstance.dismiss('cancel');
+                 };
+             };
             var UndoTransactionModel = function ($scope, $uibModalInstance, accountId, transactionId) {
                 $scope.undoTransaction = function () {
                     var params = {savingsId: accountId, transactionId: transactionId, command: 'undo'};

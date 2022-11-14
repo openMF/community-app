@@ -36,6 +36,9 @@
             scope.formDat.datatables = [];
             scope.tf = "HH:mm";
             scope.clientId = routeParams.clientId;
+            scope.businessOwnersArray=[];
+            scope.formData.businessOwners=[];
+            scope.employmentInfoArray=[];
 
             var requestParams = {staffInSelectedOfficeOnly:true};
             if (routeParams.groupId) {
@@ -97,13 +100,31 @@
                     }
                 }
 
-
+                scope.businessOwnerEnabled=data.isBusinessOwnerEnabled;
+                if (scope.businessOwnerEnabled === true) {
+                           scope.countryOptions = data.ownersData[0].countryIdOptions;
+                           scope.stateOptions = data.ownersData[0].stateProvinceIdOptions;
+                           scope.titleOptions = data.ownersData[0].titleIdOptions;
+                           scope.cityOptions = data.ownersData[0].cityIdOptions;
+                           scope.typeOptions = data.ownersData[0].typeIdOptions;
+                }
+                scope.employmentInfoEnabled=data.isEmploymentInfoEnabled;
+                if (scope.employmentInfoEnabled === true) {
+                           scope.countryOptions = data.employmentInfoData[0].countryIdOptions;
+                           scope.stateOptions = data.employmentInfoData[0].stateProvinceIdOptions;
+                           scope.cityOptions = data.employmentInfoData[0].cityIdOptions;
+                           scope.lgaOptions = data.employmentInfoData[0].lgaIdOptions;
+                           scope.employmentStatusOptions = data.employmentInfoData[0].employmentStatusOptions;
+                           scope.bankOptions = data.employmentInfoData[0].bankOptions;
+                           scope.industryOptions = data.employmentInfoData[0].industryOptions;
+                }
                 scope.enableAddress=data.isAddressEnabled;
 
                 	   if (scope.enableAddress === true) {
                            scope.addressTypes = data.address[0].addressTypeIdOptions;
                            scope.countryOptions = data.address[0].countryIdOptions;
                            scope.stateOptions = data.address[0].stateProvinceIdOptions;
+                           scope.lgaOptions = data.address[0].lgaIdOptions;
                        
                     resourceFactory.addressFieldConfiguration.get({entity:entityname},function(data){
 
@@ -129,8 +150,10 @@
                 scope.genderIdOptions=data.familyMemberOptions.genderIdOptions;
                 scope.maritalStatusIdOptions=data.familyMemberOptions.maritalStatusIdOptions;
                 scope.professionIdOptions=data.familyMemberOptions.professionIdOptions;
-
-
+                scope.countryOptions = data.familyMemberOptions.countryIdOptions;
+                scope.stateOptions = data.familyMemberOptions.stateProvinceIdOptions;
+                scope.cityOptions = data.familyMemberOptions.cityIdOptions;
+                scope.addressTypes = data.familyMemberOptions.addressTypeIdOptions;
 
             });
 
@@ -176,6 +199,27 @@
                 scope.familyArray.splice(index,1);
             }
 
+          // Bussiness owners
+
+            scope.addBusinessOwners=function()
+            {
+                scope.businessOwnersArray.push({});
+            }
+
+            scope.removeBusinessOwners=function(index)
+            {
+                scope.businessOwnersArray.splice(index,1);
+            }
+            scope.addEmploymentInfo=function()
+            {
+                scope.employmentInfoArray.push({});
+            }
+
+            scope.removeEmploymentInfo=function(index)
+            {
+                scope.employmentInfoArray.splice(index,1);
+            }
+
 
             // end of family members
 
@@ -187,6 +231,36 @@
                     scope.showNonPersonOptions = false;
                 }else {
                     scope.showNonPersonOptions = true;
+                }
+            };
+
+            scope.displayFields = function (employmentStatusId) {
+                scope.employmentInfoArray = [];
+                scope.info = scope.employmentStatusOptions.filter(function(item) {
+                                 return(item.id === employmentStatusId);
+                 });
+                if(scope.info[0].name == 'Currently in a job') {
+                    scope.showJobOption = true;
+                    scope.showBusinessOption = false;
+                    scope.showStudentOptions = false;
+                    scope.showJobSearching = false;
+                }else if(scope.info[0].name == 'Self-employed') {
+                    scope.showBusinessOption = true;
+                    scope.showJobOption = false;
+                    scope.showStudentOptions = false;
+                    scope.showJobSearching = false;
+                }
+                else if(scope.info[0].name == 'Student') {
+                    scope.showStudentOptions = true;
+                    scope.showBusinessOption = false;
+                    scope.showJobOption = false;
+                    scope.showJobSearching = false;
+                }
+                else if(scope.info[0].name == 'Job searching') {
+                    scope.showJobSearching = true;
+                    scope.showBusinessOption = false;
+                    scope.showJobOption = false;
+                    scope.showStudentOptions = false;
                 }
             };
 
@@ -371,6 +445,10 @@
                             temp.isActive=scope.addressArray[i].isActive;
 
                         }
+                        if(scope.addressArray[i].lgaId)
+                        {
+                            temp.lgaId=scope.addressArray[i].lgaId;
+                        }
                         scope.formData.address.push(temp);
                     }
                 }
@@ -427,8 +505,39 @@
                     }
                     if(scope.familyArray[i].dateOfBirth)
                     {
-
                         temp.dateOfBirth=dateFilter(scope.familyArray[i].dateOfBirth, scope.df);
+                    }
+                    if(scope.familyArray[i].email)
+                    {
+                        temp.email=scope.familyArray[i].email;
+                    }
+                    if(scope.familyArray[i].addressLine1)
+                    {
+                        temp.address1=scope.familyArray[i].addressLine1;
+                    }
+                    if(scope.familyArray[i].addressLine2)
+                    {
+                         temp.address2=scope.familyArray[i].addressLine2;
+                    }
+                    if(scope.familyArray[i].addressLine3)
+                    {
+                         temp.address3=scope.familyArray[i].addressLine3;
+                    }
+                    if(scope.familyArray[i].cityId)
+                    {
+                        temp.cityId=scope.familyArray[i].cityId;
+                    }
+                    if(scope.familyArray[i].stateProvinceId)
+                    {
+                        temp.stateProvinceId=scope.familyArray[i].stateProvinceId;
+                    }
+                    if(scope.familyArray[i].countryId)
+                    {
+                        temp.countryId=scope.familyArray[i].countryId;
+                    }
+                    if(scope.familyArray[i].postalCode)
+                    {
+                        temp.postalCode=scope.familyArray[i].postalCode;
                     }
 
                     temp.locale = scope.optlang.code;
@@ -436,10 +545,166 @@
                     scope.formData.familyMembers.push(temp);
                 }
 
-                //
+                // business Owners array
+                if(scope.businessOwnerEnabled===true)
+                {
+                for(var i=0;i<scope.businessOwnersArray.length;i++)
+                {
+                    var temp=new Object();
+                    scope.formData.businessOwners = [];
+                    if(scope.businessOwnersArray[i].firstnameOwner)
+                    {
+                        temp.firstName=scope.businessOwnersArray[i].firstnameOwner;
+                    }
+                    if(scope.businessOwnersArray[i].titleId)
+                    {
+                        temp.titleId=scope.businessOwnersArray[i].titleId;
+                    }
+                    if(scope.businessOwnersArray[i].lastNameOwner)
+                    {
+                        temp.lastName=scope.businessOwnersArray[i].lastNameOwner;
+                    }
+                    if(scope.businessOwnersArray[i].ownershipOwner)
+                    {
+                        temp.ownership=scope.businessOwnersArray[i].ownershipOwner;
+                    }
+                    if(scope.businessOwnersArray[i].typeId)
+                    {
+                        temp.typeId=scope.businessOwnersArray[i].typeId;
+                    }
+                    if(scope.businessOwnersArray[i].mobileNumberOwner)
+                    {
+                        temp.mobileNumber=scope.businessOwnersArray[i].mobileNumberOwner;
+                    }
+                    if(scope.businessOwnersArray[i].businessOwnerNumber)
+                    {
+                        temp.businessOwnerNumber=scope.businessOwnersArray[i].businessOwnerNumber;
+                    }
+                    if(scope.businessOwnersArray[i].email)
+                    {
+                        temp.email=scope.businessOwnersArray[i].email;
+                    }
+                    if(scope.businessOwnersArray[i].streetNumberAndName)
+                    {
+                        temp.streetNumberAndName=scope.businessOwnersArray[i].streetNumberAndName;
+                    }
+                    if(scope.businessOwnersArray[i].address1)
+                    {
+                        temp.streetNumberAndName=scope.businessOwnersArray[i].address1;
+                    }
+                    if(scope.businessOwnersArray[i].address2)
+                    {
+                        temp.streetNumberAndName=scope.businessOwnersArray[i].address2;
+                    }
+                    if(scope.businessOwnersArray[i].address3)
+                    {
+                        temp.streetNumberAndName=scope.businessOwnersArray[i].address3;
+                    }
+                    if(scope.businessOwnersArray[i].postalCode)
+                    {
+                        temp.streetNumberAndName=scope.businessOwnersArray[i].postalCode;
+                    }
+                    if(scope.businessOwnersArray[i].cityId)
+                    {
+                        temp.cityId=scope.businessOwnersArray[i].cityId;
+                    }
+                    if(scope.businessOwnersArray[i].landmark)
+                    {
+                        temp.landmark=scope.businessOwnersArray[i].landmark;
+                    }
+                    if(scope.businessOwnersArray[i].countryId)
+                    {
+                        temp.countryId=scope.businessOwnersArray[i].countryId;
+                    }
+                    if(scope.businessOwnersArray[i].stateProvinceId)
+                    {
+                       temp.stateProvinceId=scope.businessOwnersArray[i].stateProvinceId;
+                    }
+                    if(scope.businessOwnersArray[i].bvn)
+                    {
+                         temp.bvn=scope.businessOwnersArray[i].bvn;
+                    }
+                    if(scope.businessOwnersArray[i].nin)
+                    {
+                         temp.nin=scope.businessOwnersArray[i].nin;
+                    }
+                    if(scope.businessOwnersArray[i].isActive)
+                    {
+                         temp.isActive=scope.businessOwnersArray[i].isActive;
+                    }
 
+                    temp.locale = scope.optlang.code;
+                    temp.dateFormat = scope.df;
+                    scope.formData.businessOwners.push(temp);
+                }
+                }
+                if(scope.employmentInfoEnabled===true)
+                {
+                console.log(scope.formData.employmentStatusId);
+                  for(var i=0;i<scope.employmentInfoArray.length;i++)
+                  {
+                    var temp=new Object();
+                    scope.formData.employmentInformation = [];
+                    temp.employmentStatusId=scope.formData.employmentStatusId;
+                    delete scope.formData.employmentStatusId;
 
-
+                    if(scope.employmentInfoArray[i].employerName)
+                    {
+                        temp.employerName=scope.employmentInfoArray[i].employerName;
+                    }
+                    if(scope.employmentInfoArray[i].businessName)
+                    {
+                        temp.businessName=scope.employmentInfoArray[i].businessName;
+                    }
+                    if(scope.employmentInfoArray[i].nameOfSchool)
+                    {
+                        temp.nameOfSchool=scope.employmentInfoArray[i].nameOfSchool;
+                    }
+                    if(scope.employmentInfoArray[i].monthlyIncome)
+                    {
+                        temp.monthlyIncome=scope.employmentInfoArray[i].monthlyIncome;
+                    }
+                    if(scope.employmentInfoArray[i].streetNumberAndName)
+                    {
+                        temp.streetNumberAndName=scope.employmentInfoArray[i].streetNumberAndName;
+                    }
+                    if(scope.employmentInfoArray[i].cityId)
+                    {
+                        temp.cityId=scope.employmentInfoArray[i].cityId;
+                    }
+                    if(scope.employmentInfoArray[i].lgaId)
+                    {
+                        temp.lgaId=scope.employmentInfoArray[i].lgaId;
+                    }
+                    if(scope.employmentInfoArray[i].countryId)
+                    {
+                        temp.countryId=scope.employmentInfoArray[i].countryId;
+                    }
+                    if(scope.employmentInfoArray[i].stateProvinceId)
+                    {
+                       temp.stateProvinceId=scope.employmentInfoArray[i].stateProvinceId;
+                    }
+                    if(scope.employmentInfoArray[i].isActive)
+                    {
+                         temp.isActive=scope.employmentInfoArray[i].isActive;
+                    }
+                    if(scope.employmentInfoArray[i].bankId)
+                    {
+                         temp.bankId=scope.employmentInfoArray[i].bankId;
+                    }
+                    if(scope.employmentInfoArray[i].industryId)
+                    {
+                         temp.industryId=scope.employmentInfoArray[i].industryId;
+                    }
+                    if(scope.employmentInfoArray[i].accountNumber)
+                    {
+                         temp.accountNumber=scope.employmentInfoArray[i].accountNumber;
+                    }
+                    temp.locale = scope.optlang.code;
+                    temp.dateFormat = scope.df;
+                    scope.formData.employmentInformation.push(temp);
+                }
+                }
                 resourceFactory.clientResource.save(this.formData, function (data) {
                     location.path('/viewclient/' + data.clientId);
                 });

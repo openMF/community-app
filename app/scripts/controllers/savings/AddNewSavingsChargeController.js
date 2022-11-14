@@ -15,6 +15,8 @@
                     scope.chargeTimeType = data.chargeTimeType.id;
                     scope.chargeDetails = data;
                     scope.formData.amount = data.amount;
+                    scope.minAmount = data.minAmount;
+                    scope.maxAmount = data.maxAmount;
                     if(data.chargeTimeType.value === "Withdrawal Fee"
                         || data.chargeTimeType.value === "Saving No Activity Fee"){
                         scope.dueDateNotRequired = true;

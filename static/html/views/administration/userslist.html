@@ -1,0 +1,41 @@
+<div class="content-container" ng-controller="UserListController">
+    <ul class="breadcrumb">
+        <li class="active">{{'label.anchor.users' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="toolbar">
+            <h4>List of Users</h4>
+        </div>
+        <br>
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-10 col-md-10">
+                    <input ng-model="filterText" type="text" ng-keyup="onFilter()" class="span marginbottom0px form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+                </div>
+                <div class="col-sm-2 col-md-2">
+                    <a href="#/createuser" class="btn btn-primary pull-right" has-permission='CREATE_USER'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createuser' | translate}}</a>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.firstname' | translate}}</th>
+                <th>{{'label.heading.lastname' | translate}}</th>
+                <th>{{'label.heading.email' | translate}}</th>
+                <th>{{'label.heading.office' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" dir-paginate="user in users | orderBy:'firstname':reverse  | filter:filterText |  itemsPerPage: UsersPerPage">
+                <td class="pointer" data-ng-click="routeTo(user.id)">{{user.firstname}}</td>
+                <td class="pointer" data-ng-click="routeTo(user.id)">{{user.lastname}}</td>
+                <td class="pointer" data-ng-click="routeTo(user.id)">{{user.email}}</td>
+                <td class="pointer" data-ng-click="routeTo(user.id)">{{user.officeName}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html">
+    </div>
+</div>

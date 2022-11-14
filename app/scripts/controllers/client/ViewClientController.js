@@ -33,6 +33,8 @@
             resourceFactory.clientTemplateResource.get(function(data)
             {
                 scope.enableAddress=data.isAddressEnabled;
+                scope.businessOwnerEnabled=data.isBusinessOwnerEnabled;
+                scope.employmentInfoEnabled=data.isEmploymentInfoEnabled;
                 if(scope.enableAddress===true)
                 {
 
@@ -54,6 +56,7 @@
                     {
 
                         scope.addresses=data;
+                        console.log(data);
 
 
                     })
@@ -107,6 +110,57 @@
                 scope.families=data;
 
             });
+            // business owners
+            scope.owners=[];
+
+            resourceFactory.businessOwners.get({clientId:routeParams.id},function(data)
+              {
+                scope.owners=data;
+              angular.forEach(scope.owners, function (title, key) {
+                if (title.imagePresent) {
+                    http({
+                        method: 'GET',
+                        url: $rootScope.hostUrl + API_VERSION + '/businessowner/' + title.id + '/images?maxHeight=150'
+                    }).then(function (imageData) {
+                        title.image = imageData.data;
+                    });
+                }
+
+                resourceFactory.businessOwnersDocumentsResource.getAllBusinessOwnerDocuments({ownerId: title.id}, function (data) {
+                     for (var l in data) {
+
+                         var loandocs = {};
+                         loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                         data[l].docUrl = loandocs;
+                         if (data[l].fileName)
+                             if (data[l].fileName.toLowerCase().indexOf('.jpg') != -1 || data[l].fileName.toLowerCase().indexOf('.jpeg') != -1 || data[l].fileName.toLowerCase().indexOf('.png') != -1)
+                                 data[l].fileIsImage = true;
+                         if (data[l].type)
+                              if (data[l].type.toLowerCase().indexOf('image') != -1)
+                                 data[l].fileIsImage = true;
+                     }                  console.log(data);
+                   title.businessOwnerDocs  = data;
+                });
+              });
+
+              });
+            scope.ChangeBusinessOwnerStatus=function(id,status, businessOwnerId)
+            {
+                formdata.isActive=!status
+                resourceFactory.businessOwnerStatus.get({clientId:routeParams.id, businessOwnerId:businessOwnerId, status: formdata.isActive},function(data)
+                 {
+                     route.reload();
+                 });
+            }
+
+            scope.ChangeEmploymentInfoStatus=function(id,status, employmentInfoId)
+            {
+                formdata.isActive=!status
+                resourceFactory.employmentInfoStatus.get({clientId:routeParams.id, employmentInfoId:employmentInfoId, status: formdata.isActive},function(data)
+                 {
+                     route.reload();
+                 });
+            }
 
             scope.deleteFamilyMember=function(clientFamilyMemberId)
             {
@@ -131,6 +185,19 @@
 
             }
 
+            scope.editBusinessOwners=function(clientBusinessOwnerId)
+            {
+
+                location.path('/editBusinessOwners/'+routeParams.id+'/'+clientBusinessOwnerId);
+
+
+            }
+
+            scope.editEmploymentInfo=function(employmentInfoId)
+            {
+               location.path('/editEmploymentInfo/'+routeParams.id+'/'+employmentInfoId);
+            }
+
             scope.routeToaddFamilyMember=function()
             {
                 location.path('/addfamilymembers/'+ routeParams.id);
@@ -139,7 +206,18 @@
 
             // end of family members
 
-
+            scope.routeToAddBusinessOwner=function()
+            {
+                location.path('/addBusinessOwners/'+ routeParams.id);
+            }
+            scope.routeToAddEmploymentInfo=function()
+            {
+                location.path('/addEmploymentInfo/'+ routeParams.id);
+            }
+            resourceFactory.employmentInformation.get({clientId:routeParams.id},function(data)
+              {
+                scope.employmentInfo=data;
+              });
 
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
@@ -390,6 +468,131 @@
                     $scope.picture = null;
                 }
             };
+
+            scope.captureOwnerId = function (id) {
+                $uibModal.open({
+                    templateUrl: 'uploadbusinessownerid.html',
+                    controller: CaptureOwnerIdCtrl,
+                    windowClass: 'modalwidth700',
+                    resolve: {
+                       ownerId: function() {
+                           return id
+                       }
+                    }
+                });
+            };
+
+            var CaptureOwnerIdCtrl = function ($scope, $uibModalInstance, ownerId) {
+                $scope.ownerIdFile = null;
+
+                $scope.onOwnerIdFileSelect = function (files){
+                    var reader = new FileReader();
+                    reader.readAsDataURL(files[0]);
+                    reader.onload = function () {
+                        $scope.ownerIdFile = reader.result;
+                        console.log($scope.ownerIdFile);
+                    }
+                    reader.onerror = function (error) {
+                        console.log('Error: ', error);
+                    }
+                };
+
+                $scope.uploadOwnerIdFile = function () {
+                    if($scope.ownerIdFile != null) {
+                        http({
+                            method: 'POST',
+                            url: $rootScope.hostUrl + API_VERSION + '/businessowner/' + ownerId + '/images',
+                            data: $scope.ownerIdFile
+                        }).then(function (imageData) {
+                            if (!scope.$$phase) {
+                                scope.$apply();
+                            }
+                            $uibModalInstance.close('upload');
+                            route.reload();
+                        });
+                    }
+                };
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss('cancel');
+                    $scope.stream.getVideoTracks()[0].stop();
+                };
+            };
+
+            scope.captureOwnerPic = function (id) {
+                $uibModal.open({
+                    templateUrl: 'capturepic.html',
+                    controller: CaptureOwnerPicCtrl,
+                    windowClass: 'modalwidth700',
+                    resolve: {
+                       ownerId: function() {
+                           return id
+                       }
+                    }
+                });
+            };
+            var CaptureOwnerPicCtrl = function ($scope, $uibModalInstance, ownerId) {
+
+                $scope.picture = null;
+                $scope.error = null;
+                $scope.videoChannel = {
+                    video: null,
+                    videoWidth: 320,
+                    videoHeight: 240
+                };
+                $scope.stream = null;
+
+                $scope.onVideoSuccess = function () {
+                    $scope.error = null;
+                };
+
+                $scope.onStream = function(stream) {
+                    $scope.stream = stream
+                }
+
+                $scope.onVideoError = function (err) {
+                    if(typeof err != "undefined")
+                        $scope.error = err.message + '(' + err.name + ')';
+                };
+
+                $scope.takeScreenshot = function () {
+                    if($scope.videoChannel.video) {
+                        var picCanvas = document.createElement('canvas');
+                        var width = $scope.videoChannel.video.width;
+                        var height = $scope.videoChannel.video.height;
+
+                        picCanvas.width = width;
+                        picCanvas.height = height;
+                        var ctx = picCanvas.getContext("2d");
+                        ctx.drawImage($scope.videoChannel.video, 0, 0, width, height);
+                        var imageData = ctx.getImageData(0, 0, width, height);
+                        document.querySelector('#clientSnapshot').getContext("2d").putImageData(imageData, 0, 0);
+                        $scope.picture = picCanvas.toDataURL();
+                    }
+                };
+                $scope.uploadscreenshot = function () {
+                    if($scope.picture != null) {
+                        http({
+                            method: 'POST',
+                            url: $rootScope.hostUrl + API_VERSION + '/businessowner/' + ownerId + '/images',
+                            data: $scope.picture
+                        }).then(function (imageData) {
+                            if (!scope.$$phase) {
+                                scope.$apply();
+                            }
+                            $scope.stream.getVideoTracks()[0].stop();
+                            $uibModalInstance.close('upload');
+                            route.reload();
+                        });
+                    }
+                };
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss('cancel');
+                    $scope.stream.getVideoTracks()[0].stop();
+                };
+                $scope.reset = function () {
+                    $scope.picture = null;
+                }
+            };
             scope.deletePic = function () {
                 $uibModal.open({
                     templateUrl: 'deletePic.html',
@@ -413,6 +616,34 @@
                     $uibModalInstance.dismiss('cancel');
                 };
             };
+            scope.deleteOwnerPic = function (owner) {
+                            $uibModal.open({
+                                templateUrl: 'deleteOwnerPic.html',
+                                controller: DeleteOwnerPicCtrl,
+                                resolve: {
+                                       items: function(){
+                                           return owner
+                                       }
+                                   },
+                            });
+                        };
+                        var DeleteOwnerPicCtrl = function ($scope, $uibModalInstance, items) {
+                            $scope.delete = function () {
+                                http({
+                                    method: 'DELETE',
+                                    url: $rootScope.hostUrl + API_VERSION + '/businessowner/' + items.id + '/images',
+                                }).then(function (imageData) {
+                                    if (!scope.$$phase) {
+                                        scope.$apply();
+                                    }
+                                    $uibModalInstance.close('delete');
+                                    route.reload();
+                                });
+                            };
+                            $scope.cancel = function () {
+                                $uibModalInstance.dismiss('cancel');
+                            };
+                        };
             scope.uploadSig = function () {
                 $uibModal.open({
                     templateUrl: 'uploadsig.html',
@@ -427,6 +658,36 @@
                             data: {
                                 name: 'clientSignature',
                                 description: 'client signature'
+                            },
+                            file: file
+                        }).then(function (imageData) {
+                            if (!scope.$$phase) {
+                                scope.$apply();
+                            }
+                            $uibModalInstance.close('upload');
+                            route.reload();
+                        });
+                    }
+                };
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss('cancel');
+                };
+            };
+
+            scope.uploadOwnerSelfi = function () {
+                $uibModal.open({
+                    templateUrl: 'uploadOwnerSelfi.html',
+                    controller: uploadOwnerSelfiCtrl
+                });
+            };
+            var uploadOwnerSelfiCtrl = function ($scope, $uibModalInstance) {
+                $scope.upload = function (file) {
+                    if (file) {
+                        Upload.upload({
+                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents',
+                            data: {
+                                name: 'clientBusinessOwner',
+                                description: 'client business Owner'
                             },
                             file: file
                         }).then(function (imageData) {
@@ -742,6 +1003,7 @@
                                 data[l].fileIsImage = true;
                     }
                     scope.clientdocuments = data;
+                    console.log(data, "doc")
                 });
             };
 
@@ -775,7 +1037,6 @@
                     scope.clientdocuments.splice(index, 1);
                 });
             };
-
             scope.isLoanNotClosed = function (loanaccount) {
                 if (loanaccount.status.code === "loanStatusType.closed.written.off" ||
                     loanaccount.status.code === "loanStatusType.closed.obligations.met" ||
@@ -919,6 +1180,18 @@
                     size: "lg"
                 });
             };
+            scope.showOwnerPicture = function (owner) {
+                $uibModal.open({
+                    templateUrl: 'photo-dialog.html',
+                    controller: ViewOwnerLargerPicCtrl,
+                    size: "lg",
+                    resolve: {
+                       A: function() {
+                           return owner
+                       }
+                    }
+                });
+            };
 
             var ViewClientWithoutSignature = function($scope,$uibModalInstance){
                 $scope.cancel = function () {
@@ -982,6 +1255,70 @@
                 $scope.cancel = function () {
                     $uibModalInstance.dismiss('cancel');
                 };
+            };
+            var ViewOwnerLargerPicCtrl = function ($scope, $uibModalInstance, A) {
+              console.log(A);
+                var loadImage = function () {
+                    if (A.imagePresent) {
+                        http({
+                            method: 'GET',
+                            url: $rootScope.hostUrl + API_VERSION + '/businessowner/' + A.id + '/images?maxWidth=860'
+                        }).then(function (imageData) {
+                            $scope.largeImage = imageData.data;
+                        });
+                    }
+                };
+                loadImage();
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss('cancel');
+                };
+            };
+
+            resourceFactory.creditBureauTemplate.get(function (data) {
+                scope.creditbureaus = data;
+                scope.creditbureauname = scope.creditbureaus.creditBureauName;
+
+            });
+
+            scope.getcreditreport = function(creditBureauId) {
+                scope.creditbureau = creditBureauId;
+               if (creditBureauId == 1) { //id 1 is assigned for ThitsaWorks CreditBureau
+                    location.path('/creditreport/thitsaworkCreditbureau/'+scope.creditbureau);
+                }
+               else{
+                   alert("Please Select Respective integrated Credit Bureau");
+               }
+            };
+
+            scope.onFileSelect = function (files) {
+                scope.formData.file = files[0];
+            };
+
+            scope.upload = function () {
+                Upload.upload({
+                    url: $rootScope.hostUrl + API_VERSION + '/creditBureauIntegration/addCreditReport?creditBureauId=1',
+                    data: {file: scope.formData.file},
+                }).then(function (data) {
+                    if (!scope.$$phase) {
+                        scope.$apply();
+                    }
+                });
+            };
+
+            scope.uploadReport = function (creditBureauId) {
+                scope.creditbureau = creditBureauId;
+                if (creditBureauId == 1) {
+                    location.path('/creditreport/thitsaworkUploadCreditbureau/' + routeParams.id +'/'+ scope.creditbureau);
+                }
+            };
+
+            scope.downloadCreditReport = function (creditBureauId) {
+                scope.creditbureau = creditBureauId;
+                if (creditBureauId == 1) { //id 1 is assigned for ThitsaWorks CreditBureau
+                    location.path('/creditreport/thitsaworkDownloadCreditbureau/' + routeParams.id +'/'+ scope.creditbureau);
+                }else{
+                    alert("Please Select Respective integrated Credit Bureau");
+                }
             };
 
             resourceFactory.creditBureauTemplate.get(function (data) {

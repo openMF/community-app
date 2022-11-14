@@ -1,0 +1,67 @@
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/offices">{{'label.anchor.manageoffices' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createoffice' | translate}}</li>
+    </ul>
+    <div class="card">
+    	<div class="content">
+    		<div class="toolbar">
+    			<h4>{{'label.heading.createoffice' | translate}}</h4>
+    		</div>
+    		<br/>
+    		<form name="createofficeform" novalidate="" class="form-horizontal" ng-controller="CreateOfficeController"
+    		      rc-submit="submit()">
+    		    <api-validate></api-validate>
+    		    <fieldset>
+    		            <div class="form-group">
+    		                <label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span
+    		                        class="required">*</span></label>
+    		
+    		                <div class="col-sm-3">
+    		                    <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name" class="form-control"
+    		                           required late-Validate/>
+    		                </div>
+    		                <div class="col-sm-3">
+    		                    <form-validate valattributeform="createofficeform" valattribute="name"/>
+    		                </div>
+    		            </div>
+    		        
+    		            <div class="form-group">
+    		                <label class="control-label col-sm-2">{{ 'label.input.parentoffice' | translate }}<span class="required">*</span></label>
+    		
+    		                <div class="col-sm-3">
+    		                    <select chosen="offices" id="parentId" ng-model="formData.parentId" class="form-control"
+    		                            ng-options="office.id as office.name for office in offices"
+    		                            value="{{office.id}}"></select>
+    		                </div>
+    		            </div>
+    		        
+    		            <div class="form-group">
+    		                <label class="control-label col-sm-2">{{ 'label.input.openedon' | translate }}<span
+    		                        class="required">*</span></label>
+    		
+    		                <div class="col-sm-3">
+    		                    <input id="openingDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+    		                           class="form-control" is-open="opened" min="minDat()" max="restrictDate"/>
+    		                </div>
+    		            </div>
+    		        
+    		            <div class="form-group">
+    		                <label class="control-label col-sm-2">{{ 'label.input.externalid' | translate }}</label>
+    		
+    		                <div class="col-sm-3">
+    		                    <input id="externalId" type="text" name="externalId" class="form-control" ng-model="formData.externalId">
+    		                </div>
+    		            </div>
+    		        <div class="col-md-offset-3">
+    		            <a id="cancel" href="#/offices">
+    		                <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+    		            </a>
+    		            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_OFFICE'>{{'label.button.save' | translate}}</button>
+    		        </div>
+    		    </fieldset>
+    		</form>
+    	</div>
+    </div>
+</div>

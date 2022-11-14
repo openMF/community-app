@@ -1,0 +1,38 @@
+<div class="content-container" ng-controller="TemplateController">
+    <ul class="breadcrumb">
+        <li class="active">{{'label.anchor.templates' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="toolbar">
+            <h4>List of Templates</h4>
+        </div>
+        <br>
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-10 col-md-10">
+                    <input ng-autofocus="true" ng-model="filterText" ng-keyup="onFilter()" type="text" class="span marginbottom0px form-control" placeholder="{{ 'label.input.filterbyname' | translate }}">
+                </div>
+                <div class="col-sm-2 col-md-2">
+                    <a href="#/createtemplate" class="btn btn-primary pull-right" has-permission='CREATE_TEMPLATE'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createtemplate' | translate }}</a>
+                </div>
+            </div>
+        </div>
+        <hr/> 
+        <table class="table">
+            <thead>
+                <tr class="graybg">
+                    <th>{{ 'label.heading.entity' | translate }}</th>
+                    <th>{{ 'label.heading.type' | translate }}</th>
+                    <th>{{ 'label.heading.name' | translate }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="pointer-main" ng-repeat="template in templates | filter:filterText">
+                    <td class="pointer" data-ng-click="routeTo(template.id)">{{template.entity}}</td>
+                    <td class="pointer" data-ng-click="routeTo(template.id)">{{template.type}}</td>
+                    <td class="pointer" data-ng-click="routeTo(template.id)">{{template.name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

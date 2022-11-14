@@ -246,6 +246,33 @@
 						   ng-model="formData.daysToEscheat">
 				</div>
 			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3">{{ 'label.input.isInterestPostingConfigUpdate' | translate }}
+					<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.isInterestPostingConfigUpdate' | translate}}" tooltip-append-to-body="true"></i>
+				</label>
+				<div class="col-sm-2">
+					<input id="isInterestPostingConfigUpdate" type="checkbox"
+						   ng-model="formData.isInterestPostingConfigUpdate" ng-true-value="true"
+						   ng-false-value="false">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3">{{'label.input.numberOfCreditTransactions' | translate}}
+					<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.numberOfCreditTransactions' | translate}}" tooltip-append-to-body="true"></i>
+				</label>
+				<div class="col-sm-2">
+					<input id="numberOfCreditTransactions" type="text" class="form-control"
+						   ng-model="formData.numOfCreditTransaction">
+				</div>
+
+				<label class="control-label col-sm-2">{{'label.input.numberOfDebitTransactions' | translate}}
+					<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.numberOfDebitTransactions' | translate}}" tooltip-append-to-body="true"></i>
+				</label>
+				<div class="col-sm-2">
+					<input id="numberOfDebitTransactions" type="text" class="form-control"
+						   ng-model="formData.numOfDebitTransaction">
+				</div>
+			</div>
 
 			<h3>{{ 'label.heading.charges' | translate }}</h3>
 	    	<hr>
@@ -297,8 +324,13 @@
 			    <input type="radio" ng-model="formData.accountingRule" value="2">{{'label.input.cash' |translate}}
 			  </label>
 			</div>
+			<div class="radio-inline">
+				<label>
+					<input type="radio" ng-model="formData.accountingRule" value="3">{{'label.input.periodicaccrual' |translate}}
+				</label>
+			</div>
 			<hr>
-			<div class="col-md-12" ng-show="formData.accountingRule==2">
+			<div class="col-md-12" ng-show="isAccountingEnabled()">
 		        <div class="form-group">
 		        	<h4>{{"label.heading.assets" | translate}}</h4>
 		            <label class="control-label col-sm-2">{{ 'label.input.savingreference' | translate }}
@@ -322,6 +354,40 @@
 	                	</select>
 	            	</div>
 		        </div>
+				<div class="form-group" ng-show="isAccrualAccountingEnabled()">
+					<label class="control-label col-sm-2">{{ 'label.input.receivableinterest' | translate }}
+						<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.receivableinterest' | translate}}" tooltip-append-to-body="true"></i>
+					</label>
+					<div class="col-sm-3">
+						<select id="receivableInterestAccountId" ng-model="formData.receivableInterestAccountId"
+								chosen="assetAccountOptions"
+								ng-options="assetAccount.id as assetAccount.name for assetAccount in assetAccountOptions"
+								value="{{assetAccount.id}}">
+						</select>
+					</div>
+					<label class="control-label col-sm-2">{{ 'label.input.receivablefees' | translate }}
+						<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.receivablefees' | translate}}" tooltip-append-to-body="true"></i>
+					</label>
+					<div class="col-sm-3">
+						<select id="receivableFeeAccountId" ng-model="formData.receivableFeeAccountId"
+								chosen="assetAccountOptions"
+								ng-options="assetAccount.id as assetAccount.name for assetAccount in assetAccountOptions"
+								value="{{assetAccount.id}}">
+						</select>
+					</div>
+				</div>
+				<div class="form-group" ng-show="isAccrualAccountingEnabled()">
+					<label class="control-label col-sm-2">{{ 'label.input.receivablepenalties' | translate }}
+						<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.receivablepenalties' | translate}}" tooltip-append-to-body="true"></i>
+					</label>
+					<div class="col-sm-3">
+						<select id="receivablePenaltyAccountId" ng-model="formData.receivablePenaltyAccountId"
+								chosen="assetAccountOptions"
+								ng-options="assetAccount.id as assetAccount.name for assetAccount in assetAccountOptions"
+								value="{{assetAccount.id}}">
+						</select>
+					</div>
+				</div>
 		        <hr>
 		        <div class="form-group">
 		        	<h4>{{"label.heading.liabilities" | translate}}</h4>
@@ -356,6 +422,18 @@
 								ng-options="liabilityAccount.id as liabilityAccount.name for liabilityAccount in liabilityAccountOptions"
 								value="{{liabilityAccount.id}}">
 						</select>
+					</div>
+					<div  ng-show="isAccrualAccountingEnabled()">
+						<label class="control-label col-sm-2">{{ 'label.input.interestPayableAccountId' | translate }}
+							<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.interestPayableAccountId' | translate}}" tooltip-append-to-body="true"></i>
+						</label>
+						<div class="col-sm-3">
+							<select id="interestPayableAccountId" ng-model="formData.interestPayableAccountId"
+									chosen="liabilityAccountOptions"
+									ng-options="liabilityAccount.id as liabilityAccount.name for liabilityAccount in liabilityAccountOptions"
+									value="{{liabilityAccount.id}}">
+							</select>
+						</div>
 					</div>
 				</div>
 		        <hr>

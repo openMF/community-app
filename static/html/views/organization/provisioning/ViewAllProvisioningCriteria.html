@@ -1,0 +1,35 @@
+<div class="content-container" ng-controller="ViewAllProvisoningCriteriaController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li class="active">{{'label.anchor.provisioningcriteria' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input ng-model="filterText" type="text" class="form-control " ng-keyup="onFilter()" placeholder="{{'label.input.filterbyname' | translate}}">
+                    </div>
+                    <div class="col-md-6">
+                        <a href="#/createprovisioningcriteria" class="btn btn-primary pull-right" has-permission='CREATE_PROVISIONING_CRITERIA'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createprovisioningcriteria' | translate}}</a>
+                    </div>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.name' | translate}}</th>
+                    <th>{{'label.heading.createdby' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="pointer-main" dir-paginate="criteriaObject in criterias | orderBy:'criteriaName':reverse | filter:filterText |  itemsPerPage: ProvisioningPerPage">
+                    <td class="pointer" data-ng-click="routeTo(criteriaObject.criteriaId)">{{criteriaObject.criteriaName}}</td>
+                    <td class="pointer" data-ng-click="routeTo(criteriaObject.criteriaId)">{{criteriaObject.createdBy}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+        </div>
+    </div>
+</div>

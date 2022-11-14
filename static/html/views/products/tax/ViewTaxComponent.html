@@ -1,0 +1,83 @@
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/taxconfiguration">{{'label.anchor.managetaxconfigurations' | translate}}</a></li>
+        <li><a href="#/taxcomponents">{{'label.anchor.managetaxcomponents' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewtaxcomponent' | translate}}</li>
+    </ul>
+
+    <form class="card form-horizontal well" ng-controller="ViewTaxComponentController">
+        <fieldset>
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a href="#/edittaxcomponent/{{taxComponent.id}}" class="btn btn-primary"
+                       has-permission='UPDATE_TAXCOMPONENT'><i
+                            class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
+                </div>
+            </div>
+            <legend>{{'label.heading.viewtaxcomponent' | translate}}</legend>
+            <div class="form-group">
+                <label class="text-right  col-sm-2">{{ 'label.input.name' | translate }}</label>
+
+                <div class="col-sm-3">
+                    {{taxComponent.name}}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="text-right  col-sm-2">{{ 'label.input.percentage' | translate }}</label>
+                <div class="col-sm-3">
+                    {{taxComponent.percentage}}
+                </div>
+            </div>
+
+
+            <div class="form-group" ng-show="taxComponent.debitAccountType">
+                <label class="text-right  col-sm-2">{{ 'label.input.debitaccounttype' | translate }}</label>
+
+                <div class="col-sm-3">
+                    {{taxComponent.debitAccountType.code | translate}}
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="taxComponent.debitAccount">
+                <label class="text-right  col-sm-2">{{ 'label.input.debitaccount' | translate }}</label>
+
+                <div class="col-sm-2">
+                    {{taxComponent.debitAccount.name}}
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="taxComponent.creditAccountType">
+                <label class="text-right  col-sm-2">{{ 'label.input.creditaccounttype' | translate }}</label>
+
+                <div class="col-sm-3">
+                    {{taxComponent.creditAccountType.code | translate}}
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="taxComponent.creditAccount">
+                <label class="text-right  col-sm-2">{{ 'label.input.creditaccount' | translate }}</label>
+
+                <div class="col-sm-3">
+                    {{taxComponent.creditAccount.name}}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="text-right  col-sm-2">{{ 'label.input.startdate' | translate }}</label>
+
+                <div class="col-sm-3">
+                    {{taxComponent.startDate | DateFormat}}
+                </div>
+            </div>
+
+
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/taxcomponents">
+                    <button type="reset" class="btn btn-default">{{'label.button.back' | translate}}</button>
+                </a>
+            </div>
+        </fieldset>
+    </form>
+</div>

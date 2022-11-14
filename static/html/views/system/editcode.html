@@ -1,0 +1,54 @@
+<form class="content-container" name="editcodeform" novalidate=""
+    ng-controller="EditCodeController" ng-submit="submit()">
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+            <li><a href="#/codes">{{'label.anchor.managecodes' | translate}}</a></li>
+            <li><a href="#/viewcode/{{codeId}}">{{code.name}}</a></li>
+            <li class="active">{{'label.anchor.addcodevalue' | translate}}</li>
+        </ul>
+        <api-validate></api-validate>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'label.heading.addcodevalue' | translate}}</h4>
+            </div>
+            <br/>
+            <form>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <input name="codevalue" ng-model="newEle.name" placeholder="{{ 'label.input.codevalue' | translate }}"
+                               type="text" class="form-control"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <textarea name="description" ng-model="newEle.description" placeholder="{{ 'label.input.description' | translate }}"
+                               type="text" class="form-control"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <input name="position" ng-model="newEle.position" placeholder="{{ 'label.input.position' | translate }}"
+                               type="text" class="form-control"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="control-label col-sm-2">{{'label.input.active' | translate}}</label>
+                        <div class="col-sm-3">
+                            <input id="activeCheckbox" type="checkbox" ng-model="newEle.isActive">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <a data-ng-click="addCv()" class="btn btn-primary" has-permission='CREATE_CODEVALUE'><i
+                                class="fa fa-plus "></i>&nbsp;&nbsp;{{ 'label.button.add' |
+                            translate }}</a>
+                    </div>
+                </div>
+            </form>
+            <div data-ng-repeat="codevalue in codevalues">
+                <input disabled="" placeholder={{codevalue.name}} type="text"/>&nbsp;&nbsp;
+                <input disabled="" placeholder={{codevalue.description}} type="text"/>&nbsp;&nbsp;
+                <input disabled="" placeholder={{codevalue.position}} type="text"/>&nbsp;&nbsp;
+                <a ng-click='deleteCv(codevalue.id)' has-permission='DELETE_CODEVALUE'><i class="fa fa-times-circle fa-2x"></i></a>
+            </div>
+            <div class="pull-right" data-ng-show="stat">
+                <p>{{ 'label.systemdefinedcodedeletefailed' | translate }}</p>
+            </div>
+        </div>
+    </div>
+</form>

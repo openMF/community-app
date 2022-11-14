@@ -1,14 +1,18 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewSavingDetailsController: function (scope, routeParams, resourceFactory, paginatorService, location, $uibModal, route, dateFilter, $sce, $rootScope, API_VERSION) {
+        ViewSavingDetailsController: function (scope, routeParams, resourceFactory, paginatorService, location, $uibModal, route, dateFilter, $sce, $rootScope, API_VERSION, http) {
             scope.report = false;
             scope.hidePentahoReport = true;
             scope.showActiveCharges = true;
+            scope.isGroupLoan = false;
             scope.formData = {};
             scope.date = {};
             scope.staffData = {};
             scope.fieldOfficers = [];
             scope.savingaccountdetails = [];
+            scope.hideAccrualTransactions = true;
+            scope.subStatus = false;
+
             scope.isDebit = function (savingsTransactionType) {
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true
                     || savingsTransactionType.overdraftInterest == true || savingsTransactionType.withholdTax == true || savingsTransactionType.amountHold == true;
@@ -98,6 +102,9 @@
                     case "close":
                         location.path('/savingaccount/' + accountId + '/close');
                         break;
+                    case "freeze" :
+                        location.path('/savingaccount/' + accountId + '/freeze');
+                        break;
                     case "assignSavingsOfficer":
                         location.path('/assignsavingsofficer/' + accountId);
                         break;
@@ -123,6 +130,12 @@
                     case "postInterestAsOn":
                         location.path('/savingaccount/' + accountId + '/postInterestAsOn');
                         break;
+                    case "postAccrualInterestAsOn":
+                         location.path('/savingaccount/' + accountId + '/postAccrualInterestAsOn');
+                    break;
+                    case "holdAmount":
+                           location.path('/savingaccount/' + accountId + '/holdAmount');
+                    break;
                     case "hold":
                         location.path('/savingaccount/'+accountId+ '/hold');
                     case "unhold":
@@ -154,6 +167,13 @@
                 if (scope.status == "Submitted and pending approval" || scope.status == "Active" || scope.status == "Approved") {
                     scope.choice = true;
                 }
+
+                if(data.groupId != null && data.groupId > 0){
+                    scope.isGroupLoan = true;
+                   }else{
+                   scope.isGroupLoan = false;
+                   }
+
                 scope.chargeAction = data.status.value == "Submitted and pending approval" ? true : false;
                 scope.chargePayAction = data.status.value == "Active" ? true : false;
                 if (scope.savingaccountdetails.charges) {
@@ -225,6 +245,11 @@
                             taskPermissionName:"POSTINTEREST_SAVINGSACCOUNT"
                         },
                         {
+                                name: "button.postAccrualInterestAsOn",
+                                icon: "icon-arrow-right",
+                                taskPermissionName:"POSTACCRUALINTERESTASON_SAVINGSACCOUNT"
+                        },
+                        {
                             name: "button.deposit",
                             icon: "fa fa-arrow-up",
                             taskPermissionName:"DEPOSIT_SAVINGSACCOUNT"
@@ -244,8 +269,8 @@
                             icon: "fa fa-stop",
                             taskPermissionName:"HOLD_SAVINGSACCOUNT" //
                         }
-                    ],
-                        options: [
+                    ]};
+                    var  buttonOptions = [
                             {
                                 name: "button.postInterest",
                                 taskPermissionName:"POSTINTEREST_SAVINGSACCOUNT"
@@ -257,10 +282,47 @@
                             {
                                 name: "button.close",
                                 taskPermissionName:"CLOSE_SAVINGSACCOUNT"
+                            },
+                            {
+                                name: "button.holdAmount",
+                                taskPermissionName : "HOLDAMOUNT_SAVINGSACCOUNT"
+                            },
+                            {
+                                name: "button.freeze",
+                                taskPermissionName : ""
                             }
                         ]
 
+                    if($rootScope.hasPermission("UNBLOCKDEBIT_SAVINGSACCOUNT")){
+                       buttonOptions.forEach(function(v) {
+                         if(v.name == "button.freeze") {
+                         v.taskPermissionName = 'UNBLOCKDEBIT_SAVINGSACCOUNT';}
+                       });
+                    }
+                    if($rootScope.hasPermission("BLOCKDEBIT_SAVINGSACCOUNT")) {
+                         buttonOptions.forEach(function(v) {
+                           if(v.name == "button.freeze") {
+                           v.taskPermissionName = 'BLOCKDEBIT_SAVINGSACCOUNT';}
+                         });
+                    }
+                    if ($rootScope.hasPermission("BLOCKCREDIT_SAVINGSACCOUNT")) {
+                         buttonOptions.forEach(function(v) {
+                          if(v.name == "button.freeze") {
+                          v.taskPermissionName = 'BLOCKCREDIT_SAVINGSACCOUNT';}
+                         });
+                    }
+                    if($rootScope.hasPermission("UNBLOCKCREDIT_SAVINGSACCOUNT")){
+                       buttonOptions.forEach(function(v) {
+                       if(v.name == "button.freeze") {
+                       v.taskPermissionName = 'UNBLOCKCREDIT_SAVINGSACCOUNT';}
+                    });
+                    }
+
+                    scope.buttons = {
+                       singlebuttons: scope.buttons.singlebuttons,
+                       options: buttonOptions
                     };
+
                     if (data.clientId) {
                         scope.buttons.options.push({
                             name: "button.transferFunds",
@@ -339,20 +401,6 @@
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account'}, function (data) {
                 scope.savingdatatables = data;
             });
-            /*// Saving notes not yet implemented
-            resourceFactory.savingsResource.getAllNotes({accountId: routeParams.id,resourceType:'notes'}, function (data) {
-                scope.savingNotes = data;
-            });
-
-            scope.saveNote = function () {
-                resourceFactory.savingsResource.save({accountId: routeParams.id, resourceType: 'notes'}, this.formData, function (data) {
-                    var today = new Date();
-                    temp = { id: data.resourceId, note: scope.formData.note, createdByUsername: "test", createdOn: today };
-                    scope.savingNotes.push(temp);
-                    scope.formData.note = "";
-                    scope.predicate = '-id';
-                });
-            };*/
 
             scope.dataTableChange = function (datatable) {
                 resourceFactory.DataTablesResource.getTableDetails({datatablename: datatable.registeredTableName,
@@ -398,6 +446,9 @@
             scope.viewJournalEntries = function(){
                 location.path("/searchtransaction/").search({savingsId: scope.savingaccountdetails.id});
             };
+            scope.viewAccrualTransaction = function(){
+                location.path("/viewaccrualtransaction/").search({savingsId: scope.savingaccountdetails.id});
+           };
 
             scope.viewDataTable = function (registeredTableName,data){
                 if (scope.datatabledetails.isMultirow) {
@@ -422,8 +473,9 @@
                 scope.viewReport = true;
                 scope.hidePentahoReport = true;
                 scope.formData.outputType = 'PDF';
-                scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Client Saving Transactions");
-                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
+
+                 var reportURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Client Saving Transactions");
+                 reportURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
 
                 var reportParams = "";
                 scope.startDate = dateFilter(scope.date.fromDate, 'yyyy-MM-dd');
@@ -435,11 +487,28 @@
                 paramName = "R_savingsAccountId";
                 reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(scope.savingaccountdetails.accountNo);
                 if (reportParams > "") {
-                    scope.baseURL += "&" + reportParams;
+                    reportURL += "&" + reportParams;
                 }
 
                 // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
-                scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
+                reportURL = $sce.trustAsResourceUrl(reportURL);
+                              reportURL = $sce.valueOf(reportURL);
+
+                              http.get(reportURL, {responseType: 'arraybuffer'})
+                              .then(function(response) {
+                              let data = response.data;
+                              let status = response.status;
+                              let headers = response.headers;
+                              let config = response.config;
+                              var contentType = headers('Content-Type');
+                              var file = new Blob([data], {type: contentType});
+                              var fileContent = URL.createObjectURL(file);
+                              scope.baseURL = $sce.trustAsResourceUrl(fileContent);
+                              scope.viewReportDetails = $sce.trustAsResourceUrl(fileContent);
+                              }).catch(function(error){
+                              $log.error(`Error loading ${scope.reportType} report`);
+                              $log.error(error);
+                              });
 
             };
 
@@ -451,17 +520,37 @@
                 scope.viewReport = true;
                 scope.hidePentahoReport = true;
                 scope.formData.outputType = 'PDF';
-                scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Savings Transaction Receipt");
-                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
+
+                var reportURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Savings Transaction Receipt");
+                reportURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
+
+
 
                 var reportParams = "";
                 var paramName = "R_transactionId";
                 reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(transactionId);
                 if (reportParams > "") {
-                    scope.baseURL += "&" + reportParams;
+                    reportURL += "&" + reportParams;
                 }
-                // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
-                scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
+
+                reportURL = $sce.trustAsResourceUrl(reportURL);
+                              reportURL = $sce.valueOf(reportURL);
+
+                              http.get(reportURL, {responseType: 'arraybuffer'})
+                              .then(function(response) {
+                              let data = response.data;
+                              let status = response.status;
+                              let headers = response.headers;
+                              let config = response.config;
+                              var contentType = headers('Content-Type');
+                              var file = new Blob([data], {type: contentType});
+                              var fileContent = URL.createObjectURL(file);
+                              scope.baseURL = $sce.trustAsResourceUrl(fileContent);
+                              scope.viewReportDetails = $sce.trustAsResourceUrl(fileContent);
+                              }).catch(function(error){
+                              $log.error(`Error loading ${scope.reportType} report`);
+                              $log.error(error);
+                              });
 
             };
 
@@ -529,7 +618,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory','PaginatorService' , '$location','$uibModal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory','PaginatorService' , '$location','$uibModal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', '$http', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {
         $log.info("ViewSavingDetailsController initialized");
     });
 }(mifosX.controllers || {}));

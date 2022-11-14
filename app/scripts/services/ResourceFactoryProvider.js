@@ -641,6 +641,49 @@
                     familyMemberTemplate:defineResource(apiVer+"/clients/:clientId/familymembers/template",{},{
                         get:{method: 'GET',params:{}}
                     }),
+                    businessOwners:defineResource(apiVer+"/clients/:clientId/businessOwners/",{},{
+
+                      get:{method: 'GET',isArray: true },
+                      post:{method:'POST',params:{}}
+
+                    }),
+                    businessOwner:defineResource(apiVer+"/clients/:clientId/businessOwners/:businessOwnerId",{},{
+
+                        get:{method: 'GET',params:{} },
+                        delete:{method: 'DELETE',params:{}},
+                            put:{method:'PUT',params:{}}
+
+                    }),
+
+                    businessOwnerStatus:defineResource(apiVer+"/clients/:clientId/businessOwners/:businessOwnerId/updateOwnerStatus",{},{
+
+                        get:{method:'GET',params:{status:'@status'}},
+                    }),
+                    businessOwnersTemplate:defineResource(apiVer+"/clients/:clientId/businessOwners/template",{},{
+                       get:{method: 'GET',params:{}}
+                    }),
+                    employmentInformation:defineResource(apiVer+"/clients/:clientId/employmentInfo/",{},{
+
+                      get:{method: 'GET',isArray: true },
+                      post:{method:'POST',params:{}}
+
+                    }),
+                    employmentInfo:defineResource(apiVer+"/clients/:clientId/employmentInfo/:employmentInfoId",{},{
+
+                        get:{method: 'GET',params:{} },
+                        delete:{method: 'DELETE',params:{}},
+                            put:{method:'PUT',params:{}}
+
+                    }),
+                    employmentInfoTemplate:defineResource(apiVer+"/clients/:clientId/employmentInfo/template",{},{
+                       get:{method: 'GET',params:{}}
+                    }),
+                    employmentInfoStatus:defineResource(apiVer+"/clients/:clientId/employmentInfo/:employmentInfoId/updateInfoStatus",{},{
+                       get:{method:'GET',params:{status:'@status'}}
+                    }),
+                    businessOwnersDocumentsResource: defineResource(apiVer + "/business_owners/:ownerId/documents/:documentId", {clientId: '@ownerId', documentId: '@documentId'}, {
+                        getAllBusinessOwnerDocuments: {method: 'GET', params: {}, isArray: true}
+                    }),
                    provisioningcriteria: defineResource(apiVer + "/provisioningcriteria/:criteriaId",{criteriaId:'@criteriaId'},{
                          get: {method: 'GET',params:{}},
                         getAll: {method: 'GET',params:{}, isArray : true},

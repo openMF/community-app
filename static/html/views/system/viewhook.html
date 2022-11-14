@@ -1,0 +1,89 @@
+<div class="content-container" ng-controller="ViewHookController">
+    <ul class="breadcrumb">
+        <li><a href="#/hooks">{{'label.anchor.managehooks' | translate}}</a></li>
+        <li class="active">{{hook.displayName}}</li>
+    </ul>
+
+    <script type="text/ng-template" id="deletehook.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{hook.displayName}}</h4>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <div class="pull-right">
+                        <a href="#/edithook/{{hook.id}}" class="btn btn-primary" has-permission='UPDATE_HOOK'>
+                            <i class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}
+                        </a>
+                        <button type="button" ng-click="deletehook()" class="btn btn-danger" has-permission='DELETE_HOOK'>
+                            <i class="fa fa-trash-o "></i>&nbsp;&nbsp;{{'label.button.delete' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <br>
+            <h3 class="bolder"></h3>
+            <div class="row">
+                <div class="col-md-5">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td>{{'label.heading.hookname' | translate}}:</td>
+                            <td>{{hook.displayName}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.isactive' | translate}}:</td>
+                            <td>{{hook.isActive}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.activationdate' | translate}}:</td>
+                            <td>{{hook.createdAt}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.updatedon' | translate}}:</td>
+                            <td>{{hook.updatedAt}}</td>
+                        </tr>
+                        <tr ng-show="hook.templateId">
+                            <td>{{'label.heading.ugdtemplateid' | translate}}:</td>
+                            <td>{{hook.templateId}}</td>
+                        </tr>
+                        <tr ng-show="hook.templateName">
+                            <td>{{'label.heading.ugdtemplatename' | translate}}:</td>
+                            <td>{{hook.templateName}}</td>
+                        </tr>
+                        <tr data-ng-show="hook.events">
+                            <td valign="top">{{'label.heading.events' | translate}}:</td>
+                            <td>
+                                <table>
+                                    <tr ng-repeat="event in hook.events">
+                                        <td>
+                                            <span>{{event.actionName}} - {{event.entityName}}</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr data-ng-show="hook.config" ng-repeat="conf in hook.config">
+                            <td>{{conf.fieldName}}:</td>
+                            <td>{{conf.fieldValue}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+          

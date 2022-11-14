@@ -14,6 +14,7 @@
                 $scope.addressTypes=data.addressTypeIdOptions;
                 $scope.countryOptions=data.countryIdOptions;
                 $scope.stateOptions=data.stateProvinceIdOptions;
+                $scope.lgaOptions = data.lgaIdOptions;
             }
             )
 

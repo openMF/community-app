@@ -1,0 +1,42 @@
+<div class="content-container" ng-controller="TransactionClassificationController">
+    <ul class="breadcrumb">
+        <li ><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li ><a href="#/transactionclassification">{{'label.anchor.transactionclassification' | translate}}</a></li>
+        <li class="active">{{'label.heading.createtransactionclassification' | translate}}</li>
+    </ul>
+    <form name="createtransactionclassificationform">
+        <div class="card">
+            <div class="card-content">
+                <div novalidate="" class="card form-horizontal well">
+                    <api-validate></api-validate>
+                    <fieldset>
+                        <legend>{{'label.heading.createtransactionclassification' | translate}}</legend>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="key">{{'label.heading.classification' | translate}}<span
+                                    class="required">*</span></label>
+                            <div class="col-sm-3">
+                                <input type="text" id="classification" name="classification" maxlength="32" ng-model="formData.classification" class="form-control"
+                                       required late-Validate/>
+                            </div>
+                            <div class="col-sm-1">
+                                <form-validate valattributeform="createtransactionclassificationform" valattribute="classification"/>
+                            </div>
+                            <label class="control-label col-sm-1" for="name">{{'label.heading.operator' | translate}}<span
+                                    class="required">*</span></label>
+                            <div class="col-sm-3">
+                                <input type="text" id="operator" name="operator"  maxlength="255" ng-model="formData.operator" class="form-control"
+                                       required late-Validate/>
+                            </div>
+                            <div class="col-sm-1">
+                                <form-validate valattributeform="createtransactionclassificationform" valattribute="operator"/>
+                            </div>
+                        </div>
+                        <div class="pull-right">
+                            <input type="submit" id="save1" type="submit" class="btn btn-primary" ng-click="createTransactionClassification()" value="{{'label.button.proceed' | translate}}" >
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

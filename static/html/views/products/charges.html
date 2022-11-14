@@ -1,0 +1,43 @@
+<div class="content-container" ng-controller="ChargeController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li class="active">{{'label.anchor.charges' | translate}}</li>
+    </ul>
+    
+    <div class="card well">
+        <div class="toolbar">
+        <h4>List of Charges</h4>
+        </div>
+        <br>
+        <div class="row">
+        <div class="col-md-10 col-sm-9">
+                <input ng-model="filterText" type="text" class="form-control" ng-keyup="onFilter()" placeholder="{{'label.input.filterbyname' | translate}}">
+            </div>
+            <div class="col-md-2 col-sm-3 paddedbottom20">
+                <a href="#/createcharge" class="btn btn-primary pull-right" has-permission='CREATE_CHARGE'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createcharge' | translate}}</a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.chargeappliesto' | translate}}</th>
+                <th>{{'label.heading.ispenalty' | translate}}</th>
+                <th>{{'label.heading.status' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" dir-paginate="charge in charges | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: ChargesPerPage">
+                <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.name}}</td>
+                <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.chargeAppliesTo.code | translate }}</td>
+                <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.penalty}}</td>
+                <td class="pointer" data-ng-click="routeTo(charge.id)">
+                    <i class="fa fa-stop {{'charges.StatusType.active.' + charge.active | StatusLookup}}" uib-tooltip="{{'label.tooltip.charges.active.' + charge.active | translate}}" tooltip-placement="right"></i>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
+    
+</div>

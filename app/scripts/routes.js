@@ -109,6 +109,9 @@
             .when('/addclientdocument/:clientId', {
                 templateUrl: 'views/clients/addclientdocument.html'
             })
+            .when('/addbusinessownerdocument/:ownerId/:clientId', {
+                templateUrl: 'views/clients/addBusinessOwnersDocument.html'
+            })
             .when('/clientclosedloanaccount/:clientId', {
                 templateUrl: 'views/clients/clientclosedloanaccount.html'
             })
@@ -385,6 +388,9 @@
             })
             .when('/searchtransaction', {
                 templateUrl: 'views/accounting/search_transaction.html'
+            })
+            .when('/viewaccrualtransaction', {
+                templateUrl: 'views/savings/view_savings_account_accruals.html'
             })
             .when('/accounts_closure', {
                 templateUrl: 'views/accounting/accounts_closure.html'
@@ -995,6 +1001,18 @@
             .when('/addfamilymembers/:clientId/', {
                 templateUrl: 'views/clients/addfamilymembers.html'
             })
+            .when('/addBusinessOwners/:clientId/', {
+                 templateUrl: 'views/clients/addBusinessOwners.html'
+             })
+            .when('/editBusinessOwners/:clientId/:businessOwnerId', {
+                  templateUrl: 'views/clients/editBusinessOwners.html'
+             })
+            .when('/addEmploymentInfo/:clientId/', {
+                 templateUrl: 'views/clients/addEmploymentInfo.html'
+             })
+            .when('/editEmploymentInfo/:clientId/:employmentInfoId', {
+                  templateUrl: 'views/clients/editEmploymentInfo.html'
+             })
             .when('/bulkimportoffices', {
                  templateUrl: 'views/organization/bulkimport/bulkimportoffices.html'
              })

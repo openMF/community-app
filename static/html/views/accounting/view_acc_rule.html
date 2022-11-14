@@ -1,0 +1,88 @@
+<div class="content-container" ng-controller="ViewAccRuleController">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li><a href="#/accounting_rules">{{'label.anchor.accountingrules' | translate}}</a></li>
+        <li class="active">{{rule.name}}</li>
+    </ul>
+    <script type="text/ng-template" id="deleteaccrule.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="card">
+    	    <div class="content">
+    	    	<div class="toolbar">
+    	    		<h4>{{rule.name}}</h4>
+    	    	</div>
+    	    	<br>
+    		    <div class="row">
+    		    	<div class="col-md-6"></div>
+    		        <div class="col-md-6">
+    		            <div class="pull-right">
+    		               <a href="#/editaccrule/{{rule.id}}" class="btn btn-primary" has-permission='UPDATE_ACCOUNTINGRULE'><i
+    		                       class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' |translate}}</a>
+    		               <a class="btn btn-danger" ng-click="deleteRule()"has-permission='DELETE_ACCOUNTINGRULE'><i
+    		                       class="fa fa-trash-o"></i>&nbsp;&nbsp;{{'label.button.delete'| translate}}</a>
+    		            </div>
+    		        </div>
+    		    </div>
+    		    <hr/>
+    		    <div class="row">
+    		    	        <div class="col-md-5">
+    		    		        <table class="table table-bordered">
+    		    		            <tr>
+    		    		                <th class="table-bold-acc">{{ 'label.heading.office' | translate }}</th>
+    		    		                <td><span class="padded-td">{{rule.officeName}}</span></td>
+    		    		            </tr>
+    		    		            <tr>
+    		    		                <th class="table-bold-acc">{{ 'label.heading.description' | translate }}</th>
+    		    		                <td><span class="padded-td">{{rule.description}}</span></td>
+    		    		            </tr>
+    		    		            <tr>
+    		    		                <th class="table-bold-acc">{{ 'label.input.allowMultipleDebitEntries' | translate }}</th>
+    		    		                <td><span class="padded-td">{{rule.allowMultipleDebitEntries}}</span></td>
+    		    		            </tr>
+    		    		            <tr>
+    		    		                <th class="table-bold-acc">{{ 'label.input.allowMultipleCreditEntries' | translate }}</th>
+    		    		                <td><span class="padded-td">{{rule.allowMultipleCreditEntries}}</span></td>
+    		    		            </tr>
+    		    		        </table>
+    		    			</div>
+    		    			<div class="col-md-7">
+    		    		        <table class="table table-bordered">
+    		    			        <thead>
+    		    			        <tr class="graybg">
+    		    			            <th ng-if="rule.debitTags">{{'label.heading.debittags' | translate}}</th>
+    		    			            <th ng-if="rule.debitAccounts">{{'label.heading.debitaccount' | translate}}</th>
+    		    			            <th ng-if="rule.creditTags">{{'label.heading.credittags' | translate}}</th>
+    		    			            <th ng-if="rule.creditAccounts">{{'label.heading.creditaccount' | translate}}</th>
+    		    			        </tr>
+    		    			        </thead>
+    		    			        <tbody>
+    		    				        <tr>
+    		    		                    <td ng-if="rule.debitTags">
+    		    			                    <p ng-repeat="debitTag in rule.debitTags">{{debitTag.tag.name}}</p>
+    		    		                    </td>
+    		    		                    <td ng-if="rule.debitAccounts">
+    		    			                    <p ng-repeat="dbAccount in rule.debitAccounts">{{dbAccount.name}}({{dbAccount.glCode}})</p>
+    		    		                    </td>
+    		    		                    <td ng-if="rule.creditTags">
+    		    			                    <p ng-repeat="creditTag in rule.creditTags">{{creditTag.tag.name}}</p>
+    		    		                    </td>
+    		    		                    <td ng-if="rule.creditAccounts">
+    		    			                    <p ng-repeat="crAccount in rule.creditAccounts">{{crAccount.name}}({{crAccount.glCode}})</p>
+    		    		                    </td>
+    		    				        </tr>
+    		    			        </tbody>
+    		    			    </table>
+    		    			</div>
+    		    </div>
+    	    </div>
+    </div>    
+</div>

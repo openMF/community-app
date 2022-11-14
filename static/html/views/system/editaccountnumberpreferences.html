@@ -1,0 +1,46 @@
+<div class="content-container" data-ng-controller="EditAccountNumberPreferencesController">
+    <ul class="breadcrumb">
+        <li><a href="#/accountnumberpreferences">{{'label.anchor.accountNumberPreferences' | translate}}</a></li>
+        <li class="active">{{'label.anchor.editAccountNumberPreferences' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'label.heading.editAccountNumberPreferences' | translate}}</h4>
+            </div>
+            <br/>
+            <form name="editprefform" novalidate="" class="form-horizontal" rc-submit="submit()">
+                <api-validate></api-validate>
+                <fieldset>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.accountType' | translate}}<span class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            {{accountType}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.addPrefix' | translate}}</label>
+
+                        <div class="col-sm-3">
+                            <input id="activeCheckbox" type="checkbox" ng-model="addPrefix">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="addPrefix">
+                        <label class="control-label col-sm-2">{{'label.input.prefixField' | translate}}</label>
+                        <div class="col-sm-3">
+                            <select chosen="prefixTypeOptions"  id="prefixType" ng-model="formData.prefixType"  class="form-control"
+                                    ng-options="accountNumberPrefixType.id as accountNumberPrefixType.value for accountNumberPrefixType in prefixTypeOptions"
+                                    value="{{accountNumberPrefixType.id}}">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-offset-5">
+                        <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                        <button id="submit" type="button" class="btn btn-primary" ng-click="submit()" has-permission='UPDATE_ACCOUNTNUMBERFORMAT'>{{'label.button.save' | translate}}</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

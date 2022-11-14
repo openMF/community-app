@@ -1,0 +1,60 @@
+<div class="content-container" ng-controller="ViewAllProvisoningEntriesController">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewprovisioningeentries' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4></h4>
+            </div>
+            <br/>
+            <a href="#/createprovisioningentries" class="btn btn-primary pull-right"
+               has-permission='VIEW_ALL_PROVISIONING_ENTRIES'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createprovisioning.entry'
+                | translate}}</a>
+            <br>
+            <hr/>
+            <table class="table">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.createdby' | translate}}</th>
+                    <th>{{'label.heading.createdon' | translate}}</th>
+                    <th>{{'label.heading.journalentry.created' | translate}}</th>
+                    <th>{{'label.heading.viewreport' | translate}}</th>
+                    <th>{{'label.heading.recreateprovisioning' | translate}}</th>
+                    <th>{{'label.heading.viewjournals' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="pointer-main" ng-repeat="entryObject in entries.currentPageItems | filter:filterText">
+                    <td>{{entryObject.createdUser}}</td>
+                    <td>{{entryObject.createdDate | DateFormat}}</td>
+
+                    <td><input type="checkbox" name="name1" ng-model="entryObject.journalEntry" disabled/>&nbsp;</td>
+                    <td>
+                        <button class="btn btn-info" id="viewreport" data-ng-click="routeTo(entryObject.id)" type="submit" name="viewreport">
+                            <i class="fa fa-eye"></i>&nbsp;&nbsp;{{'label.button.view' | translate}}
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" id="recreate" data-ng-click="recreate(entryObject.id)" type="submit" name="recreate"
+                        ng-disabled="entryObject.journalEntry"><i class="fa fa-edit"></i>&nbsp;&nbsp;{{'label.button.recreate' | translate}}</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" id="viewjournals" data-ng-click="viewJournals(entryObject.id)" type="submit" name="viewjournals"
+                        ng-disabled="!entryObject.journalEntry"><i class="fa fa-eye"></i>&nbsp;&nbsp;{{'label.button.view' | translate}}</button>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+            <ul class="pager">
+                <li class="previous"><a id="prev" ng-click="entries.previous()" href=""
+                                        ng-disabled="!entries.hasPrevious()">&larr; {{'label.button.previous' |
+                    translate}}</a></li>
+                <li class="next"><a id="next" ng-click="entries.next()" href="" ng-disabled="!entries.hasNext()">{{'label.button.next'
+                    | translate}} </a></li>
+            </ul>
+        </div>
+    </div>
+</div>

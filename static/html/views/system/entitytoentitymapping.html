@@ -1,0 +1,559 @@
+<div class="content-container" data-ng-controller="EntityToEntityMappingController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li class="active">{{'label.anchor.entitytoentitymapping' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <table class="table">
+                <tbody>
+                    <tr class="pointer-main" data-ng-repeat="entityMapping in entityMappings | filter:filterText">
+                        <td class="pointer" class="col-md-5" data-ng-click="showFilters(entityMapping.id)"><div >{{entityMapping.mappingTypes | translate}}</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div ng-show="selectedMappingType > 0">
+                <form name="entitymappings">
+                    <fieldset>
+
+                        <div class="form-group ">
+                            <api-validate></api-validate>
+                        <div ng-show="selectedMappingType == 1">
+
+                                <legend>{{'label.heading.officetoloanproducts' | translate}}</legend>
+                                <label class="control-label col-md-1">{{'label.office' | translate}}</label>
+                                <div class="col-md-4">
+                                    <select chosen="offices" name="office" id="office" ng-model="formData.selectedFromId" class="form-control input-sm" data-ng-options="office.id as office.name for office in offices">
+                                        <option class="displaynone" value="">--{{'label.menu.selectoffice' | translate}}--</option>
+                                    </select>
+                                </div>
+
+                                <label class="control-label col-md-1">{{'loanproducts' | translate}}</label>
+                                <div class="col-md-4">
+                                    <select chosen="products" name="product" id="productId" ng-model="formData.selectedToId" class="form-control input-sm" data-ng-options="product.id as product.name for product in products">
+                                        <option class="displaynone" value="">--{{'label.menu.selectloanproducts' | translate}}--</option>
+                                    </select>
+                                </div>
+                        </div>
+
+                            <div ng-show="selectedMappingType == 2">
+
+                                <legend>{{'label.heading.officetosavingsproducts' | translate}}</legend>
+                                <label class="control-label col-md-1">{{'label.office' | translate}}</label>
+                                <div class="col-md-4">
+                                    <select chosen="offices" name="office" id="offices" ng-model="formData.selectedFromId" class="form-control input-sm" data-ng-options="office.id as office.name for office in offices">
+                                        <option class="displaynone" value="">--{{'label.menu.selectoffice' | translate}}--</option>
+                                    </select>
+                                </div>
+
+                                <label class="control-label col-md-1">{{'savingproducts' | translate}}</label>
+                                <div class="col-md-4">
+                                    <select chosen="savingsproducts" name="savingsproduct" id="savingsproduct" ng-model="formData.selectedToId" class="form-control input-sm" data-ng-options="savingsproduct.id as savingsproduct.name for savingsproduct in savingsproducts">
+                                        <option class="displaynone" value="">--{{'label.selectsavingproduct' | translate}}--</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div ng-show="selectedMappingType == 3">
+                                <legend>{{'label.heading.officetocharges' | translate}}</legend>
+                                <label class="control-label col-md-1">{{'label.office' | translate}}</label>
+                                <div class="col-md-4">
+                                    <select chosen="offices" name="office" id="offic" ng-model="formData.selectedFromId" class="form-control input-sm" data-ng-options="office.id as office.name for office in offices">
+                                        <option class="displaynone" value="">--{{'label.menu.selectoffice' | translate}}--</option>
+                                    </select>
+                                </div>
+
+                                <label class="control-label col-md-1">{{'charges' | translate}}</label>
+                                <div class="col-md-4">
+                                    <select chosen="charges" name="charge" id="charges" ng-model="formData.selectedToId" class="form-control input-sm" data-ng-options="charge.id as charge.name for charge in charges">
+                                        <option class="displaynone" value="">--{{'label.selectcharge' | translate}}--</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div ng-show="selectedMappingType == 4">
+                                <legend>{{'label.heading.roletoloanproducts' | translate}}</legend>
+                                <label class="control-label col-md-1">{{'label.input.roles' | translate}}</label>
+                                <div class="col-md-4">
+                                    <select chosen="roles" name="role" id="roleId" ng-model="formData.selectedFromId" class="form-control input-sm" data-ng-options="role.id as role.name for role in roles">
+                                        <option class="displaynone" value="">--{{'label.input.selectroles' | translate}}--</option>
+                                    </select>
+                                </div>
+
+                                <label class="control-label col-md-1">{{'loanproducts' | translate}}</label>
+                                <div class="col-md-4">
+                                    <select chosen="products" name="product" id="productsId" ng-model="formData.selectedToId" class="form-control input-sm" data-ng-options="product.id as product.name for product in products">
+                                        <option class="displaynone" value="">--{{'label.menu.selectloanproducts' | translate}}--</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div ng-show="selectedMappingType == 5">
+                                <legend>{{'label.heading.roletosavingsproducts' | translate}}</legend>
+                                <label class="control-label col-md-1">{{'label.input.roles' | translate}}</label>
+                                <div class="col-md-4">
+                                    <select chosen="roles" name="role" id="rolesId" ng-model="formData.selectedFromId" class="form-control input-sm" data-ng-options="role.id as role.name for role in roles">
+                                        <option class="displaynone" value="">--{{'label.input.selectroles' | translate}}--</option>
+                                    </select>
+                                </div>
+
+                                <label class="control-label col-md-1">{{'savingproducts' | translate}}</label>
+                                <div class="col-md-4">
+                                    <select chosen="savingsproducts" name="savingsproduct" id="savingproduct" ng-model="formData.selectedToId" class="form-control input-sm" data-ng-options="savingsproduct.id as savingsproduct.name for savingsproduct in savingsproducts">
+                                        <option class="displaynone" value="">--{{'label.selectsavingproduct' | translate}}--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary col-md-1" ng-click="showFilteredData()"><i class="fa fa-filter "></i>&nbsp;&nbsp;{{'label.button.filter' | translate}}</button>
+
+                        </div>
+
+                       <!-- DIV TO SHOW FILTERD DATA-->
+                        <div ng-show="hasClickedFilters" class="col-md-14">
+                            <div ng-show="selectedMappingType == 1">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>{{'label.office' | translate}}</th>&nbsp;
+                                        <th>{{'loanproducts' | translate}}</th>
+                                        <th>{{'label.input.startdate' | translate}}</th>
+                                        <th>{{'label.input.enddate' | translate}}</th>
+
+                                            <button class="btn btn-primary pull-right" ng-click="showAddScreen(selectedMappingType)"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{'label.button.add' | translate}}</button>
+
+                                    </tr>
+                                    </thead>
+                                    <tr data-ng-repeat="entityMappingItem in entityMappingsList | filter:filterText">
+                                        <td>{{entityMappingItem.fromEntity}}</td>&nbsp;
+                                        <td>{{entityMappingItem.toEntity}}</td>
+                                        <td>{{entityMappingItem.startDate | DateFormat }}</td>
+                                        <td>{{entityMappingItem.endDate | DateFormat }}</td>
+                                        <td><a class="btn btn-primary" data-ng-click="showEditScreen(entityMappingItem.mapId,selectedMappingType)" has-permission='UPDATE_ENTITYMAPPING'>
+                                                <i class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}
+                                        </a></td>
+                                        <td><a class="ng-binding" has-permission="DELETE_ENTITYMAPPING" data-ng-click="deleteMapping(entityMappingItem.mapId)">
+                                            <i class="fa fa-times-circle fa-2x"></i>
+
+                                        </a></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div ng-show="selectedMappingType == 2">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>{{'label.office' | translate}} </th>&nbsp;
+                                        <th>{{'savingproducts' | translate}}</th>
+                                        <th>{{'label.input.startdate' | translate}}</th>
+                                        <th>{{'label.input.enddate' | translate}}</th>
+                                        <button class="btn btn-primary pull-right" ng-click="showAddScreen(selectedMappingType)"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{'label.button.add' | translate}}</button>
+                                    </tr>
+                                    </thead>
+                                    <tr data-ng-repeat="entityMappingItem in entityMappingsList | filter:filterText">
+                                        <td>{{entityMappingItem.fromEntity}}</td>&nbsp;
+                                        <td>{{entityMappingItem.toEntity}}</td>
+                                        <td>{{entityMappingItem.startDate | DateFormat }}</td>
+                                        <td>{{entityMappingItem.endDate | DateFormat}}</td>
+                                        <td><a class="btn btn-primary" data-ng-click="showEditScreen(entityMappingItem.mapId,selectedMappingType)" has-permission='UPDATE_ENTITYMAPPING'>
+                                                <i class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}
+                                        </a></td>
+                                        <td><a class="ng-binding" has-permission="DELETE_ENTITYMAPPING" data-ng-click="deleteMapping(entityMappingItem.mapId)">
+                                            <i class="fa fa-times-circle fa-2x"></i>
+
+                                        </a></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div ng-show="selectedMappingType == 3">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>{{'label.office' | translate}} </th>&nbsp;
+                                        <th>{{'charges' | translate}}</th>
+                                        <th>{{'label.input.startdate' | translate}}</th>
+                                        <th>{{'label.input.enddate' | translate}}</th>
+                                        <button class="btn btn-primary pull-right" ng-click="showAddScreen(selectedMappingType)"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{'label.button.add' | translate}}</button>
+                                    </tr>
+                                    </thead>
+                                    <tr data-ng-repeat="entityMappingItem in entityMappingsList | filter:filterText">
+                                        <td>{{entityMappingItem.fromEntity}}</td>&nbsp;
+                                        <td>{{entityMappingItem.toEntity}}</td>
+                                        <td>{{entityMappingItem.startDate | DateFormat }}</td>
+                                        <td>{{entityMappingItem.endDate | DateFormat }}</td>
+                                        <td><a class="btn btn-primary" data-ng-click="showEditScreen(entityMappingItem.mapId,selectedMappingType)" has-permission='UPDATE_ENTITYMAPPING'>
+                                                <i class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}
+                                        </a></td>
+                                        <td><a class="ng-binding" has-permission="DELETE_ENTITYMAPPING" data-ng-click="deleteMapping(entityMappingItem.mapId)">
+                                            <i class="fa fa-times-circle fa-2x"></i>
+                                        </a></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div ng-show="selectedMappingType == 4">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>{{'label.input.roles' | translate}} </th>&nbsp;
+                                        <th>{{'loanproducts' | translate}}</th>
+                                        <th>{{'label.input.startdate' | translate}}</th>
+                                        <th>{{'label.input.enddate' | translate}}</th>
+                                        <button class="btn btn-primary pull-right" ng-click="showAddScreen(selectedMappingType)"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{'label.button.add' | translate}}</button>
+                                    </tr>
+                                    </thead>
+                                    <tr data-ng-repeat="entityMappingItem in entityMappingsList | filter:filterText">
+                                        <td>{{entityMappingItem.fromEntity}}</td>&nbsp;
+                                        <td>{{entityMappingItem.toEntity}}</td>
+                                        <td>{{entityMappingItem.startDate | DateFormat }}</td>
+                                        <td>{{entityMappingItem.endDate | DateFormat }}</td>
+                                        <td><a class="btn btn-primary" data-ng-click="showEditScreen(entityMappingItem.mapId,selectedMappingType)" has-permission='UPDATE_ENTITYMAPPING'>
+                                                <i class="fa fa-edit "></i>{{'label.button.edit' | translate}}
+                                        </a></td>
+                                        <td><a class="ng-binding" has-permission="DELETE_ENTITYMAPPING" data-ng-click="deleteMapping(entityMappingItem.mapId)">
+                                            <i class="fa fa-times-circle fa-2x"></i>
+
+                                        </a></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div ng-show="selectedMappingType == 5">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>{{'label.input.roles' | translate}}</th>&nbsp;
+                                        <th>{{'savingproducts' | translate}}</th>
+                                        <th>{{'label.input.startdate' | translate}}</th>
+                                        <th>{{'label.input.enddate' | translate}}</th>
+                                        <button class="btn btn-primary pull-right" ng-click="showAddScreen(selectedMappingType)"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{'label.button.add' | translate}}</button>
+                                    </tr>
+                                    </thead>
+                                    <tr data-ng-repeat="entityMappingItem in entityMappingsList | filter:filterText">
+                                        <td>{{entityMappingItem.fromEntity}}</td>&nbsp;
+                                        <td>{{entityMappingItem.toEntity}}</td>
+                                        <td>{{entityMappingItem.startDate | DateFormat }}</td>
+                                        <td>{{entityMappingItem.endDate | DateFormat }}</td>
+                                        <td><a class="btn btn-primary" data-ng-click="showEditScreen(entityMappingItem.mapId,selectedMappingType)" has-permission='UPDATE_ENTITYMAPPING'><i
+                                                class="fa fa-edit "></i>{{'label.button.edit' | translate}}
+                                        </a></td>
+                                        <td><a class="ng-binding" has-permission="DELETE_ENTITYMAPPING" data-ng-click="deleteMapping(entityMappingItem.mapId)">
+                                            <i class="fa fa-times"></i>
+
+                                        </a></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+
+
+                        <br>
+                        <div ng-show="addScreenFilter == true" class="col-md-14">
+                            <br>
+
+                            <div ng-show="relId > 0">
+                                <br>
+                                <legend>{{'label.heading.addnewmap'| translate}}</legend>
+                                <form name="entitymappings">
+                                    <fieldset>
+                                        <div class="form-group ">
+
+                                            <div ng-show="relId == 1">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{'label.office' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="offices" name="office" id="office" ng-model="addFormData.fromId" class="form-control" data-ng-options="office.id as office.name for office in offices">
+                                                            <option class="displaynone" value="">--{{'label.menu.selectoffice' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label class="control-label col-md-2">{{'loanproducts' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="products" name="product" id="productId" ng-model="addFormData.toId" class="form-control" data-ng-options="product.id as product.name for product in products">
+                                                            <option class="displaynone" value="">--{{'label.menu.selectloanproducts' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+                                            </div>
+
+                                            <div ng-show="relId == 2">
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{'label.office' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="offices" name="office" id="offices" ng-model="addFormData.fromId" class="form-control" data-ng-options="office.id as office.name for office in offices">
+                                                            <option class="displaynone" value="">--{{'label.menu.selectoffice' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label class="control-label col-md-2">{{'savingproducts' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="savingsproducts" name="savingsproduct" id="savingsproduct" ng-model="addFormData.toId" class="form-control" data-ng-options="savingsproduct.id as savingsproduct.name for savingsproduct in savingsproducts">
+                                                            <option class="displaynone" value="">--{{'label.selectsavingproduct' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+
+                                            </div>
+
+                                            <div ng-show="relId == 3">
+
+                                                <div class="form-group ">
+                                                    <label class="control-label col-md-2">{{'label.office' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="offices" name="office" id="offic" ng-model="addFormData.fromId" class="form-control" data-ng-options="office.id as office.name for office in offices">
+                                                            <option class="displaynone" value="">--{{'label.menu.selectoffice' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+                                                <div class="form-group ">
+                                                    <label class="control-label col-md-2">{{'charges' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="charges" name="charge" id="charges" ng-model="addFormData.toId" class="form-control" data-ng-options="charge.id as charge.name for charge in charges">
+                                                            <option class="displaynone" value="">--{{'label.selectcharge' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+                                            </div>
+
+                                            <div ng-show="relId == 4">
+
+                                                <div class="form-group ">
+                                                    <label class="control-label col-md-2">{{'label.input.roles' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="roles" name="role" id="roleId" ng-model="addFormData.fromId" class="form-control" data-ng-options="role.id as role.name for role in roles">
+                                                            <option class="displaynone" value="">--{{'label.input.selectroles' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label class="control-label col-md-2">{{'loanproducts' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="products" name="product" id="productsId" ng-model="addFormData.toId" class="form-control" data-ng-options="product.id as product.name for product in products">
+                                                            <option class="displaynone" value="">--{{'label.menu.selectloanproducts' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+
+                                            </div>
+
+                                            <div ng-show="relId == 5">
+
+                                                <div class="form-group ">
+                                                    <label class="control-label col-md-2">{{'label.input.roles' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="roles" name="role" id="rolesId" ng-model="addFormData.fromId" class="form-control" data-ng-options="role.id as role.name for role in roles">
+                                                            <option class="displaynone" value="">--{{'label.input.selectroles' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label class="control-label col-sm-2">{{'savingproducts' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="savingsproducts" name="savingsproduct" id="savingproduct" ng-model="addFormData.toId" class="form-control" data-ng-options="savingsproduct.id as savingsproduct.name for savingsproduct in savingsproducts">
+                                                            <option class="displaynone" value="">--{{'label.selectsavingproduct' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group ">
+                                                <label class="control-label col-md-2">{{'label.input.startdate' | translate}}</label>
+                                                <div class="col-md-3">
+                                                    <input id="startDate" type="text" name="startDate" datepicker-pop="dd MMMM yyyy"
+                                                           ng-model="addFormData.startDate" is-open="opened1" max="restrictDate"  class="form-control"/>
+                                                </div><br><br>
+                                            </div>
+
+                                            <div class="form-group ">
+                                                <label class="control-label col-md-2">{{'label.input.enddate' | translate}}</label>
+                                                <div class="col-md-3">
+                                                    <input id="endDate" type="text" name="endDate" datepicker-pop="dd MMMM yyyy"
+                                                           ng-model="addFormData.endDate"  max="restrictDate"  class="form-control"/>
+                                                </div><br><br>
+                                            </div>
+
+                                            <div class="col-md-offset-5">
+                                                <a id="cancel" ng-click="cancelOperation()" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                                                <button ng-click="submit(relId)" class="btn btn-primary" has-permission='CREATE_ENTITYMAPPING'>{{'label.button.save' | translate}}</button>
+                                            </div>
+
+                                        </div>
+
+                                    </fieldset>
+                                    <br><br>
+                                </form>
+
+                            </div>
+                        </div>
+
+                        <div ng-show="editScreenFilter == true" class="col-md-14">
+                            <br>
+                            <div ng-show="relId > 0">
+                                <br>
+                                <form name="entitymappings">
+                                    <legend>{{'label.heading.editmap'| translate}}</legend>
+                                    <fieldset>
+                                        <div class="form-group ">
+
+                                            <div ng-show="relId == 1">
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{'label.office' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="offices" name="office" id="office" ng-model="editFormData.fromId" class="form-control" data-ng-options="office.id as office.name for office in offices">
+                                                            <option class="displaynone" value="">--{{'label.menu.selectoffice' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label class="control-label col-md-2">{{'loanproducts' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="products" name="product" id="productId" ng-model="editFormData.toId" class="form-control" data-ng-options="product.id as product.name for product in products">
+                                                            <option class="displaynone" value="">--{{'label.menu.selectloanproducts' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+                                            </div>
+
+                                            <div ng-show="relId == 2">
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{'label.office' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="offices" name="office" id="offices" ng-model="editFormData.fromId" class="form-control" data-ng-options="office.id as office.name for office in offices">
+                                                            <option class="displaynone" value="">--{{'label.menu.selectoffice' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label class="control-label col-md-2">{{'savingproducts' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="savingsproducts" name="savingsproduct" id="savingsproduct" ng-model="editFormData.toId" class="form-control" data-ng-options="savingsproduct.id as savingsproduct.name for savingsproduct in savingsproducts">
+                                                            <option class="displaynone" value="">--{{'label.selectsavingproduct' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+
+                                            </div>
+
+                                            <div ng-show="relId == 3">
+
+                                                <div class="form-group ">
+                                                    <label class="control-label col-md-2">{{'label.office' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="offices" name="office" id="offic" ng-model="editFormData.fromId" class="form-control" data-ng-options="office.id as office.name for office in offices">
+                                                            <option class="displaynone" value="">--{{'label.menu.selectoffice' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+                                                <div class="form-group ">
+                                                    <label class="control-label col-md-2">{{'charges' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="charges" name="charge" id="charges" ng-model="editFormData.toId" class="form-control" data-ng-options="charge.id as charge.name for charge in charges">
+                                                            <option class="displaynone" value="">--{{'label.selectcharge' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+                                            </div>
+
+                                            <div ng-show="relId == 4">
+
+                                                <div class="form-group ">
+                                                    <label class="control-label col-md-2">{{'label.input.roles' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="roles" name="role" id="roleId" ng-model="editFormData.fromId" class="form-control" data-ng-options="role.id as role.name for role in roles">
+                                                            <option class="displaynone" value="">--{{'label.input.selectroles' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label class="control-label col-md-2">{{'loanproducts' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="products" name="product" id="productsId" ng-model="editFormData.toId" class="form-control" data-ng-options="product.id as product.name for product in products">
+                                                            <option class="displaynone" value="">--{{'label.menu.selectloanproducts' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+
+                                            </div>
+
+                                            <div ng-show="relId == 5">
+
+                                                <div class="form-group ">
+                                                    <label class="control-label col-md-2">{{'label.input.roles' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="roles" name="role" id="rolesId" ng-model="editFormData.fromId" class="form-control" data-ng-options="role.id as role.name for role in roles">
+                                                            <option class="displaynone" value="">--{{'label.input.selectroles' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label class="control-label col-md-2">{{'savingproducts' | translate}}</label>
+                                                    <div class="col-sm-3">
+                                                        <select chosen="savingsproducts" name="savingsproduct" id="savingproduct" ng-model="editFormData.toId" class="form-control" data-ng-options="savingsproduct.id as savingsproduct.name for savingsproduct in savingsproducts">
+                                                            <option class="displaynone" value="">--{{'label.selectsavingproduct' | translate}}--</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group ">
+                                                <label class="control-label col-md-2">{{'label.input.startdate' | translate}}</label>
+                                                <div class="col-sm-3">
+                                                    <input id="startDate" type="text" name="startDate" datepicker-pop="dd MMMM yyyy"
+                                                           ng-model="editFormData.startDate" is-open="opened1" max="restrictDate"  class="form-control"/>
+                                                </div><br><br>
+                                            </div>
+
+                                            <div class="form-group ">
+                                                <label class="control-label col-md-2">{{'label.input.enddate' | translate}}</label>
+                                                <div class="col-sm-3">
+                                                    <input id="endDate" type="text" name="endDate" datepicker-pop="dd MMMM yyyy"
+                                                           ng-model="editFormData.endDate"  max="restrictDate"  class="form-control"/>
+                                                </div><br><br>
+                                            </div>
+
+                                            <div class="col-md-offset-5">
+                                                <a id="cancel" ng-click="cancelOperation()" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                                                <button ng-click="submitEdit(mapIdToEdit)" class="btn btn-primary" has-permission='CREATE_ENTITYMAPPING'>{{'label.button.save' | translate}}</button>
+                                            </div>
+
+                                        </div>
+
+                                    </fieldset>
+                                    <br><br>
+                                </form>
+
+                            </div>
+
+
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="deletemap.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+
+            <br>
+            <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+
+</div>

@@ -1,0 +1,29 @@
+<div class="content-container" ng-controller="TaxComponentController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/taxconfiguration">{{'label.anchor.managetaxconfigurations' | translate}}</a></li>
+        <li class="active">{{'label.anchor.managetaxcomponents' | translate}}</li>
+    </ul>
+<div class="card well">
+    <div class="pull-right">
+        <a href="#/createtaxcomponent" class="btn btn-primary" has-permission='CREATE_TAXCOMPONENT'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createtaxcomponent' | translate}}</a>
+    </div>
+    <div class="clear"></div>
+    <div >
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.percentage' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="taxcomponent in taxcomponents| orderBy:'name':reverse  | filter:filterText">
+                <td class="pointer" data-ng-click="routeTo(taxcomponent.id)">{{taxcomponent.name}}</td>
+                <td class="pointer" data-ng-click="routeTo(taxcomponent.id)">{{taxcomponent.percentage | number}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>

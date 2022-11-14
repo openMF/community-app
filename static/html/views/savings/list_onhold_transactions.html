@@ -1,0 +1,64 @@
+<div class="content-container" ng-controller="ListOnHoldTransactionController" xmlns="http://www.w3.org/1999/html">
+    <ul class="breadcrumb">
+        <li><a href="#/{{fromPath}}/{{fromPathId}}">{{'label.heading.' +fromPath | translate}}</a></li>
+        <li class="active">{{'label.anchor.onholdtransaction' | translate}}</li>
+    </ul>
+    <api-validate></api-validate>
+    <div class="card">
+        <div class="toolbar"></div>
+        <form name="onholdtransactionform" novalidate="" class="form-horizontal" ng-repeat="transaction in transactions.currentPageItems|limitTo:1">
+            <fieldset>
+                <label class="col-sm-2" ng-show="fromPath === 'viewsavingaccount'">{{'label.heading.clientname' | translate}}:</label>
+                <div class="col-sm-3" ng-show="fromPath === 'viewsavingaccount'">{{transaction.savingsClientName}}</div>
+                <label class="col-sm-2" ng-show="fromPath === 'viewsavingaccount'">{{'label.heading.savingsaccountno' | translate}}:</label>
+                <div class="col-sm-3" ng-show="fromPath === 'viewsavingaccount'">{{transaction.savingsAccountNo}}</div><br>
+                <label class="col-sm-2" ng-show="fromPath === 'listguarantors'">{{'label.heading.clientname' | translate}}:</label>
+                <div class="col-sm-3" ng-show="fromPath === 'listguarantors'">{{transaction.loanClientName}}</div>
+                <label class="col-sm-2" ng-show="fromPath === 'listguarantors'">{{'label.heading.loanaccountnum' | translate}}:</label>
+                <div class="col-sm-3" ng-show="fromPath === 'listguarantors'">{{transaction.loanAccountNo}}</div><br>
+            </fieldset>
+            <label class="col-sm-3">{{'label.heading.listonholdtransaction' | translate}}</label>
+
+            <div ng-show="transactions" class="marginbuttontop25px">
+                <table class="table">
+                    <thead>
+
+                    <tr class="graybg" >
+                        <th>{{'label.heading.transactionid' | translate}}</th>
+                        <th ng-show="fromPath === 'listguarantors'">{{'label.heading.savingsaccountno' | translate}}</th>
+                        <th ng-show="fromPath === 'listguarantors'">{{'label.heading.clientname' | translate}}</th>
+                        <th ng-show="fromPath === 'viewsavingaccount'">{{'label.heading.loanaccountnum' | translate}}</th>
+                        <th ng-show="fromPath === 'viewsavingaccount'">{{'label.heading.clientname' | translate}}</th>
+                        <th>{{'label.heading.transactionType' | translate}}</th>
+                        <th>{{'label.heading.transactionDate' | translate}}</th>
+                        <th>{{'label.heading.amount' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="transaction in transactions.currentPageItems"
+                        ng-class="{strikeoff : transaction.reversed==true}">
+                        <td>{{transaction.id}}</td>
+                        <td ng-show="fromPath === 'listguarantors'"><a href="#/viewsavingaccount/{{transaction.savingsId}}"> {{transaction.savingsAccountNo}}</a></td>
+                        <td ng-show="fromPath === 'listguarantors'">{{transaction.savingsClientName}}</td>
+                        <td ng-show="fromPath === 'viewsavingaccount'"><a href="#/viewloanaccount/{{transaction.loanId}}"> {{transaction.loanAccountNo}}</a></td>
+                        <td ng-show="fromPath === 'viewsavingaccount'">{{transaction.loanClientName}}</td>
+                        <td>{{transaction.transactionType.code | translate}}</td>
+                        <td>{{transaction.transactionDate | DateFormat}}</td>
+                        <td>{{transaction.amount}}</td>
+                    </tr>
+                    </tbody>
+
+                </table>
+                <ul class="pager">
+                    <li class="previous"><a id="prev" ng-click="transactions.previous()" href=""
+                                            ng-disabled="!transactions.hasPrevious()">&larr; {{'label.button.previous' |
+                        translate}}</a></li>
+                    <li class="next"><a id="next" ng-click="transactions.next()" href="" ng-disabled="!transactions.hasNext()">{{'label.button.next'
+                        | translate}}&rarr;</a></li>
+                </ul>
+            </div>
+        </form>
+       
+    </div>
+</div>
+

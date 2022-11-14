@@ -1,0 +1,69 @@
+name: Publish Packages and Images
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - ameta
+jobs:
+  # Version Package
+  build-server-images:
+    name: Build Server Images
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout Repository
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      # Set Slug
+      - name: Get short SHA
+        id: slug
+        run: echo "::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)"
+
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+        
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v2.x
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ECR_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_ECR_SECRET }}
+          aws-region: us-east-2
+          
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      # Set Server Name
+      - name: Build and Push to GitHub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: |
+            "916148231619.dkr.ecr.us-east-2.amazonaws.com/fih-ui:${{ steps.extract_branch.outputs.branch }}-${{ steps.slug.outputs.sha8 }}"
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_AMETA_PROD_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_AMETA_PROD_SECRET_KEY }}
+          aws-region: eu-west-2
+
+      - name: Setup Staging EKS Kubectl
+        uses: zachguo/setup-eks-kubectl@v1
+        with:
+          cluster: ameta-prod
+          region: eu-west-2
+      
+      - name: Pull Staging latest images
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: fih-ui
+          IMAGE_TAG: "${{ steps.extract_branch.outputs.branch }}-${{ steps.slug.outputs.sha8 }}"
+        run: |
+          kubectl set image deploy/frontend-fineract-ui fineract-ui=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -n application

@@ -1,0 +1,64 @@
+<div class="content-container" ng-controller="CenterController">
+    <ul class="breadcrumb">
+        <li class="active">{{'label.anchor.centers' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="clearfix"></div>
+            <form ng-submit="search()" class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="span form-control" placeholder="{{'label.input.filterbynameorstatusoroffice' | translate}}">
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <input  data-ng-model="searchText" type="text" placeholder="{{'label.input.searchByNameExternalId' | translate}}" class="form-control"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary form-control">
+                                    <span class="fa fa-search"></span>
+                                </button>
+                            </span>
+                            <div class="checkbox form-control">
+                                <label for="showAll">
+                                    <input type="checkbox" id="showAll" name="showAll" ng-model="showClosed">
+                                    {{'label.button.showall' | translate }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="#/createcenter" class="btn btn-primary pull-right" has-permission='CREATE_CENTER'><i class="fa fa-plus "></i>{{'label.button.createcenter' | translate}}</a>
+                        <a href="#/bulkimportcenters" class="btn btn-primary pull-right" has-permission='CREATE_CENTER'><i
+                                +                            class="fa fa-upload"></i>&nbsp;{{'label.button.importcenters' | translate}}</a>
+                    </div>
+                </div>
+            </form>
+
+            <table class="table">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.name' | translate}}</th>
+                    <th> {{'label.heading.accnum' | translate}}</th>
+                    <th> {{'label.heading.externalid' | translate}}</th>
+                    <th>{{'label.heading.status' | translate}}</th>
+                    <th>{{'label.heading.office' | translate}}</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr class="pointer-main" dir-paginate="center in centers | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: centersPerPage" total-items="totalCenters" pagination-id="centers" ng-show="center.status.code != 'groupingStatusType.closed' || showClosed">
+                    <td class="pointer" data-ng-click="routeTo(center.id)">{{center.name}}</td>
+                    <td class="pointer" data-ng-click="routeTo(center.id)">{{center.accountNo}}</td>
+                    <td class="pointer" data-ng-click="routeTo(center.id)">{{center.externalId}}</td>
+                    <td class="pointer" data-ng-click="routeTo(center.id)">
+                        <i class="fa fa-stop {{center.status.code | StatusLookup}}" uib-tooltip="{{center.status.value}}" uib-tooltip-placement="top">
+                        </i>
+                    </td>
+                    <td class="pointer" data-ng-click="routeTo(center.id)">{{center.officeName}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <dir-pagination-controls boundary-links="true" pagination-id="centers" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+        </div>
+    </div>
+</div>

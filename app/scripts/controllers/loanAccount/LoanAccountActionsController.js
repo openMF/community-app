@@ -200,6 +200,22 @@
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'DISBURSETOSAVINGS_LOAN';
                     break;
+                    case "disbursetosavings":
+                    scope.modelName = 'actualDisbursementDate';
+                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburseToSavings'}, function (data) {
+                       scope.formData.transactionAmount = data.amount;
+                        scope.formData[scope.modelName] = new Date();
+                        if (data.fixedEmiAmount) {
+                            scope.formData.fixedEmiAmount = data.fixedEmiAmount;
+                            scope.showEMIAmountField = true;
+                        }
+                    });
+                    scope.title = 'label.heading.disburseloanaccount';
+                    scope.labelName = 'label.input.disbursedondate';
+                    scope.isTransaction = false;
+                    scope.showAmountField = true;
+                    scope.taskPermissionName = 'DISBURSETOSAVINGS_LOAN';
+                    break;
                 case "repayment":
                     scope.modelName = 'transactionDate';
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
@@ -587,12 +603,64 @@
                     resourceFactory.LoanAccountResource.delete({loanId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId}, this.formData, function (data) {
                         location.path('/viewloanaccount/' + data.loanId);
                     });
-                } else {
+                }else {
+                                     console.log("else");
+                                     params.loanId = scope.accountId;
+                                     var allCharges = [];
+                                 if(scope.action == "disbursetosavings"){
+                                     var count = 0;
+                                     var increasedCount = 0;
+                                     var amount = 0;
+                                     var fundTransferData = {};
+                                     var actualDisbursementDateForTransaction = this.formData.actualDisbursementDate;
+                                     resourceFactory.LoanAccountResource.save(params, this.formData, function (data) {
+                                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: data.loanId, associations: 'all',
+                                        exclude: 'guarantors,futureSchedule'}, function (loanData) {
+                                        console.log(loanData.charges);
+                                        if(angular.isDefined(loanData.charges)){
+                                        for (let i = 0; i < loanData.charges.length; i++) {
+                                            var charge = loanData.charges[i];
+                                            if (charge.chargeTimeType.code == "chargeTimeType.disburseToSavings" && charge.amountPaid == 0){
+                                                    amount  = amount + charge.amount;
+                                                   fundTransferData = {
+                                                    dateFormat: scope.df,
+                                                    fromAccountId: loanData.linkedAccount.id,
+                                                    fromAccountType: 2,
+                                                    fromClientId: loanData.clientId,
+                                                                             fromOfficeId: data.officeId,
+                                                                             locale: scope.optlang.code,
+                                                                             toAccountId: loanData.id,
+                                                                             toAccountType: 1,
+                                                                             toClientId: loanData.clientId,
+                                                                             toOfficeId: data.officeId,
+                                                                             transferAmount: amount,
+                                                                             transferDate: actualDisbursementDateForTransaction,
+                                                                             transferDescription: "DisBurseToSavingsCharges"
+                                                  };
+                                                  count++;
+                                                  }else{
+                                                    location.path('/viewloanaccount/' + data.loanId);
+                                                  }
+                                                  console.log(fundTransferData, "fundtransfer");
+
+                                        }
+                                        fundTransferData.transferAmount = amount;
+                                        resourceFactory.accountTransferResource.save(fundTransferData, function (accData) {
+                                           if(count == loanData.charges.length){
+                                           location.path('/viewloanaccount/' + data.loanId);
+                                           }
+                                        });
+                                        }else{ location.path('/viewloanaccount/' + data.loanId);} ;
+                                       });
+                                     });
+                                     }
+                else {
                     params.loanId = scope.accountId;
                     resourceFactory.LoanAccountResource.save(params, this.formData, function (data) {
 
                         location.path('/viewloanaccount/' + data.loanId);
                     });
+                    }
                 }
             };
 

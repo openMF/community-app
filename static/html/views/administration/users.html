@@ -1,0 +1,19 @@
+<h3>{{'label.heading.systemusers' | translate}}</h3>
+<div id="systemUsers" data-ng-controller="UserController">
+    <div class="users-actions">
+        <div class="action create"  has-permission='CREATE_USER' data-ng-click="newUserFormDialog()">{{'label.heading.newuser' | translate}}</div>
+    </div>
+    <table id="usersTable" data-ng-show="users.length > 0"
+           data-mf-data-table="{sScrollY: 280, sPaginationType: 'full_numbers'}"
+           data-mf-data-table-columns="username,firstname,lastname"
+           data-mf-data-table-items="users">
+        <thead>
+        <tr>
+            <th>{{'label.heading.username' | translate}}</th>
+            <th>{{'label.heading.givenname' | translate}}</th>
+            <th>{{'label.heading.familyname' | translate}}</th>
+        </tr>
+        </thead>
+    </table>
+    <div data-ng-include="'html/administration/userFormDialog.html'"></div>
+</div>

@@ -1,0 +1,43 @@
+<div class="content-container" ng-controller="ViewShareProductDividendController">
+    <ul class="breadcrumb">
+        <li><a href="#/shareproducts">{{'label.anchor.shareproducts' | translate}}</a></li>
+        <li><a href="#/viewshareproduct/{{shareproduct.id}}">{{shareproduct.name}}</a></li>
+        <li><a href="#/dividends/{{shareproduct.id}}">{{'label.anchor.dividends' | translate}}</a></li>
+        <li class="active">{{'label.anchor.dividendlisting' | translate}}</li>
+    </ul>
+    <div class="card well">
+        <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbynameshortname' | translate}}">
+        <div class="btn-group pull-right" ng-show="!isdividendPosted">
+            <button type="button" data-ng-click="postDividends()" class="btn btn-primary" has-permission='POST_DIVIDENDS'><i
+                    class="fa fa-briefcase "></i>&nbsp;&nbsp;{{'label.button.postdividends' | translate}}
+            </button>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.clientname' | translate}}</th>
+                <th>{{'label.heading.shareaccount' | translate}}</th>
+                <th>{{'label.heading.dividendamount' | translate}}</th>
+                <th>{{'label.heading.status' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="dividend in dividendTransactions.currentPageItems | orderBy:'name':reverse | filter:filterText">
+                <td class="pointer">{{dividend.accountData.clientName}}</td>
+                <td class="pointer">{{dividend.accountData.accountNo}}</td>
+                <td class="pointer">{{dividend.amount | number}}</td>
+                <td class="pointer">{{dividend.status.value}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <ul class="pager">
+            <li class="previous"><a id="prev" ng-click="entries.previous()" href=""
+                                    ng-disabled="!entries.hasPrevious()">&larr; {{'label.button.previous' |
+                translate}}</a></li>
+            <li class="next"><a id="next" ng-click="entries.next()" href="" ng-disabled="!entries.hasNext()">{{'label.button.next'
+                | translate}} </a></li>
+        </ul>
+    </div>
+</div>

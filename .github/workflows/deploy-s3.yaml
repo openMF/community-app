@@ -1,0 +1,67 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
+# For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
+
+name: Ruby
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: set env variables
+      if: endsWith(github.ref, '/develop')
+      run: |
+          sed -i 's|$FINERACT_BASE_URL|${{ secrets.FINERACT_BASE_URL }}|g' app/scripts/modules/configurations.js
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: 16.x
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Install Grunt and bower
+      run: |
+        npm install -g bower
+        npm install -g grunt-cli
+    - name: Install Dependecies Using bower
+      run: |
+         bower install
+    - name: Install Node dependencies
+      run: |
+        npm install
+        npm install grunt-contrib-compass --save-dev
+    - name: Install Gem dependencies
+      run: |
+        gem install bundler
+        gem install compass
+        bundle install 
+        ls
+    - name: Build code to deploy
+      run: |
+        grunt prod --force 
+        ls
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_FITER }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_FITER }}
+        aws-region: us-east-1
+    - name: Deploy static site to S3 bucket
+      run: aws s3 sync ./dist/community-app/ s3://fiter-mifos-test --delete
+    - name: Update Cloudformation 
+      run: aws cloudfront create-invalidation --distribution-id ENWW7DVSUDY3W  --paths /*

@@ -1,0 +1,85 @@
+<div class="content-container"  ng-controller="CashierFundsAllocationSettlementController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/tellers">{{'label.anchor.tellers' | translate}}</a></li>
+		<li><a href="#/tellers/{{tellersId}}/cashiers">{{cashierTxnTemplate.tellerName}}</a></li>
+        <li ng-show="ifAllocate()"class="active">{{'label.anchor.cashier.allocatefunds' | translate}}</li>
+		<li ng-show="ifSettle()"class="active">{{'label.anchor.cashier.settlefunds' | translate}}</li>
+    </ul>
+	<div class="card">
+		<div class="content">
+			<form name="cashiertxnform" novalidate="" class="form-horizontal"
+		     	 rc-submit="submit()">
+			    	<api-validate></api-validate>
+			    <table class="table">
+			    	<tr>
+			    		<td>{{ 'label.input.office' | translate }} {{location.path()}} {{}} </td>
+			    		<td>{{cashierTxnTemplate.officeName}}</td>
+					    <td>{{ 'label.input.teller.name' | translate }}</td>
+			    		<td>{{cashierTxnTemplate.tellerName}}</td>
+			    	</tr>
+			    	<tr>
+			    		<td>{{ 'label.input.cashiername' | translate }}</td>
+			    		<td>{{cashierTxnTemplate.cashierName}}</td>
+					    <td>{{ 'label.input.cashierallocationdetails' | translate }}</td>
+			    		<td>
+			    			{{cashierTxnTemplate.startDate | DateFormat}} - {{cashierTxnTemplate.endDate | DateFormat}} 
+			    			( )
+			    		</td>
+			    	</tr>
+		    		
+			    	<tr>
+			    		<td>{{ 'label.input.teller.cashiertxn.txnDate' | translate }}<span class="required">*</span></td>
+			    		<td>
+			    			<div class="col-sm-8">
+			    			<input id="txnDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.txnDate"
+			                           class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
+		                    </div>
+						</td>
+						<td>{{ 'label.input.currency' | translate }}<span class="required">*</span></td>
+			    		<td>
+							<div class="col-sm-2">
+								<select id="currencyCode" ng-model="formData.currencyCode" class="form-control"
+										ng-options="currency.code as currency.name for currency in cashierTxnTemplate.currencyOptions"
+										value="{{currency.code}}" style="width: 250px;"/>
+							</div>
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td>{{ 'label.input.teller.cashiertxn.txnAmount' | translate }}<span class="required">*</span></td>
+			    		<td>
+			    			<div class="col-sm-8">
+		                        <input id="txnAmount" type="text" name="txnAmount" number-format
+		                               ng-model="formData.txnAmount" class="form-control" required late-Validate/>
+		                    </div>
+						</td>
+						<td>{{ 'label.input.teller.cashiertxn.txnNote' | translate }}<span class="required">*</span></td>
+			    		<td>
+			    			<div class="col-sm-8">
+			    			<input id="txnNote" sort type="text" ng-model="formData.txnNote" class="form-control" />
+		                    </div>
+						</td>
+			    	</tr>
+
+					</tr>
+						<td colspan="4">
+			    			<div class="col-md-offset-3">
+		                		<a id="cancel" href="#/tellers/{{tellersId}}/cashiers">
+		                    		<button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+		                		</a>
+		                		<button id="allocate" type="submit" class="btn btn-success" has-permission='ALLOCATECASHIER_TELLER'
+		                				data-ng-click="allocate()" ng-show="ifAllocate()">
+		                			<i class="fa fa-level-down "></i>{{'label.button.cashier.allocatefunds' | translate}}
+		                		</button>
+		            			<button id="settle" type="submit" class="btn btn-warning" has-permission='SETTLECASHFROMCASHIER_TELLER'
+		            				data-ng-click="settle()" ng-show="ifSettle()">
+		            				<i class="fa fa-level-up "></i>{{'label.button.cashier.settlefunds' | translate}}
+		            			</button>
+		            		</div>
+		            	</td>
+		        	</td>
+			    </table>
+			</form>	
+		</div>
+	</div>
+</div>

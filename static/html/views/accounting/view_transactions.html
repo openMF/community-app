@@ -1,0 +1,199 @@
+<div class="content-container" ng-controller="ViewTransactionController">
+        <ul class="breadcrumb" ng-if="productName == null">
+            <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewtransaction' | translate}}</li>
+        </ul>
+        <ul class="breadcrumb" ng-if="productName != null">
+            <li ng-if="groupId != null"><a href="#/viewgroup/{{groupId}}">{{groupName}}</a></li>
+            <li ng-if="clientId != null"><a href="#/viewclient/{{clientId}}">{{clientName}}</a></li>
+            <li class="active">{{productName}}({{accountNo}})</li>
+            <li class="active">{{'label.anchor.journalentries' | translate}}</li>
+        </ul>
+         <script type="text/ng-template" id="confirmation.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.transactionreverse' | translate}}</h3>
+                <h4><strong class="required">{{ 'label.heading.transactionnumber' | translate }}&nbsp;:&nbsp;&nbsp;<b>{{transactionnumber}}</b></strong>
+                </h4>
+            </div>
+            <div class="modal-footer">
+                <api-validate></api-validate>
+                <br>
+                <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="redirect()">{{'label.button.redirecttonewtrx' | translate}}
+                </button>
+            </div>
+        </script>
+        <script type="text/ng-template" id="viewjournalentry.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.viewjournalentry' | translate}}</h3>
+                <legend></legend>
+                <table class="modalwidth600">
+                    <tr>
+                        <td class="width31">{{'label.input.office' | translate}}</td>
+                        <td>{{transaction.officeName}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.input.entryid' | translate}}</td>
+                        <td>{{transaction.id}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.input.transactionid' | translate}}</td>
+                        <td>{{transaction.transactionId}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.input.transactiondate' | translate}}</td>
+                        <td>{{transaction.transactionDate | DateFormat}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.input.type' | translate}}</td>
+                        <td>{{transaction.glAccountType.value}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.input.account' | translate}}</td>
+                        <td>{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>
+                    </tr>
+                    <tr>
+                        <td>{{transaction.entryType.code | translate}}</td>
+                        <td>{{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount | number}}</td>
+                    </tr>
+                    <tr ng-show="transaction.referenceNumber">
+                        <td>{{'label.input.referencenumber' | translate}}</td>
+                        <td>{{transaction.referenceNumber}}</td>
+                    </tr>
+                    <tr ng-show="transaction.comments">
+                        <td>{{'label.input.comments' | translate}}</td>
+                        <td>{{transaction.comments}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.paymentdetails' | translate}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.input.paymentypeid' | translate}}</td>
+                        <td> {{transaction.transactionDetails.paymentDetails.paymentType.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.input.accnum' | translate}}</td>
+                        <td>{{transaction.transactionDetails.paymentDetails.accountNumber}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.input.checknumber' | translate}}</td>
+                        <td>{{transaction.transactionDetails.paymentDetails.checkNumber}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.input.routingcode' | translate}}</td>
+                        <td>{{transaction.transactionDetails.paymentDetails.routingCode}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.input.receiptnumber' | translate}}</td>
+                        <td>{{transaction.transactionDetails.paymentDetails.receiptNumber}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.input.banknumber' | translate}}</td>
+                        <td>{{transaction.transactionDetails.paymentDetails.bankNumber}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.createdby' | translate}}</td>
+                        <td>{{transaction.createdByUserName}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.createdon' | translate}}</td>
+                        <td>{{transaction.createdDate | DateFormat}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            </div>
+        </script>
+        <script type="text/ng-template" id="reverseTransaction.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.reverse' | translate}}</h3>
+            </div>
+            <div class="modal-body">
+                <api-validate></api-validate>
+                <br>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.comments' | translate }}</label>
+                    <textarea rows="4" ng-model="data.reverseComments"></textarea>
+                </div>
+                <br>
+                <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="reverse()">{{'label.button.reverse' | translate}}</button>
+            </div>
+        </script>
+        <div class="card">
+            <div class="content">
+                <div class="alert alert-success" role="alert" ng-if="clientId != null">These journal entries were created by the portfolio  transaction with the following details: <br> Client Loan transaction with Id : {{journalEntryTransactionId}} </div>
+                <div class="alert alert-success" role="alert" ng-if="groupId != null">These journal entries were created by the portfolio  transaction with the following details: <br> Group Loan transaction with Id : {{journalEntryTransactionId}} </div>
+               <div class="toolbar">
+                    <div class="col-md-11">
+                        <span>
+                            <strong class="h4">{{ 'label.heading.transactionnumber' | translate }}&nbsp;-&nbsp;{{transactionNumber}}</strong>
+                            <div class="pull-right" ng-show="manualEntry">
+                                <span class="required" data-ng-show="!flag"><strong>{{ 'label.transactionisreversedonce' | translate
+                                }}</strong></span>
+                                <div class="btn-group">
+                                    <a data-ng-show="flag" ng-click="reverseTransaction(transactionNumber)" class="btn btn-primary" has-permission='REVERSE_JOURNALENTRY'><i class="fa fa-undo "></i>&nbsp;&nbsp;{{'label.button.reverse' | translate}}</a>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <tr>
+                                <td class="width14"><label>{{'label.input.office' | translate}}</label></td>
+                                <td class="width36">{{transactions[0].officeName}}</td>
+                                <td class="width19"><label>{{'label.input.transactiondate' | translate}}</label></td>
+                                <td class="width31">{{transactions[0].transactionDate | DateFormat}}</td>
+                            </tr>
+                            <tr>
+                                <td class="width14"><label>{{'label.createdby' | translate}}</label></td>
+                                <td class="width36">{{transactions[0].createdByUserName}}</td>
+                                <td class="width19"><label>{{'label.createdon' | translate}}</label></td>
+                                <td class="width31">{{transactions[0].createdDate | DateFormat}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-12">
+                        <table class="table">
+                            <thead>
+                            <tr class="graybg">
+                                <th>{{'label.heading.entryid' | translate}}</th>
+                                <th>{{'label.heading.type' | translate}}</th>
+                                <th>{{'label.heading.account' | translate}}</th>
+                                <th>{{'label.heading.debit' | translate}}</th>
+                                <th>{{'label.heading.credit' | translate}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="pointer-main" ng-repeat="transaction in transactions">
+                                <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.id}}</td>
+                                <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.glAccountType.value}}</td>
+                                <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>
+                                <td class="pointer" data-ng-click="showTransaction(transaction)">
+                                    <div ng-show="transaction.entryType.value == 'DEBIT'">
+                                        {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount | number}}
+                                    </div>
+                                </td>
+                                <td class="pointer" data-ng-click="showTransaction(transaction)">
+                                    <div ng-show="transaction.entryType.value == 'CREDIT'">
+                                        {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount | number}}
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="center" ng-if="productName != null">
+                        <a href="#/viewloanaccount/{{loanId}}"
+                          class="btn btn-primary center"><i
+                            class=""></i>{{'label.button.back' | translate}}</a></div>
+                </div>
+            </div>
+        </div>
+</div>
+

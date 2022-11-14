@@ -1,0 +1,44 @@
+edens-frontend:
+  configFiles:
+    - mountPath: "/app/resources/logback.xml"
+      mountFileName: "logback.xml"
+      fileName: "config/logback.xml"
+  replicaCount: 1
+  repository:  "858112783435.dkr.ecr.eu-west-2.amazonaws.com/fineract-ui-edens"
+  pullPolicy: Always
+  tag: "edenscapital-dev"
+  env:
+    FINERACT_DOMAIN: "mifos.edens360.com"
+    FINERACT_BASE_URL: "/fineract-provider/api/v1"
+    FINERACT_PROXY_URL: "http://backend-edens-backend"
+    DOLLAR: "$"
+  containerPort: 80
+  service:
+    type: ClusterIP
+    servicePorts:
+      - port: 80
+        targetPort: 80
+        protocol: TCP
+        name: http
+  autoscaling:
+    enabled: false
+  serviceAccount:
+    name: application-sa
+  ingress:
+    enabled: true
+    tls:
+    - hosts:
+      - "mifos.edens360.com"
+      secretName: "fineract-tls"
+    host: "mifos.edens360.com"
+    path: "/"
+    pathType: ImplementationSpecific
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prod-issuer"
+  resources:
+    requests:
+      cpu: 512m
+      memory: 512Mi
+    limits:
+      cpu: 512m
+      memory: 1024Mi

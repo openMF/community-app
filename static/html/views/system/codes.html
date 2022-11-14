@@ -1,0 +1,36 @@
+<div class="content-container" data-ng-controller="CodeController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li class="active">{{'label.anchor.managecodes' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar"></div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+                </div>
+                <div class="col-md-6">
+                    <a href="#/addcode" class="btn btn-primary pull-right" has-permission='CREATE_CODE'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.addcode' | translate }}</a>
+                </div>
+            </div>
+            <hr/>
+            <table class="table">
+                <thead>
+                <tr class="graybg">
+                    <th>{{ 'label.heading.codename' | translate }}</th>
+                    <th>{{ 'label.heading.systemdefined' | translate }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="pointer-main" dir-paginate="code in codes | filter:filterText |  itemsPerPage: CodesPerPage">
+                    <td class="pointer" data-ng-click="routeTo(code.id)">{{code.name | translate}}</td>
+                    <td class="pointer" data-ng-click="routeTo(code.id)">{{code.systemDefined}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+        </div>
+    </div>
+</div>

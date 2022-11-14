@@ -1,0 +1,77 @@
+<div class="content-container" ng-controller="ViewLoanChargeController">
+        <ul class="breadcrumb">
+            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+            <li class="active">{{ 'label.anchor.viewcharge' | translate}}({{charge.name}})</li>
+        </ul>
+    <script type="text/ng-template" id="deletecharge.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'label.anchor.viewcharge' | translate}}</h4>
+                <div class="pull-right btn-group" ng-show="showEditButtons">
+                    <a href="#/loan/{{loanId}}/editcharge/{{chargeId}}" class="btn btn-primary btn-sm" has-permission='UPDATE_LOANCHARGE'><i
+                            class="fa fa-edit "></i> {{'label.button.edit' | translate}}</a>
+                    <button type="button" ng-click="deleteCharge()" class="btn btn-danger btn-sm" has-permission='DELETE_LOANCHARGE'><i
+                            class="fa fa-trash "></i>{{'label.button.delete' | translate}}
+                    </button>
+                </div>
+            </div>
+            <div class="form-horizontal">
+                <table width="100%">
+                    <tr>
+                        <td width="20%">{{'label.heading.name' | translate}}</td>
+                        <td width="80%">{{charge.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.chargetype' | translate}}</td>
+                        <td>
+                            <span ng-show="charge.penalty">{{'label.heading.penalty' | translate}}</span>
+                            <span ng-hide="charge.penalty">{{'label.heading.fees' | translate}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.currency' | translate}}</td>
+                        <td>{{charge.currency.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.paymentdueat' | translate}}</td>
+                        <td>{{charge.chargeTimeType.value}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.paymentdueasof' | translate}}</td>
+                        <td>{{charge.dueDate | DateFormat}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.calculationtype' | translate}}</td>
+                        <td>{{charge.chargeCalculationType.value}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.due' | translate}}</td>
+                        <td>{{charge.currency.displaySymbol}}&nbsp;{{charge.amount}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.paid' | translate}}</td>
+                        <td>{{charge.currency.displaySymbol}}&nbsp;{{charge.amountPaid}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.waived' | translate}}</td>
+                        <td>{{charge.currency.displaySymbol}}&nbsp;{{charge.amountWaived}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.outstanding' | translate}}</td>
+                        <td>{{charge.currency.displaySymbol}}&nbsp;{{charge.amountOutstanding}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>

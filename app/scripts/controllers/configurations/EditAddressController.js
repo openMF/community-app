@@ -24,6 +24,7 @@
                     $scope.addressTypes=data.addressTypeIdOptions;
                     $scope.countryOptions=data.countryIdOptions;
                     $scope.stateOptions=data.stateProvinceIdOptions;
+                    $scope.lgaOptions = data.lgaIdOptions;
                 }
             )
 
@@ -64,7 +65,7 @@
                     {
                         if(data[i].addressId==addressId)
                         {
-
+console.log(data[i]);
                             if(data[i].street&&$scope.street)
                             {
                                 $scope.formData.street=data[i].street;
@@ -117,10 +118,13 @@
                             {
                                 isActive=data[i].isActive;
                             }
+                            if(data[i].lga&&$scope.lgaId)
+                            {
+                               $scope.formData.lgaId=data[i].lga.id;
+                            }
                         }
                     }
 
-                    
 
 
                 });

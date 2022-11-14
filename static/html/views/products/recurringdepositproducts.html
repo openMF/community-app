@@ -1,0 +1,31 @@
+<div class="content-container" ng-controller="RecurringDepositProductController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li class="active">{{'label.anchor.recurringdepositproducts' | translate}}</li>
+    </ul>
+    <div class="card well">
+        <div class="row">
+            <div class="col-md-9">
+                <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbynameshortname' | translate}}">
+            </div>
+            <div class="col-md-3 paddedbottom20">
+                <a href="#/createrecurringdepositproduct" has-permission='CREATE_RECURRINGDEPOSITPRODUCT' class="btn btn-primary pull-right"><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createrecurringdepositproduct' | translate}}</a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.shortname' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" dir-paginate="product in depositproducts | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: RecurringDepositsPerPage">
+                <td class="pointer" data-ng-click="routeTo(product.id)">{{product.name}}</td>
+                <td class="pointer" data-ng-click="routeTo(product.id)">{{product.shortName}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
+</div>

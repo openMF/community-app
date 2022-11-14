@@ -1,0 +1,117 @@
+<div class="content-container" data-ng-controller="ViewRoleController">
+    <div ng-show="isDisabled">
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+            <li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewrole' | translate}}</li>
+        </ul>
+    </div>
+    <div ng-hide="isDisabled">
+        <ul class="breadcrumb">		
+			<li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+            <li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a></li>
+            <li class="active">{{ role.name}}</li>
+            <li class="active">{{'label.anchor.editrole' | translate}}</li>
+        </ul>
+    </div>
+    <script type="text/ng-template" id="deleterole.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.deleterole' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-default" ng-click="cancelDeleteRole()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="deleteRoles()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="disablerole.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.disablerole' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-default" ng-click="cancelDisableRole()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="disableRoles()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="enablerole.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.enablerole' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-default" ng-click="cancelEnableRole()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="enableRoles()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <api-validate></api-validate>
+    <form name="editroleform" class="card well" ng-submit="submit()">
+        <div>
+            <table width="100%">
+                <tr>
+                    <td width="20%">{{'label.heading.name' | translate}}</td>
+                    <td width="80%">{{role.name}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.description' | translate}}</td>
+                    <td>{{role.description}}</td>
+                </tr>
+            </table>
+        </div>
+        <hr>
+        <div class="pull-right" ng-show="isDisabled">
+            <div class="btn-group">
+                <a data-ng-click="editRoles(); backupCheckValues()" class="btn btn-primary" has-permission='UPDATE_ROLE'><i class="fa fa-edit "></i>&nbsp;&nbsp;
+                {{ 'label.button.edit' | translate }}</a>
+			</div>
+            <div class="btn-group" ng-if="!isRoleEnable(role.disabled)">
+                <a data-ng-click="disableRolesConfirmation()" class="btn btn-danger" has-permission='DISABLE_ROLE'><i class="fa fa-lock "></i>&nbsp;&nbsp;
+                {{ 'label.button.disable' | translate }}</a>
+            </div>
+            <div class="btn-group" ng-if="isRoleEnable(role.disabled)">
+                <a data-ng-click="enableRolesConfirmation()" class="btn btn-primary" has-permission='ENABLE_ROLE'><i class="fa fa-unlock-alt "></i>&nbsp;&nbsp;
+                {{ 'label.button.enable' | translate }}</a>
+            </div>
+			<div class="btn-group">
+					<a data-ng-click="deleteRolesConfirmation()" class="btn btn-danger" has-permission='DELETE_ROLE'><i class="fa fa-trash-o "></i>&nbsp;&nbsp;
+					{{ 'label.button.delete' | translate }}</a>
+            </div>
+			
+        </div>
+		<div class="form-group" ng-show="!isDisabled" style="float: right">
+               <a data-ng-click="selectAll(false)" class="btn btn-primary"><i class="fa fa-ok-sign "></i>{{'label.button.selectAll' | translate}}</a>
+			   <a data-ng-click="selectAll(true)" class="btn btn-default"><i class="fa fa-remove-sign "></i>{{'label.button.deselectAll' | translate}}</a>
+			   
+         </div>
+        <h3>{{'label.heading.permissions' | translate}}:&nbsp;&nbsp;<strong>{{formatName(previousGrouping)}}</strong>
+        </h3>
+        <table width="100%">
+            <tr>
+                <td width="30%" valign="top">
+                    <table width="100%">
+                        <tr ng-repeat="grouping in groupings" ng-class="{graybg: grouping == previousGrouping}">
+                            <td><a ng-click="showPermissions(grouping);"><span>{{formatName(grouping)}}</span></a></td>
+                        </tr>
+                    </table>
+                </td>
+                <td width="70%" valign="top" class="left-border">
+                    <table width="100%">
+                        <tr ng-repeat="permission in permissions.permissions">
+                              <td><input id="{{permission.code}}" type="checkbox" name='cp'
+                                         data-ng-model="formData[permission.code]" ng-disabled="isDisabled">
+			      &nbsp;&nbsp;<label for="{{permission.code}}">{{permissionName(permission.code)}}</label></td>
+				  
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div class="col-md-offset-4" ng-hide="isDisabled">
+            <a class="btn btn-default" ng-click="cancel(); restoreCheckboxes()">{{ 'label.button.cancel' | translate}}</a>
+            <button type="submit" class="btn btn-primary" has-permission='UPDATE_ROLE'>{{ 'label.button.save' | translate}}</button>
+        </div>
+	</form>
+</div>

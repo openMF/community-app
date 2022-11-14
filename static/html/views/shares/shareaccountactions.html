@@ -1,0 +1,124 @@
+<div class="content-container" ng-controller="ShareAccountActionsController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewshareaccount/{{accountId}}">{{'label.anchor.viewshareaccount' | translate}}</a></li>
+        <li class="active">{{action}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{ title | translate}}</h4>
+            </div>
+            <br>
+            <form name="shareccountactionform" novalidate="" class="form-horizontal" rc-submit="submit()">
+                <api-validate></api-validate>
+                <fieldset>
+                    <div class="form-group" ng-show="showPendingShares">
+                        <table class="table width100">
+                            <tr class="graybg">
+                                <th>{{'label.heading.transactiondate' | translate}}</th>
+                                <th>{{'label.heading.totalshares' | translate}}</th>
+                                <th></th>
+                                <th>{{'label.heading.purchasedorredeemedprice' | translate}}</th>
+                                <th></th>
+                                <th>{{'label.heading.status' | translate}}</th>
+                                <th></th>
+                                <th>{{'label.heading.approve' | translate}}</th>
+                            </tr>
+                            <tr class="pointer-main" ng-repeat="purchasedShare in purchasedShares">
+                                <td>{{purchasedShare.purchasedDate | DateFormat}}</td>
+                                <td>{{purchasedShare.numberOfShares | number}}</td>
+                                <td></td>
+                                <td>{{shareaccountdetails.currency.displaySymbol}}{{purchasedShare.purchasedPrice | number}}</td>
+                                <td></td>
+                                <td><i tooltip-placement="right" uib-tooltip="{{purchasedShare.status.code}}" class="fa fa-stop {{purchasedShare.status.code | StatusLookup}}"></i>
+                                </td>
+                                <td></td>
+                                <td> <input id="approverequest" type="checkbox" name="approverequest"
+                                            ng-model="purchasedShare.isApproved"/></td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <div class="form-group" ng-show="showDateField">
+                        <label class="control-label col-sm-2" for="modelName">{{labelName | translate}}<span
+                                class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <input id="{{modelName}}" type="text" name="DateField" sort datepicker-pop="dd MMMM yyyy"
+                                   ng-model="formData[modelName]" is-open="opened" min="minDate" max="restrictDate" class="form-control" required late-validate>
+                        </div>
+                        <div class="col-sm-3">
+                                <form-validate valattributeform="shareccountactionform" valattribute="DateField"/>
+                            </div>
+                    </div>
+
+                    <div ng-show="requestedShares">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="requestedShares">{{ 'label.input.totalnumberofshares' |
+                                translate}}<span class="required">*</span></label>
+
+                            <div class="col-sm-3">
+                                <input id="requestedShares" type="text" name="requestedShares"
+                                       ng-model="formData.requestedShares" class="form-control" number-format required late-Validate/>
+                            </div>
+                            <div class="col-sm-3">
+                                <form-validate valattributeform="shareccountactionform" valattribute="requestedShares"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="unitprice">{{ 'label.input.todaysprice' |
+                                translate}}<span class="required">*</span>({{shareaccountdetails.currency.displaySymbol}})</label>
+
+                            <div class="col-sm-3">
+                                <input id="unitprice" type="text" name="unitprice" disabled
+                                       ng-model="formData.unitPrice" class="form-control" number-format required late-Validate/>
+                            </div>
+                            <div class="col-sm-3">
+                                <form-validate valattributeform="shareccountactionform" valattribute="unitprice"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="showNoteField">
+                        <label class="control-label col-sm-2" for="note">{{ 'label.input.note' | translate}}</label>
+
+                        <div class="col-sm-3">
+                            <textarea rows="2" id="note" ng-model="formData.note" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="showAmountField">
+                        <label class="control-label col-sm-2">{{ labelName | translate}}<span class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <input type="text" id="amount" ng-model="formData.amount" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="paymentDatefield">
+                        <label class="control-label col-sm-2" for="modelName">{{'label.input.paymentdate' | translate}}<span
+                                class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <input id="{{modelName}}" type="text" sort datepicker-pop="dd MMMM yyyy"
+                                   ng-model="formData[modelName]" is-open="opened" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="showDelete || waiveCharge || inactivateCharge">
+                        <label class="control-label col-sm-2">{{ 'label.areyousure' | translate }}</label>
+                    </div>
+                    <div class="col-md-offset-3" ng-show="showDelete">
+                        <button type="reset" ng-click="submit()" has-permission='{{taskPermissionName}}' class="btn btn-default">{{ 'label.button.confirm' | translate }}</button>
+                        <button type="submit" ng-click="cancel()" class="btn btn-primary">{{ 'label.button.cancel' | translate }}</button>
+                    </div>
+
+                    <div class="col-md-offset-3" ng-hide="showDelete">
+                        <button id="cancel" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
+                        <button id="save" type="submit" has-permission='{{taskPermissionName}}' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="content-container" ng-controller="FinancialActivityMappingsController">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li class="active">{{'label.anchor.financialactivity.accountmappings' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <a href="#/addfinancialmapping" class="pull-right btn btn-primary" has-permission='CREATE_FINANCIALACTIVITYACCOUNT'>
+                        <i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.define.new.financial.mapping' | translate}}</a>
+                </div>
+            </div>
+            <hr/>
+            <table class="table">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.financial.activity.type' | translate}}</th>
+                    <th>{{'label.heading.financial.activity.account.name' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="pointer-main" ng-repeat="mapping in mappings">
+                    <td class="pointer" data-ng-click="routeTo(mapping.id)">{{mapping.financialActivityData.name | translate }}</td>
+                    <td class="pointer" data-ng-click="routeTo(mapping.id)">{{mapping.glAccountData.name}}({{mapping.glAccountData.glCode}})</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,148 @@
+<div ng-controller="ViewRescheduleRequestController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+            <li class="active">{{'label.anchor.reschedulerequest' | translate}}</li>
+        </ul>
+    </div>
+    <form name="viewloanrescheduleform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.viewreschedulerequest' | translate }}</legend>
+            <div class="btn-group pull-right">
+                    <button ng-click="reject()" type="button" class="btn btn-warning" has-permission="REJECTRESCHEDULE_LOAN"><i class="fa fa-times"></i>
+                        {{'label.button.reject' | translate}}</button>
+                    <button id="approve" type="button" ng-click="approve()" class="btn btn-success" has-permission="APPROVERESCHEDULE_LOAN"><i class="fa fa-ok"></i>
+                        {{ 'label.button.approve' | translate }}</button>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+            <table class="width100 table table-bordered">
+                <tr>
+                    <td class="width30">
+                        <label>{{'label.input.installmentOn' | translate}}<span class="required">*</span></label>
+                    </td>
+
+                    <td class="ng-binding">
+                        {{rescheduleFromDate}}
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="width14">
+                        <label>{{'label.input.rescheduleReasonId' | translate}}<span class="required">*</span></label>
+                    </td>
+
+                    <td class="width36 paddedbottom10 paddedtop">
+                        {{loanRescheduleDetails.rescheduleReasonCodeValue.name}}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="width20">
+                        <label>{{'label.input.submittedOnDate' | translate}}<span class="required">*</span></label>
+                    </td>
+                    <td>
+                        {{submittedOnDate}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="width14">
+                        <label>{{ 'label.input.comments' | translate }}</label>
+                    </td>
+                    <td class="width36 paddedbottom10 paddedtop">
+                        <textarea rows="2" style="width: 100%; height: 67px;">{{loanRescheduleDetails.rescheduleReasonComment}}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="paddedtop">
+                        <input type="checkbox" ng-disabled="true" ng-model="changeRepaymentDate"> &nbsp;<span
+                            class="control-label"><label>{{ 'label.input.changeRepaymentDate' | translate }}&nbsp;</label></span>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-show="changeRepaymentDate">
+                        <label class="control-label" style="padding-left: 20px;">{{ 'label.input.installemtrescheduledto' | translate
+                            }}&nbsp;</label></td>
+                    <td ng-show="changeRepaymentDate">
+                        {{loanRescheduleDetails.adjustedDueDate | DateFormat }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="paddedtop">
+                        <input type="checkbox" ng-disabled="true" ng-model="introduceGracePeriods"> &nbsp;<span
+                            class="control-label">{{ 'label.input.introduceGracePeriods' | translate }}&nbsp;</span>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-show="introduceGracePeriods">
+                        <label class="control-label" style="padding-left: 20px;">{{ 'label.input.graceOnPrincipal' | translate
+                            }}&nbsp;</label></td>
+                    <td  ng-show="introduceGracePeriods">
+                        {{loanRescheduleDetails.graceOnPrincipal}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-show="introduceGracePeriods">
+                        <label class="control-label" style="padding-left: 20px;">{{ 'label.input.graceOnInterest' | translate
+                            }}&nbsp;</label></td>
+                    <td ng-show="introduceGracePeriods">
+                        {{loanRescheduleDetails.graceOnInterest}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class = "paddedtop">
+                        <input type="checkbox" ng-disabled="true" ng-model="extendRepaymentPeriod"> &nbsp;<span
+                            class="control-label">{{ 'label.input.extendRepaymentPeriod' | translate }}&nbsp;</span>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-show="extendRepaymentPeriod">
+                        <label class="control-label" style="padding-left: 20px;">{{ 'label.input.noofnewrepayments' | translate
+                            }}&nbsp;</label></td>
+                    <td  ng-show="extendRepaymentPeriod">
+                        {{loanRescheduleDetails.extraTerms}}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class ="paddedtop">
+                        <input type="checkbox" ng-disabled="true" ng-model="adjustinterestrates"> &nbsp;<span
+                            class="control-label">{{ 'label.input.adjustinterestrates' | translate }}&nbsp;</span>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-show="adjustinterestrates">
+                        <label class="control-label" style="padding-left: 20px;">{{ 'label.input.newinterestrate' | translate
+                            }}&nbsp;</label></td>
+                    <td ng-show="adjustinterestrates">
+                        {{loanRescheduleDetails.interestRate}}
+                    </td>
+                </tr>
+                <!--<tr>
+                    <td class = "paddedtop">
+                        <input type="checkbox" ng-disabled="true" ng-model="loanRescheduleDetails.recalculateInterest"> &nbsp;<span
+                            class="control-label">{{ 'label.input.recalculateInterest' +
+                    '' | translate }}&nbsp;</span>
+                    </td>
+                    <td></td>
+                </tr>-->
+            </table>
+                    <div align="center">
+                    <button type="button" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
+
+                    <button type="button" data-ng-click="submit()" class="btn btn-primary">
+                        {{'label.button.newrepaymentschedule' | translate}}
+
+                    </button>
+                        </div>
+                    </div>
+                </div>
+        </fieldset>
+
+    </form>
+</div>

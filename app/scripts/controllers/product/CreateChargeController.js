@@ -14,10 +14,14 @@
             scope.showfreewithdrawalfrequency = false;
             scope.showrestartfrequency = false;
             scope.paymentTypes = [];
+            scope.showMinAndMaxAmountSettings = false;
+            scope.loanChargeCalculationType = false;
+            scope.loanChargeTimeChange = false;
 
             resourceFactory.chargeTemplateResource.get(function (data) {
                 scope.template = data;
                 scope.showChargePaymentByField = true;
+                scope.showMinAndMaxAmountSettings = false;
                 scope.chargeCalculationTypeOptions = data.chargeCalculationTypeOptions;
                 scope.chargeTimeTypeOptions = data.chargeTimeTypeOptions;
 
@@ -53,6 +57,7 @@
                         scope.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                         scope.chargeTimeTypeOptions = scope.template.loanChargeTimeTypeOptions;
                         scope.showGLAccount = false;
+                        scope.showMinAndMaxAmountSettings = false;
                         break ;
                     case 2:
                         scope.showChargePaymentByField = false;
@@ -60,6 +65,7 @@
                         scope.chargeTimeTypeOptions = scope.template.savingsChargeTimeTypeOptions;
                         scope.addfeefrequency = false;
                         scope.showGLAccount = true;
+                        scope.showMinAndMaxAmountSettings = true;
                         break ;
                     case 3:
                         scope.showChargePaymentByField = false;
@@ -67,6 +73,7 @@
                         scope.chargeTimeTypeOptions = scope.template.clientChargeTimeTypeOptions;
                         scope.addfeefrequency = false;
                         scope.showGLAccount = true;
+                        scope.showMinAndMaxAmountSettings = false;
                         break ;
                     case 4:
                         scope.showChargePaymentByField = false;
@@ -75,18 +82,33 @@
                         scope.addfeefrequency = false;
                         scope.showGLAccount = false;
                         scope.showPenalty = false ;
+                        scope.showMinAndMaxAmountSettings = false;
                             break ;
                 }
                 
                 
             }
+            scope.chargeCalculationTypeChange = function (chargeCalculationType) {
+                    scope.loanChargeCalculationType = false;
+                    if(chargeCalculationType == 1){
+                    scope.loanChargeCalculationType = false;
+                    }else{
+                    scope.loanChargeCalculationType = true;
+                    }
+                        }
             //when chargeAppliesTo is savings, below logic is
             //to display 'Due date' field, if chargeTimeType is
             //'annual fee' or 'monthly fee'
             scope.chargeTimeChange = function (chargeTimeType) {
                 scope.showFrequencyOptions = false;
+                scope.loanChargeTimeChange = false;
                 if(chargeTimeType == 9){
                     scope.showFrequencyOptions = true;
+                }
+                if(chargeTimeType == 2){
+                scope.loanChargeTimeChange = false;
+                }else{
+                scope.loanChargeTimeChange = true;
                 }
                 if (scope.showChargePaymentByField === false) {
                     for (var i in scope.chargeTimeTypeOptions) {

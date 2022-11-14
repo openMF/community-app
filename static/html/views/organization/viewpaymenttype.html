@@ -1,0 +1,73 @@
+<div class="content-container" ng-controller="ViewPaymentTypeController">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li class="active">{{'label.anchor.paymentTypes' | translate}}</li>
+        </ul>
+        <api-validate></api-validate>
+
+    <script type="text/ng-template" id="deletePaymentType.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+
+            <br>
+            <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'label.anchor.paymentTypes' | translate}}</h4>
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <a href="#/createPaymentType/" class="btn btn-primary"  has-permission='CREATE_PAYMENTTYPE'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.paymenttype' | translate}}</a>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div>
+                <table class="table  table-striped">
+                    <thead>
+                    <tr>
+                        <th>{{ 'label.heading.name' | translate }}</th>
+                        <th>{{ 'label.heading.description' | translate }}</th>
+                        <th>{{ 'label.heading.iscashpayment' | translate }}</th>
+                        <th>{{ 'label.heading.position' | translate }}</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="paymentType in paymentTypes">
+                        <td class="col-md-3">
+                            <span>{{paymentType.name}}</span>
+
+                        </td>
+                        <td class="col-md-4">
+                            <span>{{paymentType.description}}</span>
+                        </td>
+                        <td class="col-md-1">
+                            <span>{{paymentType.isCashPayment}}</span>
+                        </td>
+                        <td class="col-md-1">
+                            <span>{{paymentType.position}}</span>
+                        </td>
+                        <td class="col-md-1">
+                            <a type="button" class="btn btn-primary" has-permission='UPDATE_PAYMENTTYPE'
+                                    data-ng-click="showEdit(paymentType.id)"><i
+                                    class="fa fa-edit "></i></a>
+                        </td>
+                        <td class="col-md-1">
+                            <a class="delete" type="button" has-permission='DELETE_PAYMENTTYPE'
+                                    data-ng-click="deletePaymentType(paymentType.id)"><i class="fa fa-times-circle fa-2x"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

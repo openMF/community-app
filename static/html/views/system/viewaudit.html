@@ -1,0 +1,76 @@
+<div class="content-container" ng-controller="ViewAuditController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li><a href="#/audit">{{'label.anchor.audit' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewauditentry' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'label.heading.viewauditentry' | translate}}</h4>
+            </div>
+            <br>
+            <div class="">
+                <table width="100%">
+                    <tr>
+                        <td width="35%"><strong>{{'label.heading.id' | translate}}:</strong></td>
+                        <td width="65%">{{details.id}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'label.heading.status' | translate }}:</strong></td>
+                        <td>{{details.processingResult}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'label.heading.user' | translate }}:</strong></td>
+                        <td>{{details.maker}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'label.heading.action' | translate }}:</strong></td>
+                        <td>{{details.actionName}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'label.heading.entity' | translate }}:</strong></td>
+                        <td>{{details.entityName}}</td>
+                    </tr>
+                    <tr data-ng-show="details.resourceId">
+                        <td><strong>{{ 'label.heading.resourceid' | translate }}:</strong></td>
+                        <td>{{details.resourceId}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'label.heading.date' | translate }}:</strong></td>
+                        <td>{{details.madeOnDate | DateFormat}}</td>
+                    </tr>
+                    <tr data-ng-show="details.officeName">
+                        <td><strong>{{ 'label.heading.office' | translate }}:</strong></td>
+                        <td>{{details.officeName}}</td>
+                    </tr>
+                    <tr data-ng-show="details.savingsAccountNo">
+                        <td><strong>{{ 'label.heading.savingsaccountno' | translate }}:</strong></td>
+                        <td>{{details.savingsAccountNo}}</td>
+                    </tr>
+                    <tr data-ng-show="details.groupLevelName">
+                        <td><strong>{{details.groupLevelName}}:</strong></td>
+                        <td>{{details.groupName}}</td>
+                    </tr>
+                </table>
+            </div>
+            <hr/>
+            <div>
+                <table class="table width1200px" data-ng-show="details.commandAsJson" data-anchor>
+                    <thead>
+                    <tr class="graybg">
+                        <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ 'label.heading.command' | translate }}</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="json in jsondata">
+                        <td><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{json.name | translate }}</strong></td>
+                        <td>{{json.property}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

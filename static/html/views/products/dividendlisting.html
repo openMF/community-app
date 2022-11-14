@@ -1,0 +1,47 @@
+<div class="content-container" ng-controller="ShareProductDividendController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/shareproducts">{{'label.anchor.shareproducts' | translate}}</a></li>
+        <li><a href="#/viewshareproduct/{{shareproduct.id}}">{{shareproduct.name}}</a></li>
+        <li class="active">{{'label.anchor.dividends' | translate}}</li>
+    </ul>
+    <div class="card well">
+        <div class="row">
+            <div class="col-md-10 col-sm-8">
+                <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbynameshortname' | translate}}">
+            </div>
+            <div class="col-md-2 col-sm-2">
+                <a href="#/shareproduct/{{shareproduct.id}}/{{'createdividend'}}" class="btn btn-primary pull-right" has-permission='CREATE_SHAREDIVIDEND'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.initiatedividend' | translate}}</a>
+            </div>
+        </div>
+        <hr>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.dividendperiodstartdate' | translate}}</th>
+                <th>{{'label.heading.dividendperiodenddate' | translate}}</th>
+                <th>{{'label.heading.dividendamount' | translate}}</th>
+                <th>{{'label.heading.status' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="dividend in dividendTransactions.currentPageItems | orderBy:'name':reverse | filter:filterText">
+                <td class="pointer" data-ng-click="routeTo(dividend.id, dividend.status.value)">{{dividend.productData.name}}</td>
+                <td class="pointer" data-ng-click="routeTo(dividend.id, dividend.status.value)">{{dividend.dividendPeriodStartDate | DateFormat}}</td>
+                <td class="pointer" data-ng-click="routeTo(dividend.id, dividend.status.value)">{{dividend.dividendPeriodEndDate | DateFormat}}</td>
+                <td class="pointer" data-ng-click="routeTo(dividend.id, dividend.status.value)">{{dividend.amount | number}}</td>
+                <td class="pointer" data-ng-click="routeTo(dividend.id, dividend.status.value)">{{dividend.status.value}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <ul class="pager">
+            <li class="previous"><a id="prev" ng-click="entries.previous()" href=""
+                                    ng-disabled="!entries.hasPrevious()">&larr; {{'label.button.previous' |
+                translate}}</a></li>
+            <li class="next"><a id="next" ng-click="entries.next()" href="" ng-disabled="!entries.hasNext()">{{'label.button.next'
+                | translate}} </a></li>
+        </ul>
+    </div>
+</div>

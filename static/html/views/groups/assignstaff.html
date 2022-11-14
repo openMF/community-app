@@ -1,0 +1,27 @@
+<div class="content-container" data-ng-controller="AssignStaffController">
+	<api-validate></api-validate>
+	<div class="card">
+		<div class="content">
+			<form class="form-horizontal">
+				<legend>{{'label.heading.assignstaff' | translate}}</legend>
+				<div class="form-group">
+					<label class="control-label col-sm-2">{{'label.input.staff' | translate}}<span
+						class="required">*</span></label>
+						<div class="col-sm-3">
+							<select chosen="staffs" id="staffId" ng-model="formData.staffId"  class="form-control"
+							ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-3 col-md-offset-2">
+						<a id="cancel" href="#/viewgroup/{{group.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+						<button id="save" type="button" class="btn btn-primary" data-ng-click="assignStaff()"  has-permission='ASSIGNSTAFF_GROUP'>{{'label.button.save'
+							| translate}}
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,63 @@
+<div class="content-container" ng-controller="ViewSchedulerJobHistoryController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li><a href="#/jobs">{{'label.anchor.manageschedulerjobs' | translate}}</a></li>
+        <li class="active">{{'label.anchor.schedularjobhistory' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar"></div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <input ng-autofocus="true" ng-model="filterText" type="text" class="form-control" placeholder="{{'label.input.filterbyversion' | translate}}">
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+            <hr>
+            <table class="table">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.version' | translate}}</th>
+                    <th>{{'label.heading.runstarttime' | translate}}</th>
+                    <th>{{'label.heading.status' | translate}}</th>
+                    <th>{{'label.heading.runtype' | translate}}</th>
+                    <th>{{'label.heading.errorlog' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="history in jobhistory.currentPageItems  | filter:filterText">
+                    <td>{{history.version}}</td>
+                    <td>{{history.jobRunStartTime}}</td>
+                    <td>{{history.status}}</td>
+                    <td>{{history.triggerType}}</td>
+                    <td><button data-ng-show="history.jobRunErrorLog" class="btn btn-warning" ng-click="errorLog(history)"><i class="fa fa-exclamation"></i></button></td>
+                </tr>
+                </tbody>
+            </table>
+            <ul class="pager">
+                <li class="previous">
+                    <a id="prev" ng-click="jobhistory.previous()" href=""
+                    ng-disabled="!jobhistory.hasPrevious()">&larr;{{'label.button.previous' |
+                    translate}}</a>
+                </li>
+                <li class="next">
+                    <a id="next" ng-click="jobhistory.next()" href="" ng-disabled="!jobhistory.hasNext()">{{'label.button.next' | translate}} &rarr;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <script type="text/ng-template" id="errorlog.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.errorlog' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <pre class="pre-wrap">{{error}}</pre>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" ng-click="cancel()">{{'label.button.close' | translate}}</button>
+        </div>
+    </script>
+    
+</div>

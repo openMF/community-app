@@ -1,0 +1,85 @@
+<div class="content-container" ng-controller="InterestRateChartController">
+    
+        <ul class="breadcrumb">
+            <li><a href="#/products">{{'label.anchor.products' | translate}}</a> </li>
+            <li><a href="{{'#/' + productsLink }}">{{'label.anchor.' + productsLink | translate}}</a></li>
+            <li><a href="#/{{viewProductLink}}/{{productId}}">{{productName}}</a> </li>
+            <li class="active">{{'label.anchor.interestratecharts' | translate}}</li>
+        </ul>
+    <div class="card well">
+        <div class="pull-right">
+            <a href="#/createinterestratechart/{{productId}}/{{productName}}/{{productType}}" class="btn btn-primary"><i
+                    class="fa fa-plus "></i>{{'label.button.createinterestratechart'
+                | translate}}</a>
+        </div>
+    
+
+    <div class="row-fluid">
+        <legend>{{'label.heading.interestratecharts' | translate}}</legend>
+
+        <div ng-repeat="chart in charts | orderBy:'fromDate':!reverse">
+            <span>{{'label.heading.interestratechart.valid.from' | translate}} : {{chart.fromDate | DateFormat}}</span>
+            &nbsp;&nbsp;<span>{{'label.heading.interestratechart.valid.to' | translate}} : {{chart.endDate | DateFormat}}
+    </span>
+
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a href="#/editinterestratecharts/{{chart.id}}/{{productId}}/{{productName}}/{{productType}}"
+                       class="btn btn-primary"><i class="fa fa-edit "></i>{{'label.button.edit' |
+                        translate}}</a>
+                </div>
+            </div>
+            <table width="98%" class="table table-bordered">
+                <tr class="bottomborder graybg">
+                    <td ng-show="chart.isPrimaryGroupingByAmount">{{'label.heading.interestratedetails.amount.range' | translate}}</td>
+                    <td>{{'label.heading.interestratedetails.period.from.to' | translate}}</td>
+                    <td ng-hide="chart.isPrimaryGroupingByAmount">{{'label.heading.interestratedetails.amount.range' | translate}}</td>
+                    <td>{{'label.heading.interestratedetails.interest' | translate}}</td>
+                    <td>{{'label.heading.interestratedetails.description' | translate}}</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr ng-repeat="chartSlab in chart.chartSlabs">
+                    <td ng-show="chart.isPrimaryGroupingByAmount && chartSlab.amountRangeFrom != undefined">{{chartSlab.amountRangeFrom}} - {{chartSlab.amountRangeTo}}</td>
+                    <td ng-show="chartSlab.fromPeriod != undefined">{{chartSlab.fromPeriod}} - {{chartSlab.toPeriod}} {{chartSlab.periodType.value}}</td>
+                    <td ng-show="chartSlab.fromPeriod == undefined">&nbsp;</td>
+                    <td ng-show="!chart.isPrimaryGroupingByAmount && chartSlab.amountRangeFrom != undefined">{{chartSlab.amountRangeFrom}} - {{chartSlab.amountRangeTo}}</td>
+                    <td ng-show="!chart.isPrimaryGroupingByAmount && chartSlab.amountRangeFrom == undefined">&nbsp;</td>
+                    <td>{{chartSlab.annualInterestRate}}</td>
+                    <td>{{chartSlab.description}}</td>
+                    <td >
+                        <a ng-click="incentives($index,$parent.$index)"><i class=""></i>{{'label.incentive.row'
+                            | translate}}</a>
+                    </td>
+                </tr>
+            </table>
+            <hr/>
+
+        </div>
+        <script type="text/ng-template" id="incentive.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.incentives' | translate}}</h3>
+                <h3 class="bolder">{{'label.heading.customerattributes' | translate}}</h3>
+                <table class="table table-bordered width100">
+                    <tr class="graybg">
+                        <td  class="width20">{{'label.heading.interestratedetails.incentive.attributename' | translate}}</td>
+                        <td class="width20">{{'label.heading.interestratedetails.incentive.conditiontype' | translate}}</td>
+                        <td class="width20">{{'label.heading.interestratedetails.incentive.attributevalue' | translate}}</td>
+                        <td class="width20">{{'label.heading.interestratedetails.incentive.incentivetype' | translate}}</td>
+                        <td class="width20">{{'label.heading.interestratedetails.incentive.amount' | translate}}</td>
+                    </tr>
+                    <tr ng-repeat="incentiveData in chartSlab.incentives">
+                        <td>{{incentiveData.attributeName.code | translate}}</td>
+                        <td>{{incentiveData.conditionType.code | translate}} </td>
+                        <td>{{incentiveData.attributeValueDesc}} </td>
+                        <td>{{incentiveData.incentiveType.code | translate}} </td>
+                        <td>{{incentiveData.amount}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.close' | translate}}</button>
+            </div>
+        </script>
+    </div>
+    </div>
+</div>

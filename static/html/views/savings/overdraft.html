@@ -1,0 +1,77 @@
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li class="active">{{ 'label.anchor.overdraftSavings' | translate }}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <form name="savingccountoverdraftform" novalidate="" class="form-horizontal" ng-controller="OverdraftSavingsController" rc-submit="submit()">
+                <api-validate></api-validate>
+                <fieldset>
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <input type="checkbox" ng-model="formData.allowOverdraft"> &nbsp;
+                            <span class="control-label">{{ 'label.input.allowoverdraft' | translate }}&nbsp;</span>
+                        </div>
+                        <div class="col-sm-2 col-sm-offset-2" ng-show="formData.allowOverdraft">
+                            <label class="control-label">{{ 'label.input.overdraftlimit' | translate }}<span
+                                    class="required">*</span>
+                            </label>
+                        </div>
+                        <div class="col-sm-2" ng-show="formData.allowOverdraft">
+                            <input id="overdraftLimit" type="text" class="form-control" name="overdraftLimit" ng-model="formData.overdraftLimit" number-format>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="formData.allowOverdraft">
+                        <div class="col-sm-2">
+                            <label class="control-label">{{ 'label.input.nominalannualinterestrateoverdraft' | translate }}<span
+                                    class="required">*</span>
+                            </label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="nominalAnnualInterestRateOverdraft" class="form-control" name="nominalAnnualInterestRateOverdraft" type="text" ng-model="formData.nominalAnnualInterestRateOverdraft">
+                        </div>
+
+                        <div class="col-sm-2 col-sm-offset-2">
+                            <label class="control-label">{{ 'label.input.minoverdraftforinterestcalculation' | translate }}<span
+                                    class="required">*</span>
+                            </label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="minOverdraftForInterestCalculation" type="text" class="form-control" name = "minOverdraftForInterestCalculation" ng-model="formData.minOverdraftForInterestCalculation" number-format>
+                        </div>
+
+                    </div>
+                    <div class="form-group" ng-show="formData.allowOverdraft">
+                        <label class="control-label col-sm-2">{{ 'label.input.startdate' | translate }}
+                            <i class="fa fa-question-circle "
+                               uib-tooltip="{{'label.tooltip.overdraft.startdate' | translate}}"
+                               tooltip-append-to-body="true"></i>
+                            <span class="required">*</span>
+                        </label>
+
+                        <div class="col-sm-2">
+                            <input id="startDate" sort type="text" class="form-control"
+                                   datepicker-pop="dd MMMM yyyy" ng-model="formData.overdraftStartedOnDate" is-open="opened"/>
+                        </div>
+                        <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.closedate' | translate }}
+                            <i class="fa fa-question-circle "
+                               uib-tooltip="{{'label.tooltip.overdraft.closedate' | translate}}"
+                               tooltip-append-to-body="true"></i>
+                            <span class="required">*</span>
+                        </label>
+
+                        <div class="col-sm-2">
+                            <input id="closeDate" sort type="text" class="form-control"
+                                   datepicker-pop="dd MMMM yyyy" ng-model="formData.overdraftClosedOnDate" is-open="opened1"/>
+                        </div>
+                    </div>
+                    <div class="col-md-offset-3" >
+                        <a id="cancel" href="#/viewsavingaccount/{{cancelRoute}}" class="btn btn-default">{{'label.button.cancel' |
+                            translate}}</a>
+                        <button id="save" type="submit" class="btn btn-primary" has-permission='APPLYOVERDRAFT_SAVINGSACCOUNT'>{{'label.button.save' | translate}}</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="content-container" ng-controller="ViewProvisioningJournalEntriesController" xmlns="http://www.w3.org/1999/html">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li><a href="#/viewprovisioningentries">{{'label.anchor.viewprovisioningeentries' | translate}}</a></li>
+        <li class="active">{{'label.anchor.journalentries' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4></h4>
+            </div>
+            <br/>
+            <div  ng-show="displayResults">
+                <div class="table-responsive">
+                    <table class="table ">
+                    <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.entryid' | translate}}</th>
+                        <th>{{'label.heading.office' | translate}}</th>
+                        <th>{{'label.heading.transactiondate' | translate}}</th>
+                        <th>{{'label.heading.transactionid' | translate}}</th>
+                        <th>{{'label.heading.type' | translate}}</th>
+                        <th>{{'label.heading.createdby' | translate}}</th>
+                        <th>{{'label.heading.account' | translate}}</th>
+                        <th>{{'label.heading.debit' | translate}}</th>
+                        <th>{{'label.heading.credit' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="pointer-main" ng-repeat="transaction in transactions.currentPageItems">
+                        <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">{{transaction.id}}</td>
+                        <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">{{transaction.officeName}}</td>
+                        <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">{{transaction.transactionDate |
+                            DateFormat}}
+                        </td>
+                        <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">{{transaction.transactionId}}
+                        </td>
+                        <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">
+                            {{transaction.glAccountType.value}}
+                        </td>
+                        <td class="pointer" data-ng-click="routeTo(transaction.transactionId
+                        )">
+                            {{transaction.createdByUserName}}
+                        </td>
+                        <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">
+                            {{transaction.glAccountName}}({{transaction.glAccountCode}})
+                        </td>
+                        <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">
+                            <div ng-show="transaction.entryType.value == 'DEBIT'">
+                                {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount | number}}
+                            </div>
+                        </td>
+                        <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">
+                            <div ng-show="transaction.entryType.value == 'CREDIT'">
+                                {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount | number}}
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                <ul class="pager">
+                    <li class="previous"><a id="prev" ng-click="transactions.previous()" href="" ng-disabled="!transactions.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
+                    <li class="next"><a id="next" ng-click="transactions.next()" href="" ng-disabled="!transactions.hasNext()">{{'label.button.next' | translate}} </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="content-container" ng-controller="LockInPeriodController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li class="active">{{'label.anchor.lockinperiod' | translate}}</li>
+    </ul>
+    
+    <div class="card well">
+        <div class="toolbar">
+        <h4>Lock In Period</h4>
+        </div>
+        <br>
+        <div class=" paddedbottom20">
+                <a href="#/createlockinperiod" class="btn btn-primary " has-permission='CREATE_SAVINGSACCOUNTLOCKINPERIOD'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createlockinperiod' | translate}}</a>
+        </div>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th class = "col-sm-1">{{'label.heading.id' | translate}}</th>
+                <th class = "col-sm-1" >{{'label.heading.lockInPeriodFrequency' | translate}}</th>
+                <th class = "col-sm-1">{{'label.heading.lockInPeriodFrequencyType' | translate}}</th>
+                <th class = "col-sm-1">{{'label.heading.savingsproductname ' | translate}}</th>
+                <th class = "col-sm-1">{{'label.heading.rate' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" data-ng-repeat="lockInPeriod in lockInPeriods">
+                <td class="pointer" data-ng-click="routeTo(lockInPeriod.id)">{{lockInPeriod.id}}</td>
+                <td class="pointer" data-ng-click="routeTo(lockInPeriod.id)">{{lockInPeriod.lockinPeriodFrequency|number }}</td>
+                <td class="pointer" data-ng-click="routeTo(lockInPeriod.id)">{{lockInPeriod.lockinPeriodFrequencyType.value}}</td>
+                <td class="pointer" data-ng-click="routeTo(lockInPeriod.id)">{{lockInPeriod.productName}}</td>
+                <td class="pointer" data-ng-click="routeTo(lockInPeriod.id)">{{lockInPeriod.rate|number}}</td>
+            </tr>
+            </tbody>
+        </table>
+</div>
+</div>

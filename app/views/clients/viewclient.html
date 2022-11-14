@@ -67,6 +67,20 @@
 			<button class="btn btn-primary" ng-click="upload(file)">{{'label.button.upload' | translate}}</button>
 		</div>
 	</script>
+	<script type="text/ng-template" id="uploadbusinessownerid.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.heading.uploadvalidid' | translate}}</h3>
+		</div>
+		<div class="modal-body">
+			<api-validate></api-validate>
+			<br>
+			<input type="file" ng-model="ownerIdfile" ngf-select="onOwnerIdFileSelect($files)">
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+			<button class="btn btn-primary" ng-click="uploadOwnerIdFile()">{{'label.button.upload' | translate}}</button>
+		</div>
+	</script>
 	<script type="text/ng-template" id="capturepic.html">
 		<div class="modal-header silver">
 			<h3 class="bolder">{{'label.heading.captureclientimage' | translate}}</h3>
@@ -109,6 +123,17 @@
 			<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
 		</div>
 	</script>
+	<script type="text/ng-template" id="deleteOwnerPic.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.heading.deleteownerimage' | translate}}</h3>
+		</div>
+		<div class="modal-body">
+			<api-validate></api-validate>
+			<br>
+			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+			<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+		</div>
+	</script>
 	<script type="text/ng-template" id="clientunassignstaff.html">
 		<div class="modal-header silver">
 			<h3 class="bolder">{{'label.heading.unassignstaff' | translate}}</h3>
@@ -123,6 +148,20 @@
 	<script type="text/ng-template" id="uploadsig.html">
 		<div class="modal-header silver">
 			<h3 class="bolder">{{'label.heading.selectclientsignature' | translate}}</h3>
+		</div>
+		<div class="modal-body">
+			<api-validate></api-validate>
+			<br>
+			<input type="file" ngf-select ng-model="file">
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+			<button class="btn btn-primary" ng-click="upload(file)">{{'label.button.upload' | translate}}</button>
+		</div>
+	</script>
+	<script type="text/ng-template" id="uploadOwnerSelfi.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.heading.selectOwnerSelfi' | translate}}</h3>
 		</div>
 		<div class="modal-body">
 			<api-validate></api-validate>
@@ -953,6 +992,15 @@
 									{{address.stateName}}
 								</td>
 							</tr>
+							<tr ng-show="view.lgaId">
+								<th >
+									{{ 'label.input.lga' | translate }}
+								</th>
+								<td>
+									{{address.lga.name}}
+								</td>
+
+							</tr>
 							<tr ng-show="view.countryId">
 								<th >
 									{{ 'label.input.country' | translate }}
@@ -1004,9 +1052,9 @@
 
 				<!--family tab-->
 
-				<uib-tab ng-show="families" heading="{{'label.heading.familymembers' | translate}}" >
+				<uib-tab ng-show="families" heading="{{'label.heading.nextOfKin' | translate}}" >
 					<div ng-show="families">
-						<button class="btn btn-primary pull-right" ng-click="routeToaddFamilyMember()"><i class="icon-plus icon-white"></i>{{'label.button.addfamilymember' | translate}}</button>
+						<button class="btn btn-primary pull-right" ng-click="routeToaddFamilyMember()"><i class="icon-plus icon-white"></i>{{'label.button.addNextOfKin' | translate}}</button>
 						<br>
 						<table class="table" ng-repeat="family in families"  class="table table-condensed">
 							<thead>
@@ -1050,7 +1098,14 @@
                                     {{family.lastName}}
                                 </td>
                             </tr>
-
+							<tr>
+								<th>
+									{{'label.input.email' | translate }}
+								</th>
+								<td>
+									{{family.email}}
+								</td>
+							</tr>
 
 
                             <tr >
@@ -1133,6 +1188,70 @@
 									{{family.dateOfBirth | DateFormat }}
 								</td>
 							</tr>
+							<tr >
+								<th> {{ 'label.input.addressType' | translate }}</th>
+								<td>
+									{{family.addressType}}
+								</td>
+
+							</tr>
+
+							<tr >
+								<th >
+									{{ 'label.input.address1' | translate }}
+								</th>
+								<td>
+									{{family.address1}}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{ 'label.input.address2' | translate }}
+								</th>
+								<td>
+									{{family.address2}}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{ 'label.input.address3' | translate }}
+								</th>
+								<td>
+									{{family.address3}}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{ 'label.input.postalCode' | translate }}
+								</th>
+								<td>
+									{{family.postalCode}}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{ 'label.input.city' | translate }}
+								</th>
+								<td>
+									{{family.cityName}}
+								</td>
+							</tr>
+							<tr>
+								<th>
+									{{ 'label.input.state_province' | translate }}
+								</th>
+								<td>
+									{{family.stateName}}
+								</td>
+							</tr>
+							<tr>
+								<th >
+									{{ 'label.input.country' | translate }}
+								</th>
+								<td>
+									{{family.countryName}}
+								</td>
+							</tr>
 
 							</tbody>
 
@@ -1143,6 +1262,404 @@
 					</div>
 				</uib-tab>
 
+				<uib-tab ng-show="businessOwnerEnabled && client.legalForm.id == 2" heading="{{'label.heading.businessOwners' | translate}}">
+					<!--<fieldset>-->
+					<!-- <div ng-controller="AddressController">-->
+					<div ng-show="businessOwnerEnabled">
+						<button class="btn btn-primary pull-right" ng-click="routeToAddBusinessOwner()"><i class="icon-plus icon-white"></i>{{'label.button.addBusinessOwners' | translate}}</button>
+						<br>
+
+						<table class="table" ng-repeat="owner in owners"  class="table table-condensed">
+							<thead>
+							<tr class="graybg">
+								<th class="graybg"> {{owner.status}}</th>
+								<td>
+									<button ng-click="ChangeBusinessOwnerStatus(owner.clientId,owner.isActive,owner.id)" data-ng-hide="owner.isActive" class="btn btn-primary">
+										{{"label.button.enable" | translate}}
+									</button>
+									<button ng-click="ChangeBusinessOwnerStatus(owner.clientId,owner.isActive,owner.id)"  data-ng-show="owner.isActive" class="btn btn-primary">
+										{{"label.button.disable" | translate}}
+									</button>
+									<button class="btn btn-primary pull-right" ng-click="editBusinessOwners(owner.id)"><i class="icon-plus icon-white"></i>{{'label.button.edit' | translate}}</button>
+								</td>
+
+							</tr>
+							</thead>
+							<tbody>
+							<tr >
+								<th >
+									{{'label.input.firstname' | translate }}
+								</th>
+								<td>
+									{{owner.firstName}}
+								</td>
+							</tr>
+
+
+							<tr >
+								<th >
+									{{'label.input.lastname' | translate }}
+								</th>
+								<td>
+									{{owner.lastName}}
+								</td>
+							</tr>
+
+
+							<tr >
+								<th >
+									{{'label.input.title' | translate }}
+								</th>
+								<td>
+									{{owner.titleName}}
+								</td>
+							</tr>
+
+							<tr >
+								<th >
+									{{'label.input.ownership' | translate }}
+								</th>
+								<td>
+									{{owner.ownership}}
+								</td>
+							</tr>
+
+
+							<tr >
+								<th >
+									{{'label.heading.type' | translate }}
+								</th>
+								<td>
+									{{owner.typeName}}
+								</td>
+							</tr>
+
+							<tr >
+								<th >
+									{{'label.input.businessOwnerNumber' | translate }}
+								</th>
+								<td>
+									{{owner.businessOwnerNumber}}
+								</td>
+							</tr>
+
+							<tr >
+								<th >
+									{{'label.input.mobileNumber' | translate }}
+								</th>
+								<td>
+									{{owner.mobileNumber}}
+								</td>
+							</tr>
+
+							<tr>
+								<th>
+									{{'label.input.email' | translate }}
+								</th>
+								<td>
+									{{owner.email}}
+								</td>
+							</tr>
+
+							<tr >
+								<th >
+									{{ 'label.input.street' | translate }}
+								</th>
+								<td>
+									{{owner.streetNumberAndName}}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{ 'label.input.address1' | translate }}
+								</th>
+								<td>
+									{{owner.address1}}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{ 'label.input.address2' | translate }}
+								</th>
+								<td>
+									{{owner.address2}}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{ 'label.input.address3' | translate }}
+								</th>
+								<td>
+									{{owner.address3}}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{ 'label.input.landmark' | translate }}
+								</th>
+								<td>
+									{{owner.landmark}}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{ 'label.input.postalCode' | translate }}
+								</th>
+								<td>
+									{{owner.postalCode}}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{ 'label.input.city' | translate }}
+								</th>
+								<td>
+									{{owner.cityName}}
+								</td>
+							</tr>
+							<tr>
+								<th>
+									{{ 'label.input.state_province' | translate }}
+								</th>
+								<td>
+									{{owner.stateName}}
+								</td>
+							</tr>
+							<tr>
+								<th >
+									{{ 'label.input.country' | translate }}
+								</th>
+								<td>
+									{{owner.countryName}}
+								</td>
+							</tr>
+							<tr>
+								<th >
+									{{ 'label.input.bvn' | translate }}
+								</th>
+								<td>
+									{{owner.bvn}}
+								</td>
+							</tr>
+							<tr>
+								<th >
+									{{ 'label.input.nin' | translate }}
+								</th>
+								<td>
+									{{owner.nin}}
+								</td>
+							</tr>
+							<tr>
+								<th>
+									{{'label.input.is_active' | translate}}
+								</th>
+								<td>
+									{{owner.isActive}}
+								</td>
+							</tr>
+
+							<tr>
+								<th>
+									{{'label.input.businessOwnerId' | translate}}
+								</th>
+								<td>
+									<img ng-show="owner.imagePresent"  ng-src="{{owner.image}}" alt="Avatar" data-ng-click="showOwnerPicture(owner)" title="{{'label.zoom' | translate}}" >
+									<button type="button" class="btn btn-primary" data-ng-click="captureOwnerId(owner.id)"
+											uib-tooltip="{{'label.button.uploadOwnerId' | translate}}">
+										<i class="fa fa-upload"></i>
+									</button>
+									<button type="button" class="btn btn-primary" ng-show="owner.imagePresent" data-ng-click="deleteOwnerPic(owner)"
+											uib-tooltip="{{'label.button.deletepic' | translate}}">
+										<i class="fa fa-trash-o"></i>
+									</button>
+								</td>
+							</tr>
+
+							<tr>
+								<th>
+									{{'label.input.uploadProofOfAddress' | translate}}
+								</th>
+								<td>
+										<a href="#/addbusinessownerdocument/{{owner.id}}/{{client.id}}" class="btn btn-primary" has-permission='CREATE_DOCUMENT' uib-tooltip="{{'label.button.uploadProofOfAddress' | translate}}">
+											<i class="fa fa-upload"></i></a>
+								</td>
+							</tr>
+							<tr ng-repeat="clientdocument in owner.businessOwnerDocs">
+								<th>
+									{{clientdocument.name}}
+								</th>
+								<td>{{clientdocument.fileName}}
+
+									<a target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="fa fa-cloud-download"></i></a>&nbsp;
+									<a ng-show="clientdocument.fileIsImage" ng-click="previewDocument(clientdocument.docUrl,clientdocument.fileName)"><i class="fa fa-eye"></i></a>
+									<a ng-click="deleteDocument(clientdocument.id,$index)"><i class="fa fa-times"></i></a>
+								</td>
+							</tr>
+
+							</tbody>
+						</table>
+
+					</div>
+					<!--</fieldset>-->
+
+				</uib-tab>
+
+				<uib-tab ng-show="employmentInfoEnabled && client.legalForm.id == 1" heading="{{'label.heading.employmentInfo' | translate}}" >
+					<!--<fieldset>-->
+					<!-- <div ng-controller="AddressController">-->
+					<div ng-show="employmentInfoEnabled">
+						<button class="btn btn-primary pull-right" ng-click="routeToAddEmploymentInfo()"><i class="icon-plus icon-white"></i>{{'label.button.addEmploymentInfo' | translate}}</button>
+						<br>
+
+						<table class="table" ng-repeat="info in employmentInfo"  class="table table-condensed">
+							<thead>
+							<tr class="graybg">
+								<th class="graybg"> {{info.status}}</th>
+								<td>
+									<button ng-click="ChangeEmploymentInfoStatus(info.clientId,info.isActive,info.id)" data-ng-hide="info.isActive" class="btn btn-primary">
+										{{"label.button.enable" | translate}}
+									</button>
+									<button ng-click="ChangeEmploymentInfoStatus(info.clientId,info.isActive,info.id)"  data-ng-show="info.isActive" class="btn btn-primary">
+										{{"label.button.disable" | translate}}
+									</button>
+									<button class="btn btn-primary pull-right" ng-click="editEmploymentInfo(info.id)"><i class="icon-plus icon-white"></i>{{'label.button.edit' | translate}}</button>
+								</td>
+
+							</tr>
+							</thead>
+							<tbody>
+							<tr >
+								<th >
+									{{'label.input.employmentStatus' | translate }}
+								</th>
+								<td>
+									{{info.employmentStatus.name}}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{'label.input.employerName' | translate }}
+								</th>
+								<td>
+									{{info.employerName}}
+								</td>
+							</tr>
+
+							<tr >
+								<th >
+									{{'label.input.businessName' | translate }}
+								</th>
+								<td>
+									{{info.businessName}}
+								</td>
+							</tr>
+
+
+							<tr >
+								<th >
+									{{'label.input.nameOfSchool' | translate }}
+								</th>
+								<td>
+									{{info.nameOfSchool}}
+								</td>
+							</tr>
+
+
+
+							<tr >
+								<th >
+									{{'label.input.monthlyIncome' | translate }}
+								</th>
+								<td>
+									{{info.monthlyIncome}}
+								</td>
+							</tr>
+
+							<tr >
+								<th >
+									{{ 'label.input.city' | translate }}
+								</th>
+								<td>
+									{{info.city.name}}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{ 'label.input.street' | translate }}
+								</th>
+								<td>
+									{{info.streetNumberAndName}}
+								</td>
+							</tr>
+							<tr>
+								<th>
+									{{ 'label.input.state_province' | translate }}
+								</th>
+								<td>
+									{{info.state.name}}
+								</td>
+							</tr>
+							<tr>
+								<th >
+									{{ 'label.input.country' | translate }}
+								</th>
+								<td>
+									{{info.country.name}}
+								</td>
+							</tr>
+
+							<tr>
+								<th >
+									{{ 'label.input.lga' | translate }}
+								</th>
+								<td>
+									{{info.lga.name}}
+								</td>
+
+							</tr>
+							<tr>
+								<th >
+									{{ 'label.input.accountnumber' | translate }}
+								</th>
+								<td>
+									{{info.accountNumber}}
+								</td>
+
+							</tr>
+							<tr>
+								<th >
+									{{ 'label.input.bankname' | translate }}
+								</th>
+								<td>
+									{{info.bank.name}}
+								</td>
+
+							</tr>
+							<tr>
+								<th >
+									{{ 'label.input.industry' | translate }}
+								</th>
+								<td>
+									{{info.industry.name}}
+								</td>
+
+							</tr>
+
+							<tr>
+								<th>
+									{{'label.input.is_active' | translate}}
+								</th>
+								<td>
+									{{info.isActive}}
+								</td>
+							</tr>
+							</tbody>
+						</table>
+
+					</div>
+					<!--</fieldset>-->
+
+				</uib-tab>
 
 				<!--end of family tab-->
 

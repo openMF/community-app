@@ -1,0 +1,170 @@
+<div class="content-container" ng-controller="ViewShareProductController">
+ <div id="viewlptop"></div>
+        <ul class="breadcrumb">
+            <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+            <li><a href="#/shareproducts">{{'label.anchor.shareproducts' | translate}}</a></li>
+            <li class="active">{{shareproduct.name}}</li>
+        </ul>
+
+<div class="card">
+    <div class="content">
+<legend>{{shareproduct.name}}
+    <div class="pull-right" style="position: relative; bottom: 10px; margin-bottom: 30px;">
+        <div class="btn-group">
+            <a href="#/editshareproduct/{{shareproduct.id}}" class="btn btn-primary" has-permission='UPDATE_SHAREPRODUCT'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
+        </div>
+        <div class="btn-group">
+            <a href="#/dividends/{{shareproduct.id}}" class="btn btn-primary" has-permission='UPDATE_SHAREPRODUCT'><i class="fa fa-archive "></i>&nbsp;&nbsp;{{'label.button.dividends' | translate}}</a>
+        </div>
+    </div>
+</legend>
+<table class="table" width="100%">
+<tr>
+    <td colspan="4">
+        <strong>{{'label.heading.details' | translate}}</strong>
+    </td>
+</tr>
+<tr>
+    <td>{{'label.heading.description' | translate}}</td>
+    <td colspan="3">{{shareproduct.description}}</td>
+</tr>
+<tr>
+    <td>{{'label.heading.shortname' | translate}} :</td>
+    <td colspan="3">{{shareproduct.shortName}}</td>
+</tr>
+<tr>
+    <td colspan="4"><br/></td>
+</tr>
+<tr>
+    <td colspan="4"><strong>{{'label.heading.items' | translate}}</strong></td>
+</tr>
+<tr>
+    <td>{{'label.heading.currency' | translate}}</td>
+    <td colspan="3">{{shareproduct.currency.name}}</td>
+</tr>
+<tr>
+    <td>{{'label.heading.decimalplaces' | translate}}</td>
+    <td colspan="3">{{shareproduct.currency.decimalPlaces}}</td>
+</tr>
+<tr>
+    <td>{{'label.heading.currencyinmultiplesof' | translate}}</td>
+    <td colspan="3">{{shareproduct.currency.inMultiplesOf}}</td>
+</tr>
+<tr>
+    <td>{{'label.heading.totalshares' | translate}}</td>
+    <td colspan="3">{{shareproduct.totalShares|number}}</td>
+</tr>
+<tr>
+    <td>{{'label.heading.totalsharestobeissued' | translate}}</td>
+    <td colspan="3">{{shareproduct.totalSharesIssued|number}}</td>
+</tr>
+<tr>
+    <td>{{'label.heading.sharenominalprice' | translate}}</td>
+    <td colspan="3">{{shareproduct.unitPrice|number}}</td>
+</tr>
+<tr>
+    <td>{{'label.heading.sharecapitalvalue' | translate}}</td>
+    <td colspan="3">{{shareproduct.shareCapital|number}}</td>
+</tr>
+<tr>
+    <td colspan="4"><br/></td>
+</tr>
+<tr>
+    <td colspan="4"><strong>{{'label.heading.settings' | translate}}</strong></td>
+</tr>
+
+<tr>
+    <td>{{'label.heading.shareperclient' | translate}}:</td>
+    <td colspan="3">{{shareproduct.nominalShares|number}}&nbsp;&nbsp;&nbsp;( Min:{{shareproduct.minimumShares|number}}&nbsp;, Max
+        :{{shareproduct.maximumShares|number}} )
+    </td>
+</tr>
+
+<tr>
+    <td>{{'label.heading.minimumactiveperiod' | translate}}</td>
+    <td colspan="3">{{shareproduct.minimumActivePeriod}} {{shareproduct.minimumActivePeriodForDividendsTypeEnum.value}}</td>
+</tr>
+<tr>
+    <td>{{'label.heading.lockinPeriodFrequency' | translate}}</td>
+    <td colspan="3">{{shareproduct.lockinPeriod}} {{shareproduct.lockPeriodTypeEnum.value}}</td>
+</tr>
+<tr>
+    <td>{{'label.heading.allowdividendsforinactiveclients' | translate}}</td>
+    <td colspan="3">{{shareproduct.allowDividendCalculationForInactiveClients}}</td>
+</tr>
+<tr>
+    <td colspan="4"><br/></td>
+</tr>
+<tr>
+    <td colspan="4"><strong>{{'label.heading.marketprice' | translate}}</strong></td>
+</tr>
+<tr class="bottomborder graybg">
+    <td>{{'label.heading.fromdate' | translate}}</td>
+    <td>{{'label.heading.sharenominalprice' | translate}}</td>
+</tr>
+<tr ng-repeat="marketPriceData in shareproduct.marketPrice">
+    <td>{{marketPriceData.fromDate|DateFormat}}</td>
+    <td>{{marketPriceData.shareValue|FormatNumber}}</td>
+</tr>
+
+<tr>
+    <td colspan="4"><br/></td>
+</tr>
+<tr>
+    <td colspan="4"><strong>{{'label.heading.charges' | translate}}</strong></td>
+</tr>
+<tr class="bottomborder graybg">
+    <td>{{'label.heading.name' | translate}}</td>
+    <td>{{'label.heading.type' | translate}}</td>
+    <td>{{'label.heading.amount' | translate}}</td>
+    <td>{{'label.heading.collectedon' | translate}}</td>
+</tr>
+<tr ng-repeat="charge in shareproduct.charges">
+    <td>{{charge.name}}</td>
+    <td>{{charge.chargeCalculationType.value}}</td>
+    <td>{{charge.amount|number}}</td>
+    <td>{{charge.chargeTimeType.value}}</td>
+</tr>
+
+<tr>
+    <td><strong>{{'label.heading.accounting' | translate}}</strong></td>
+</tr>
+    <tr>
+        <td colspan="4">
+            <table width="100%" ng-show="hasAccounting">
+                <tr>
+                    <td>{{'label.heading.sharereference' | translate}}({{'label.heading.assets' | translate}})
+                    </td>
+                    <td colspan="3">{{shareproduct.accountingMappings.shareReferenceId.name}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.sharecontrol' | translate}}({{'label.heading.liabilities' |
+                        translate}})
+                    </td>
+                    <td colspan="3">{{shareproduct.accountingMappings.shareSuspenseId.name}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.shareequity' | translate}}({{'label.heading.equity' |
+                        translate}})
+                    </td>
+                    <td colspan="3">{{shareproduct.accountingMappings.shareEquityId.name}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.incomefromfee' | translate}}({{'label.heading.income' | translate}})</td>
+                    <td colspan="3">{{shareproduct.accountingMappings.incomeFromFeeAccountId.name}}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+<tr>
+    <td colspan="3">
+    </td>
+    <td class="pull-right">
+        <a ng-click="scrollto('viewlptop')"><i class="fa fa-upload"></i>{{'label.button.top' | translate}}</a>
+    </td>
+</tr>
+</table>
+</div>
+</div>
+</div>

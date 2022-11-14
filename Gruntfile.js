@@ -350,7 +350,6 @@ module.exports = function(grunt) {
     },
 
     preprocess: {
-
       dist: {
         src: ['dist/**/*.js','dist/**/*.html','dist/*.js','dist/*.html'],
         dst: ['dist/'],

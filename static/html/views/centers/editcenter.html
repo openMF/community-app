@@ -1,0 +1,83 @@
+<div class="content-container" ng-controller="EditCenterController">
+    <ul class="breadcrumb">
+        <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
+        <li><a href="#/viewcenter/{{centerId}}">{{'label.anchor.viewcenter' | translate }}</a></li>
+        <li class="active">{{'label.anchor.editcenter' | translate}}</li>
+    </ul>
+    <api-validate></api-validate>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'label.heading.editcenter' | translate}}</h4>
+            </div>
+                <div data-ng-switch on="managecode">
+                    <form name="editcenterform" novalidate="" class="form-horizontal" data-ng-switch-when="2">
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
+                                        class="required">*</span></label>
+
+                                <div class="col-sm-3">
+                                    <input ng-autofocus="true" type="text" id="name" name="name" placeholder="{{edit.name}}"
+                                           ng-model="formData.name" class="form-control" required late-Validate/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <form-validate valattributeform="editcenterform" valattribute="name"/>
+                                </div>
+                            </div>
+                            <div class="form-group info">
+                                <label class="control-label col-sm-2" for="staffId">{{'label.input.staff' | translate}}</label>
+
+                                <div class="col-sm-3">
+                                    <select chosen="staffs" id="staffId" ng-model="formData.staffId"
+                                            data-ng-options="staff.id as staff.displayName for staff in staffs"
+                                            value="{{staff.id}}" class="form-control">
+                                        <option value="">{{'label.selectstaff' | translate}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="externalid">{{'label.input.externalid' | translate}}</label>
+
+                                <div class="col-sm-3">
+                                    <input type="text" id="externalId" ng-model="formData.externalId" class="form-control"/>
+                                </div>
+                            </div>
+                            <div data-ng-hide="edit.status.value=='Pending'" class="form-group">
+                                <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span
+                                        class="required">*</span></label>
+
+                                <div class="col-sm-3">
+                                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+                                           is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="col-md-offset-2 paddedleft120">
+                                <a href="#/viewcenter/{{edit.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                                <button type="button" class="btn btn-primary" data-ng-click="updateGroup()" has-permission='UPDATE_CENTER'>{{'label.button.save' |
+                                    translate}}
+                                </button>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <form ng-switch-when="1" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">{{ 'label.input.enteractivationdate' | translate }}<span
+                                    class="required">*</span></label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="mindate" max="restrictDate"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 col-md-offset-2">
+                                <a id="cancel" href="#/viewgroup/{{edit.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                                <button id="save" type="button" class="btn btn-primary" data-ng-click="activate()" has-permission='ACTIVATE_CENTER'><i
+                                        class="fa fa-check-sign "></i>{{ 'label.button.activate' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>

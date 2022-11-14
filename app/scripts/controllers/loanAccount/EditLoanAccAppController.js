@@ -10,6 +10,7 @@
             scope.restrictDate = new Date();
             scope.date = {};
             scope.rateFlag = false;
+            scope.interestRateChart = {}
 
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.loanaccountinfo = data;
@@ -181,6 +182,9 @@
                 if (scope.loanaccountinfo.linkedAccount) {
                     scope.formData.linkAccountId = scope.loanaccountinfo.linkedAccount.id;
                 }
+                if (scope.loanaccountinfo.groupSavingsAccountId) {
+                   scope.formData.groupSavingsAccountId = scope.loanaccountinfo.groupSavingsAccountId;
+                }
                 if (scope.loanaccountinfo.isInterestRecalculationEnabled && scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate) {
                     scope.date.recalculationRestFrequencyDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate);
                 }
@@ -206,6 +210,9 @@
                 }else{
                     scope.rateFlag=false;
                 }
+                 if(scope.loanaccountinfo.jlgInterestChartRateSummaryData != null && scope.loanaccountinfo.jlgInterestChartRateSummaryData !== undefined){
+                  scope.interestRateChart = scope.loanaccountinfo.jlgInterestChartRateSummaryData;
+                  }
             };
 
             //Rate
@@ -281,6 +288,36 @@
                 }
             };
 
+            scope.computeInterestRateForJlg = function() {
+                   //Reset interest to default
+                  scope.formData.interestRatePerPeriod =  scope.loanaccountinfo.interestRatePerPeriod;
+                  if(scope.formData.loanTermFrequency == 1 && scope.formData.loanTermFrequencyType == 1){
+                   var disbursementDate = dateFilter(scope.formData.expectedDisbursementDate, scope.df);
+                   var nextMeetingDate  = dateFilter(new Date(scope.loanaccountinfo.calendarOptions[0].nextTenRecurringDates[0]),scope.df);
+                   var loanTermFrequency = scope.formData.loanTermFrequency;
+                   var loanTermFrequencyType = scope.formData.loanTermFrequencyType;
+                   var diffInDisbursementAndMeetingDates = scope.diffDate(disbursementDate,nextMeetingDate);
+
+            angular.forEach(scope.loanaccountinfo.jlgInterestChartRateSummaryData, function(value, key) {
+                  if(diffInDisbursementAndMeetingDates == value.dayOfWeek){
+                       scope.formData.interestRatePerPeriod = value.interestRate;
+                   }
+                   })
+                  }
+                 };
+
+            scope.diffDate = function(disbursementDate,nextMeetingDate){
+                     var msPerDay = 8.64e7;
+
+                       var x0 = new Date(disbursementDate);
+                       var x1 = new Date(nextMeetingDate);
+
+                       x0.setHours(12,0,0);
+                       x1.setHours(12,0,0);
+
+                       return Math.round( (x1 - x0) / msPerDay );
+                      };
+
             scope.syncDisbursementWithMeetingchange = function () {
                 if (scope.formData.syncDisbursementWithMeeting) {
                     scope.formData.syncRepaymentsWithMeeting = true;
@@ -334,6 +371,9 @@
 
             uiConfigService.appendConfigToScope(scope);
 
+             scope.$watch("formData.expectedDisbursementDate", function(newValue, oldValue) {
+                        scope.computeInterestRateForJlg();
+                        });
 
             scope.submit = function () {
                 // Make sure charges and collaterals are empty before initializing.

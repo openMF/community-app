@@ -1,0 +1,82 @@
+
+<div class="content-container" ng-controller="ViewCashiersForTellerController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/tellers">{{'label.anchor.tellers' | translate}}</a></li>
+        <li class="active">{{'label.anchor.cashiers' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+        {{'label.heading.cashmgmt.officeName' | translate}} : {{cashiersForTeller.officeName}} | 
+        {{'label.heading.cashmgmt.tellerName' | translate }} : {{cashiersForTeller.tellerName}}
+        <div class="row">
+            <div class="col-sm-6">
+            <input ng-autofocus="true" ng-model="filterText" type="text" class="form-control span marginbottom0px"
+           placeholder="{{'label.input.filterbynameexternalid' | translate}}"></div>
+            <div class="col-sm-6">
+                <a href="#/tellers/{{cashiersForTeller.tellerId}}/createCashierForTeller" class="btn btn-primary pull-right" has-permission='CREATE_CASHIERS_FOR_TELLER'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createcashier'| translate}}</a>
+            </div>
+        </div>
+        </div>
+        <div class="">
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.cashmgmt.tellerCashiers.period' | translate}}</th>
+                <th>{{'label.heading.cashmgmt.tellerCashiers.cashierName' | translate}}</th>
+                <th>{{'label.heading.cashmgmt.tellerCashiers.fullDayOrTime' | translate}}</th>
+                <th colspan="3">{{'label.heading.cashmgmt.tellerCashiers.actions' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="cashier in cashiersForTeller.cashiers | orderBy:'cashier.startDate':reverse | filter:filterText">
+                <td class="pointer" data-ng-click="transactions(cashiersForTeller.tellerId, cashier.id)">
+                    <div ng-if="compare(cashier.startDate,cashier.endDate)">
+                        {{cashier.startDate | DateFormat}}
+                    </div>
+                    <div ng-if="!compare(cashier.startDate,cashier.endDate)">
+                        {{cashier.startDate | DateFormat}} - {{cashier.endDate | DateFormat}}
+                    </div>
+                </td>  
+                <td class="pointer" data-ng-click="transactions(cashiersForTeller.tellerId, cashier.id)">{{cashier.staffName}}</td>
+                <td class="pointer" data-ng-click="transactions(cashiersForTeller.tellerId, cashier.id)">
+                    <div ng-if="cashier.isFullDay == true">
+                        {{'label.cashmgmt.cashier.isFullDay' | translate}}
+                    </div>
+                    <div ng-if="cashier.isFullDay == false">
+                        {{cashier.startTime}} - {{cashier.endTime}}
+                    </div>
+                    
+                </td>
+                <td class="pointer">
+
+                    <button id="transaction" uib-tooltip="{{'label.button.viewtransaction' | translate}}"class="btn btn-info" has-permission='ALLOCATECASHIER_TELLER'
+                            data-ng-click="transactions(cashiersForTeller.tellerId, cashier.id)">
+                        <i class="fa fa-list-ol fa fa-small" data-ng-click=""></i>
+                    </button>
+                    
+                    <button id="allocate" uib-tooltip="{{'label.button.allocatecash' | translate}}" class="btn btn-success" has-permission='ALLOCATECASHIER_TELLER'
+                            data-ng-click="allocate(cashiersForTeller.tellerId, cashier.id)">
+                        <i class="fa fa-level-down fa fa-small"></i>{{'label.button.cashier.allocatefunds' | translate}}
+                    </button>
+                    <button id="settle" uib-tooltip="{{'label.button.settlecash' | translate}}" class="btn btn-warning" has-permission='SETTLECASHIER_TELLER'
+                            data-ng-click="settle(cashiersForTeller.tellerId, cashier.id)">
+                        <i class="fa fa-level-up fa fa-small"></i>{{'label.button.cashier.settlefunds' | translate}}
+                    </button>
+                    <button id="view" uib-tooltip="{{'label.button.view' | translate}}" class="btn btn-info"
+                            ng-click="routeToView(cashiersForTeller.tellerId, cashier.id)">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                    <button id="delete" uib-tooltip="{{'label.button.delete' | translate}}" class="btn btn-danger" has-permission='DELETECASHIER_TELLER'
+                            ng-click="delete(cashiersForTeller.tellerId, cashier.id)">
+                        <i class="fa fa-trash-o"></i>
+                    </button>
+
+                </td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>

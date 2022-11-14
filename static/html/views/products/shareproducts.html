@@ -1,0 +1,33 @@
+<div class="content-container" ng-controller="ShareProductController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li class="active">{{'label.anchor.shareproducts' | translate}}</li>
+    </ul>
+<div class="card well">
+    <div class="row">
+        <div class="col-md-9">
+            <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbynameshortname' | translate}}">
+        </div>
+        <div class="col-md-3 paddedbottom20">
+            <a href="#/createshareproduct" class="btn btn-primary pull-right" has-permission='CREATE_SHAREPRODUCT'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createshareproduct' | translate}}</a>
+        </div>
+        </div>
+        <table class="table">
+        <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.shortname' | translate}}</th>
+                <th>{{'label.heading.totalshares' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr class="pointer-main" dir-paginate="shareproduct in shareproducts.pageItems | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: ShareProductsPerPage">
+            <td class="pointer" data-ng-click="routeTo(shareproduct.id)">{{shareproduct.name}}</td>
+            <td class="pointer" data-ng-click="routeTo(shareproduct.id)">{{shareproduct.shortName}}</td>
+            <td class="pointer" data-ng-click="routeTo(shareproduct.id)">{{shareproduct.totalShares}}</td>
+        </tr>
+        </tbody>
+        </table>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
+</div>    
