@@ -58,7 +58,7 @@
                 if(scope.formData.legalForm=="Person"){
                     changedLegalForm="CLIENTS_PERSON";
                 }else if(scope.formData.legalForm=="Entity") {
-                    changedLegalForm = "CLIENTS_ENTTTY";
+                    changedLegalForm = "CLIENTS_ENTITY";
                 }
                     if (scope.first.queryParams.indexOf("legalFormType") == -1) {
                         scope.first.queryParams = scope.first.queryParams + '&' + 'legalFormType=' + changedLegalForm;
@@ -74,7 +74,7 @@
                  if (scope.formData.file.name.toLowerCase().indexOf("person")!=-1) {
                      scope.formData.entityType = "CLIENTS_PERSON";
                  }else if (scope.formData.file.name.toLowerCase().indexOf("entity")!=-1){
-                     scope.formData.entityType="CLIENTS_ENTTTY";
+                     scope.formData.entityType="CLIENTS_ENTITY";
                  }
 
              };
