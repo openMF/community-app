@@ -87,25 +87,41 @@
                     scope.formData.lockinPeriodFrequencyType = data.lockinPeriodFrequencyType.id;
                 }
 
-                if (scope.formData.accountingRule == 2) {
+                if (scope.formData.accountingRule == 2 || scope.formData.accountingRule == 3) {
+                    //Assets
                     if(data.accountingMappings.savingsReferenceAccount){
                         scope.formData.savingsReferenceAccountId = data.accountingMappings.savingsReferenceAccount.id;
                     }
+                     if(data.accountingMappings){
+                        scope.formData.receivableFeeAccountId = data.accountingMappings.receivableFeeAccountId != null ?
+                        data.accountingMappings.receivableFeeAccountId.id : null;
+                    }
+                    if(data.accountingMappings){
+                        scope.formData.receivablePenaltyAccountId = data.accountingMappings.receivablePenaltyAccountId != null ?
+                        data.accountingMappings.receivablePenaltyAccountId.id : null;
+                    }
+                    //Liability
                     if(data.accountingMappings.savingsControlAccount){
                         scope.formData.savingsControlAccountId = data.accountingMappings.savingsControlAccount.id;
                     }
                     if(data.accountingMappings.transfersInSuspenseAccount){
                     scope.formData.transfersInSuspenseAccountId = data.accountingMappings.transfersInSuspenseAccount.id;
                     }
+                    if(data.accountingMappings){
+                     scope.formData.interestPayableAccountId = data.accountingMappings.interestPayableAccountId != null ?
+                     data.accountingMappings.interestPayableAccountId.id : null;
+                    }
                     if(data.accountingMappings.escheatLiabilityAccount){
                         scope.formData.escheatLiabilityId = data.accountingMappings.escheatLiabilityAccount.id;
                     }
+                    //Income
                     if(data.accountingMappings.incomeFromFeeAccount){
                         scope.formData.incomeFromFeeAccountId = data.accountingMappings.incomeFromFeeAccount.id;
                     }
                     if(data.accountingMappings.incomeFromPenaltyAccount){
                         scope.formData.incomeFromPenaltyAccountId = data.accountingMappings.incomeFromPenaltyAccount.id;
                     }
+                    //Expense
                     if(data.accountingMappings.interestOnSavingsAccount){
                         scope.formData.interestOnSavingsAccountId = data.accountingMappings.interestOnSavingsAccount.id;
                     }
@@ -147,7 +163,19 @@
                     });
                 }
             });
+            scope.isAccountingEnabled = function () {
+                if (scope.formData.accountingRule == 2 || scope.formData.accountingRule == 3 ) {
+                    return true;
+                }
+                return false;
+                }
 
+            scope.isAccrualAccountingEnabled = function () {
+                if (scope.formData.accountingRule == 3 ) {
+                    return true;
+                }
+                return false;
+            }
             //advanced accounting rule
             scope.showOrHide = function (showOrHideValue) {
 

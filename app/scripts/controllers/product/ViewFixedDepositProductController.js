@@ -4,7 +4,8 @@
         resourceFactory.fixedDepositProductResource.get({productId: routeParams.productId , template: 'true'} , function(data) {
             scope.depositproduct = data;
             scope.chartSlabs = scope.depositproduct.activeChart.chartSlabs;
-            scope.hasAccounting = data.accountingRule.id == 2 ? true : false;
+            scope.hasAccounting = data.accountingRule.id == 2 || data.accountingRule.id == 3 ? true : false;
+            console.log("Hello Every one from FD");
         });
 
         scope.scrollto = function (link){
