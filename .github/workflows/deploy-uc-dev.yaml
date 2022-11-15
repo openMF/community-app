@@ -3,7 +3,7 @@ name: Deploy to United Capital to ECR
 on:
  
   push:
-    branches: [ unitedcapital-dev ]
+    branches: [ fiter/africa/dev  ]
 
 jobs:
   
@@ -72,7 +72,7 @@ jobs:
       env:
         IMAGE_TAG: ${{ steps.commit.outputs.short }}
       run: |
-       cd helm
+       cd helm-uc-dev
        kubectl config set-context --current --namespace=application
        helm dependency update
        helm upgrade -i frontend --set fineract-ui.tag=$IMAGE_TAG .
