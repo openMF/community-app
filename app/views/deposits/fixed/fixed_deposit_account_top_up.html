@@ -1,0 +1,82 @@
+<div class="content-container" ng-controller="FixedDepositAccountTopUpController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewfixeddepositaccount/{{accountId}}">{{'label.anchor.viewfixeddepositaccount' | translate}}</a>
+        </li>
+        <li class="active">{{'label.button.topUp' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h3>{{ 'label.button.topUp' | translate}}</h3>
+            </div>
+            <form name="savingccountactionform" novalidate="" class="form-horizontal" ng-submit="submit()">
+                <fieldset>
+                    <api-validate></api-validate>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="submittedOnDate">{{'label.heading.submittedondate' |
+                            translate}}<span
+                                    class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <input id="submittedOnDate" type="text" sort datepicker-pop="dd MMMM yyyy"
+                                   class="form-control"
+                                   ng-model="date.submittedOnDate" is-open="opened" min="minDate" max="restrictDate" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="submittedOnDate">{{'label.button.topupamount' |
+                            translate}}<span
+                                    class="required">*</span></label>
+                        <div class="col-sm-3">
+                            <input id="topUpAmount" type="text" class="form-control" number-format
+                                   ng-model="topUpAmount"
+                                   ng-change="calculateNewDepositAmount()" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="depositAmount">{{'label.button.newdepositamount'
+                            | translate}}</label>
+                        <div class="col-sm-3">
+                            <label id="depositAmount">{{formData.depositAmount | number}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="submittedOnDate">{{'label.button.remainingtenure' |
+                            translate}}</label>
+                        <div class="col-sm-2">
+                            <input id="depositPeriod" type="text" class="form-control" ng-disabled="!changeTenure"
+                                   number-format ng-model="formData.depositPeriod"
+                                   ng-change="calculateInterestRate()" ng-blur="validatePeriod()">
+                        </div>
+                        <div class="col-sm-1">
+                            <label>{{'label.input.days' | translate}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="changeTenure">{{'label.button.changetenure'
+                            | translate}}</label>
+                        <div class="col-sm-3">
+                            <input id="changeTenure" type="checkbox" ng-model="changeTenure" ng-true-value="true"
+                                   ng-false-value="false" ng-change="calculateRemainingTenure()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="nominalAnnualInterestRate">{{'label.input.nominalannualinterestrate'
+                            | translate}}</label>
+                        <div class="col-sm-3">
+                            <label id="nominalAnnualInterestRate">{{interestRate | number}}</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-offset-2">
+                        <button id="cancel" ng-click="cancel()" class="btn">{{ 'label.button.cancel' | translate }}
+                        </button>
+                        <button id="save" type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}
+                        </button>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
