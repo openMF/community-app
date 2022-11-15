@@ -582,6 +582,7 @@
                                         <table class="table table-condensed" data-ng-show="openFixed">
                                             <tr class="graybg">
                                                 <th>{{'label.heading.accnum' | translate}}</th>
+												<th>{{'label.heading.linkedaccnum' | translate}}</th>
                                                 <th>{{'label.heading.savingaccount' | translate}}</th>
                                                 <th>{{'label.heading.lastActive' | translate}}</th>
                                                 <th class="center">{{'label.heading.balance' | translate}}</th>
@@ -594,6 +595,7 @@
                                                     <i uib-tooltip-placement="right" ng-hide="savingaccount.subStatus.id==0"  uib-tooltip="{{savingaccount.status.value+':'+savingaccount.subStatus.value}}" class="fa fa-stop {{savingaccount.status.code+savingaccount.subStatus.value | StatusLookup}}"></i>
                                                     {{savingaccount.accountNo}}
                                                 </td>
+												<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.closedFixedDepositAccountNumber}}</td>
                                                 <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}</td>
                                                 <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.lastActiveTransactionDate|DateFormat}}</td>
                                                 <td class="pointer center" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.accountBalance|number}}</td>

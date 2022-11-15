@@ -232,6 +232,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'deposits/fixed/EditDepositAccountController',
             'deposits/fixed/AddNewFixedDepositChargeController',
             'deposits/fixed/ViewFixedDepositTransactionController',
+            'deposits/fixed/FixedDepositAccountTopUpController',
             'deposits/recurring/RecurringDepositAccountActionsController',
             'deposits/recurring/ViewRecurringDepositAccountDetailsController',
             'deposits/recurring/CreateRecurringDepositAccountController',
