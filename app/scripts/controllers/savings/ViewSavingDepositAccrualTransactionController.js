@@ -9,8 +9,8 @@
             scope.staffData = {};
             scope.fieldOfficers = [];
             scope.savingaccountdetails = [];
-            scope.hideAccrualTransactions = true;
             scope.subStatus = false;
+            scope.transactions = [];
 
             scope.transactionsPerPage = 15;
 
@@ -26,16 +26,6 @@
                 }
             };
 
-            scope.getResultsPage = function (pageNumber) {
-                if (location.search().savingsId != null) {
-                    scope.getSavingsAccruals(pageNumber);
-                } else if (location.search().recurringDepositId != null) {
-                    scope.getRecurringDepositAccruals(pageNumber);
-                } else if (location.search().fixedDepositId != null) {
-                    scope.getFixedDepositAccruals(pageNumber);
-                }
-            }
-
             scope.routeTo = function (savingsAccountId, transactionId, accountTransfer) {
                 if (location.search().savingsId != null) {
                     location.path('/viewsavingtrxn/' + savingsAccountId + '/trxnId/' + transactionId);
@@ -45,28 +35,37 @@
                     location.path('/viewfixeddepositaccounttrxn/' + savingsAccountId + '/' + transactionId);
                 }
             };
+              scope.transactionsPerPage = 15;
 
-            scope.getSavingsAccruals = function (pageNumber) {
-                var items = resourceFactory.savingsResource.get({
-                    accountId: location.search().savingsId, associations: 'accrualTransactions',
-                    pageNumber: pageNumber, pageSize: scope.transactionsPerPage
-                }, function (data) {
-                    scope.savingaccountdetails = data;
-                    scope.convertDateArrayToObject('date');
-                    console.log(data);
-                    if (scope.savingaccountdetails.transactions) {
-                        resourceFactory.savingsResourceTransaction.get({
-                                accountId: location.search().savingsId,
-                                associations: 'accrualTransactions',
-                                resourceType: 'transactionCount'
-                            },
-                            function (data) {
-                                console.log(data);
-                                scope.totalTransactions = data.transactionCount;
-                            });
+                scope.getResultsPage = function (pageNumber) {
+                    if(scope.searchText){
+                        var startPosition = (pageNumber - 1) * scope.transactionsPerPage;
+                        scope.transactions = scope.savingaccountdetails.transactions.slice(startPosition, startPosition + scope.transactionsPerPage);
+                        return;
                     }
-                });
-            }
+                    resourceFactory.savingsResource.get({ accountId: location.search().savingsId, associations: 'accrualTransactions,transactions',
+                     offset: ((pageNumber - 1) * scope.transactionsPerPage),
+                     limit: scope.clientsPerPage
+                     }, function (data) {
+                     scope.savingaccountdetails = data;
+                     scope.transactions = scope.savingaccountdetails.transactions;
+                       });
+                  }
+
+
+                 scope.initPage = function () {
+                 resourceFactory.savingsResource.get({ accountId: location.search().savingsId, associations: 'accrualTransactions,transactions',
+                 offset: 0,
+                 limit: scope.transactionsPerPage
+                 }, function (data) {
+                 scope.savingaccountdetails = data;
+                 scope.totalTransactions = scope.savingaccountdetails.transactionSize;
+                 scope.transactions = scope.savingaccountdetails.transactions;
+                   });
+
+              }
+
+                 scope.initPage();
 
             scope.getFixedDepositAccruals = function (pageNumber) {
                 resourceFactory.fixedDepositAccountResource.get({
@@ -95,7 +94,7 @@
             }
 
             if (location.search().savingsId != null) {
-                scope.getSavingsAccruals(1);
+                scope.initPage();
                 scope.formData.savingsaccountId = location.search().savingsId;
                 scope.isValid = true;
                 scope.path = "#/viewsavingaccount/" + location.search().savingsId;

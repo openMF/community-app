@@ -125,7 +125,7 @@
                            scope.countryOptions = data.address[0].countryIdOptions;
                            scope.stateOptions = data.address[0].stateProvinceIdOptions;
                            scope.lgaOptions = data.address[0].lgaIdOptions;
-                       
+
                     resourceFactory.addressFieldConfiguration.get({entity:entityname},function(data){
 
                         for(var i=0;i<data.length;i++)

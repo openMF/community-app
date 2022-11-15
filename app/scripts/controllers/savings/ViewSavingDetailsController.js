@@ -10,7 +10,7 @@
             scope.staffData = {};
             scope.fieldOfficers = [];
             scope.savingaccountdetails = [];
-            scope.hideAccrualTransactions = true;
+            scope.transactions = [];
             scope.subStatus = false;
 
             scope.isDebit = function (savingsTransactionType) {
@@ -378,6 +378,37 @@
                 });
             });
 
+           scope.transactionsPerPage = 15;
+
+            scope.getResultsPage = function (pageNumber) {
+                if(scope.searchText){
+                    var startPosition = (pageNumber - 1) * scope.transactionsPerPage;
+                    scope.transactions = scope.savingaccountdetails.transactions.slice(startPosition, startPosition + scope.transactionsPerPage);
+                    return;
+                }
+                resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all',
+                 offset: ((pageNumber - 1) * scope.transactionsPerPage),
+                 limit: scope.clientsPerPage
+                 }, function (data) {
+                 scope.savingaccountdetails = data;
+                 scope.transactions = scope.savingaccountdetails.transactions;
+                   });
+              }
+
+             scope.initPage = function () {
+             resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all',
+             offset: 0,
+             limit: scope.transactionsPerPage
+             }, function (data) {
+             scope.savingaccountdetails = data;
+             scope.totalTransactions = scope.savingaccountdetails.transactionSize;
+             scope.transactions = scope.savingaccountdetails.transactions;
+               });
+
+          }
+
+         scope.initPage();
+
             var fetchFunction = function (offset, limit, callback) {
                 var params = {};
                 params.offset = offset;
@@ -401,6 +432,7 @@
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account'}, function (data) {
                 scope.savingdatatables = data;
             });
+
 
             scope.dataTableChange = function (datatable) {
                 resourceFactory.DataTablesResource.getTableDetails({datatablename: datatable.registeredTableName,
