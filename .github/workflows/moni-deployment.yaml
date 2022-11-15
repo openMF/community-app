@@ -2,9 +2,13 @@ name: Deploy to ECR
 
 on:
  
-  push:
-    branches: [ moniafrica-prod ]
-
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment: Production'
+        options: ['Production']
+        required: true
+        default: 'Production' 
 jobs:
   
   deploy:
