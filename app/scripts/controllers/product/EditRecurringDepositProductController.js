@@ -87,13 +87,29 @@
                     scope.formData.lockinPeriodFrequencyType = data.lockinPeriodFrequencyType.id;
                 }
 
-                if (scope.formData.accountingRule == 2) {
+                if (scope.formData.accountingRule == 2 || scope.formData.accountingRule == 3) {
+
                     scope.formData.savingsReferenceAccountId = data.accountingMappings.savingsReferenceAccount.id;
                     scope.formData.savingsControlAccountId = data.accountingMappings.savingsControlAccount.id;
                     scope.formData.transfersInSuspenseAccountId = data.accountingMappings.transfersInSuspenseAccount.id;
                     scope.formData.incomeFromFeeAccountId = data.accountingMappings.incomeFromFeeAccount.id;
                     scope.formData.incomeFromPenaltyAccountId = data.accountingMappings.incomeFromPenaltyAccount.id;
                     scope.formData.interestOnSavingsAccountId = data.accountingMappings.interestOnSavingsAccount.id;
+                    scope.formData.writeOffAccountId = data.accountingMappings.writeOffAccount.id;
+                    scope.formData.overdraftPortfolioControlId = data.accountingMappings.overdraftPortfolioControl.id;
+                    scope.formData.incomeFromInterestId = data.accountingMappings.incomeFromInterest.id;
+                    if(data.accountingMappings.receivableInterestAccountId) {
+                        scope.formData.receivableInterestAccountId = data.accountingMappings.receivableInterestAccountId.id;
+                    }
+                    if(data.accountingMappings.receivableFeeAccountId) {
+                        scope.formData.receivableFeeAccountId = data.accountingMappings.receivableFeeAccountId.id;
+                    }
+                    if(data.accountingMappings.receivablePenaltyAccountId) {
+                        scope.formData.receivablePenaltyAccountId = data.accountingMappings.receivablePenaltyAccountId.id;
+                    }
+                    if(data.accountingMappings.interestPayableAccountId) {
+                        scope.formData.interestPayableAccountId = data.accountingMappings.interestPayableAccountId.id;
+                    }
 
                     _.each(scope.product.paymentChannelToFundSourceMappings, function (fundSource) {
                         scope.configureFundOptions.push({
