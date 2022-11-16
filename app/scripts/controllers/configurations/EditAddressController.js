@@ -94,13 +94,13 @@ console.log(data[i]);
                             {
                                 $scope.formData.countyDistrict=data[i].countyDistrict;
                             }
-                            if(data[i].stateProvinceId&&$scope.stateProvinceId)
+                            if(data[i].stateProvinceId)
                             {
-                                $scope.formData.stateProvinceId=data[i].stateProvinceId;
+                                $scope.formData.stateProvinceId = data[i].stateProvinceId;
                             }
-                            if(data[i].countryId&&$scope.countryId)
+                            if(data[i].countryId)
                             {
-                                $scope.formData.countryId=data[i].countryId;
+                                $scope.formData.countryId = data[i].countryId;
                             }
                             if(data[i].postalCode&&$scope.postalCode)
                             {
@@ -118,9 +118,9 @@ console.log(data[i]);
                             {
                                 isActive=data[i].isActive;
                             }
-                            if(data[i].lga&&$scope.lgaId)
+                            if(data[i].lgaId)
                             {
-                               $scope.formData.lgaId=data[i].lga.id;
+                               $scope.formData.lgaId=data[i].lgaId;
                             }
                         }
                     }
