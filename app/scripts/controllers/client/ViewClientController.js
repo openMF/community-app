@@ -20,7 +20,6 @@
 
             scope.collaterals = [];
 
-
             // address
             scope.addresses=[];
             scope.view={};
