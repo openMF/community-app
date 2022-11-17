@@ -57,14 +57,11 @@
                             route.reload();
                         });
                         break;
-                    /*          case "applyAnnualFees":
-                     location.path('/savingaccountcharge/' + accountId + '/applyAnnualFees/' + scope.annualChargeId);
-                     break;
-                     case "transferFunds":
-                     if (scope.savingaccountdetails.clientId) {
-                     location.path('/accounttransfers/fromsavings/'+accountId);
-                     }
-                     break;*/
+                    case "postAccrualInterest":
+                        resourceFactory.fixedDepositAccountResource.save({accountId: accountId, command: 'postAccrualInterest'}, {}, function (data) {
+                            route.reload();
+                        });
+                        break;
                     case "close":
                         location.path('/fixeddepositaccount/' + accountId + '/close');
                         break;
@@ -92,6 +89,9 @@
                         resourceFactory.savingsResource.update({accountId: accountId, command: 'updateWithHoldTax'}, changes, function (data) {
                             route.reload();
                         });
+                        break;
+                    case "postAccrualInterestAsOn":
+                        location.path('/fixeddepositaccount/' + accountId + '/postAccrualInterestAsOn');
                         break;
                 }
             };
@@ -172,11 +172,19 @@
                         {
                             name: "button.calculateInterest",
                             icon: "fa fa-table"
+                        },
+                        {
+                            name: "button.postAccrualInterestAsOn",
+                            icon: "icon-arrow-right",
+                            taskPermissionName:"POSTACCRUALINTERESTASON_SAVINGSACCOUNT"
                         }
                     ],
                         options: [
                             {
                                 name: "button.postInterest"
+                            },
+                            {
+                                name: "button.postAccrualInterest"
                             },
                             {
                                 name: "button.addcharge"
