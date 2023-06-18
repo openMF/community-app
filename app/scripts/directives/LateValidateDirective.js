@@ -1,8 +1,8 @@
 (function (module) {
     mifosX.directives = _.extend(module, {
         LateValidateDirective: function () {
-            var numRegex = /^([0-9])*([0-9]+(,)[0-9]+)*$/;
-            var decimalRegex=/^([0-9])*([0-9]+(,)[0-9]+)*([0-9]+(\.)[0-9]+)*$/;
+            var numRegex = /^\d+(,\d+)*$/; 
+            var decimalRegex= /^\d+(,\d+)*(\.\d+)?$/;
             return {
                 restrict: 'A',
                 require: 'ngModel',
