@@ -86,7 +86,7 @@
                 var params = {command: scope.action};
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
-                this.formData.lien = this.formData.lien || false;
+                this.formData.lienAllowed = this.formData.lienAllowed || false;
                 this.formData.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
 
                 if(scope.holdOption == 'savingsAccountBlock') {
