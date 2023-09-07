@@ -15,6 +15,7 @@
                 scope.staffs = data.staffOptions;
                 scope.savingproducts = data.savingProductOptions;
                 scope.genderOptions = data.genderOptions;
+                scope.socialStatusOptions = data.socialStatusOptions;
                 scope.clienttypeOptions = data.clientTypeOptions;
                 scope.clientClassificationOptions = data.clientClassificationOptions;
                 scope.clientNonPersonConstitutionOptions = data.clientNonPersonConstitutionOptions;
@@ -33,6 +34,7 @@
                     mobileNo: data.mobileNo,
                     savingsProductId: data.savingsProductId,
                     genderId: data.gender.id,
+                    socialStatus: data.socialStatus.id,
                     fullname: data.fullname,
                     clientNonPersonDetails : {
                         incorpNumber: data.clientNonPersonDetails.incorpNumber,
@@ -42,6 +44,10 @@
 
                 if(data.gender){
                     scope.formData.genderId = data.gender.id;
+                }
+
+                if(data.socialStatus){
+                    scope.formData.socialStatus = data.socialStatus.id;
                 }
 
                 if(data.clientType){

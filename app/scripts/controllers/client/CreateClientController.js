@@ -99,6 +99,7 @@
 
 
                 scope.enableAddress=data.isAddressEnabled;
+                scope.socialStatusOptions=data.socialStatusOptions;
 
                 	   if (scope.enableAddress === true) {
                            scope.addressTypes = data.address[0].addressTypeIdOptions;

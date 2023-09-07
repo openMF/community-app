@@ -256,7 +256,19 @@
                         <input type="text" id="externalId" name="externalId" ng-model="formData.externalId"
                            class="form-control" />
                      </div>
+
+                     <div class="control-label col-sm-2">
+                        <label>{{ 'label.input.socialStatus' | translate }}</label>
+                     </div>
+                     <div class="col-sm-3">
+                           <select id="socialStatus" ng-model="formData.socialStatus"
+                                   class="form-control"
+                                   ng-options="socialStatusOption.id as socialStatusOption.name for socialStatusOption in socialStatusOptions"
+                                   value="{{socialStatusOption.id}}"> <option value="">--{{'label.menu.socialStatus' | translate}}--</option>
+                           </select>
+                     </div>
                   </div>
+
                   <div class="form-group" has-permission="ACTIVATE_CLIENT">
                      <label class="control-label col-sm-2">{{'label.input.active' | translate}}</label>
                      <div class="col-sm-3">
