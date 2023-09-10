@@ -91,10 +91,16 @@
                             <div class="alert alert-danger" ng-show="authenticationFailed">
                                 {{ authenticationErrorMessage | translate }}
                             </div>
+                            <div class="alert alert-success" ng-show="forgotPasswordSuccess">
+                                {{ forgotPasswordMessage | translate }}
+                            </div>
+                            <div class="alert alert-danger" ng-show="forgotPasswordFailure">
+                                {{ forgotPasswordMessage | translate }}
+                            </div>
 
                             <form class="form">
 
-                                <div class="form-group">
+                                <div class="form-group" >
                                     <label for="uid">{{ 'label.input.username' | translate | uppercase }}</label>
                                     <input type="text" name="username" id="uid" class="form-control"
                                            ng-model="loginCredentials.username"
@@ -102,23 +108,41 @@
                                            required/>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" ng-hide="isforgotpassword">
                                     <label for="pwd">{{ 'label.input.password' | translate | uppercase }}</label>
                                     <input type="password" name="password" id="pwd" class="form-control"
                                            ng-model="loginCredentials.password" autocomplete="new-password"
                                            placeholder="{{ 'label.input.password' | translate | lowercase }}"
-                                           required/>
+                                           ng-required="!isforgotpassword"/>
                                 </div>
 
-                                <div class="form-group">
-                                    <button class="btn btn-block btn-primary" type="submit" data-ng-show="!load" data-ng-click="login()"
+                                <div class="form-group" >
+                                    <button ng-hide="isforgotpassword" class="btn btn-block btn-primary" type="submit" data-ng-show="!load" data-ng-click="login()"
                                             id="login-button">
                                         {{'label.button.signin' | translate }}
+                                    </button>
+                                    <button ng-show="isforgotpassword" class="btn btn-block btn-primary" type="submit" data-ng-show="!load" data-ng-click="forgotpassword()"
+                                            id="login-button">
+                                        {{'label.button.submit' | translate }}
                                     </button>
                                     <button class="btn btn-block btn-primary" type="submit" data-ng-show="load">
                                         <img data-ng-src="images/ring.svg" alt=""> <b>loading...</b>
                                     </button>
                                 </div>
+                                
+                                <div class="form-group">
+                                <ul class="list-unstyled">
+                                    <li><a target="#"
+                                        data-ng-click="isforgotpassword = !isforgotpassword">
+                                        <p ng-show="!isforgotpassword">
+                                        {{ 'label.anchor.forgotpassword'  | translate }}
+                                        </p>
+                                        <p ng-show="isforgotpassword">
+                                            {{ 'label.button.back' | translate }}
+                                            </p>
+                                    </a></li>
+                                        </ul>
+                                        </div>
 
                             </form>
 
