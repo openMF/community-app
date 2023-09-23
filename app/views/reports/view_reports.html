@@ -1,3 +1,4 @@
+<div id="viewlptop"></div>
 <div class="content-container" ng-controller="ViewReportsController">
     <ul class="breadcrumb">
         <li class="active">{{type}}</li>
@@ -14,12 +15,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="pointer-main" dir-paginate="report in reports| orderBy:'report_name':reverse | filter:filterText |filter:filterByReportSubType | itemsPerPage: ReportsPerPage">
+            <tr class="pointer-main" dir-paginate="report in reports| orderBy:'report_name':reverse | filter:{report_name:filterText} |filter:filterByReportSubType | itemsPerPage: ReportsPerPage">
                 <td class="pointer" data-ng-click="routeTo(report)">{{''+report.report_name+'' | translate}}</td>
                 <td class="pointer" data-ng-click="routeTo(report)">{{report.report_type}}</td>
                 <td class="pointer" data-ng-click="routeTo(report)">{{report.report_category}}</td>
             </tr>
             </tbody>
+            <tr>
+                <td colspan="2">
+                </td>
+                <td class="pull-right">
+                    <a ng-click="scrollto('viewlptop')"><i class="fa fa-upload"></i>{{'label.button.top' | translate}}</a>
+                </td>
+            </tr>
         </table>
         <div ng-hide="true" ng-repeat="report in reports">
             <input type="hidden" id="locale_name_{{$index}}" name="locale_name" ng-model="report.report_locale_name" value="{{report.report_name | translate}}" />

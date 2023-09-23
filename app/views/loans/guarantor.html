@@ -16,6 +16,23 @@
                             <input type="checkbox" data-ng-model="temp" data-ng-change="checkClient()">
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">
+                            {{'label.input.office' | translate}} <span ng-show="forceOffice == null" class="required">*</span>
+                        </label>
+                        <div class="col-sm-3">
+                            <div ng-show="forceOffice == null">
+                                <select chosen="offices" id="officeId" ng-model="formData.officeId"  class="form-control"
+                                        ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+                                        ng-change="changeOffice(formData.officeId)"></select>
+                            </div>
+                            <div ng-show="forceOffice != null">
+                                <p class="form-control-static">{{forceOffice.name}}</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div data-ng-switch on="temp">
                         <div data-ng-switch-when="true">
                             <div class="form-group">
@@ -23,10 +40,10 @@
                                         class="required">*</span></label>
 
                                 <div class="col-sm-3">
-                                    <input autocomplete="off" typeahead-on-select="viewClient($item)" name="clientname" type="text"
-                                           ng-model="clientTemplate" class="form-control"
-                                           uib-typeahead="client.displayName as client.displayName for client in clients | filter:$viewValue | limitTo:8"
-                                           required late-validate />
+                                    <input type="text" ng-model="clientData.available" class="form-control"
+                                        typeahead-editable="false"
+                                        uib-typeahead="client as ( client.id + ' '+ client.displayName ) for client in clientOptions($viewValue)"
+                                        typeahead-on-select="viewClient(clientData.available)"/>
                                 </div>
                                 <div class="col-sm-2">
                                     <form-validate valattributeform="guaratorform" valattribute="clientname"/>

@@ -7,16 +7,34 @@
             scope.formData = {};
             scope.columnnameerror = false;
             scope.columntypeerror = false;
+            scope.showLegalForm = true;
             scope.datatableTemplate = {};
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
                 scope.codes = data;
             });
 
+            scope.legalFormChange = function (apptableName) {
+                if (apptableName == 'm_client') {
+                    scope.showLegalForm = true;
+                }
+                else{
+                    scope.showLegalForm = false;
+                }
+            }
+
             resourceFactory.DataTablesResource.getTableDetails({datatablename: routeParams.tableName}, function (data) {
                 scope.datatable = data;
 
                 scope.formData.apptableName = data.applicationTableName;
+                scope.formData.entitySubType = data.entitySubType;
+
+                if(scope.formData.apptableName == 'm_client'){
+                    scope.showLegalForm = true;
+                }
+                else{
+                    scope.showLegalForm = false;
+                }
 
                 var temp = [];
                 var colName = data.columnHeaderData[0].columnName;

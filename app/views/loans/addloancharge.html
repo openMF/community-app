@@ -5,7 +5,7 @@
     </ul>
     <div class="card">
         <div class="content">
-            <form class="form-horizontal" novalidate="" name="loanchargeform" ng-submit="submit()">
+            <form class="form-horizontal" novalidate="" name="loanchargeform" rc-submit="submit()">
                 <api-validate></api-validate>
                 <fieldset>
                     <legend>{{ 'label.heading.addloancharge' | translate }}</legend>
@@ -53,14 +53,18 @@
                                 <input type="text" class="form-control" value="{{chargeData.chargeTimeType.value}}" readonly>
                             </div>
                         </div>
+                      
                         <div class="form-group" ng-show="chargeData.chargeTimeType.id==2">
                             <label class="control-label col-sm-2">{{ 'label.input.dueon' | translate }}<span
                                     class="required">*</span></label>
 
                             <div class="col-sm-3">
-                                <input id="dueDate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
-                                       placeholder="{{'label.input.duedate' | translate}}" ng-model="formData.dueDate"
-                                       is-open="opened" min="minDate" max="'2020-06-22'"/>
+                                <input id="dueDate" name = "dueDate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
+                                       placeholder="{{'label.input.duedate' | translate}}" ng-model="first.date"
+                                       is-open="opened" min="minDate"  readonly required late-Validate/>
+                            </div>
+                            <div class="col-sm-2">
+                                    <form-validate valattributeform="loanchargeform" valattribute="dueDate"/>
                             </div>
                         </div>
                     </div>

@@ -29,19 +29,29 @@
     		                    class="required">*</span></label>
 
     		            <div class="col-sm-3">
-    		                <select id="apptableName" ng-model="formData.apptableName" name="apptable" class="form-control" required>
-    		                    <option class="displaynone" value="">{{'label.selectone' | translate}}</option>
-    		                    <option value="m_client">{{'label.client' | translate}}</option>
-    		                    <option value="m_group">{{'label.group' | translate}}</option>
-    		                    <option value="m_center">{{'label.center' | translate}}</option>
-    		                    <option value="m_loan">{{'label.loan' | translate}}</option>
-    		                    <option value="m_office">{{'label.office' | translate}}</option>
-    		                    <option value="m_savings_account">{{'label.savingsaccount' | translate}}</option>
+    		                <select id="apptableName" ng-model="formData.apptableName" name="apptable" class="form-control"  ng-change="legalFormChange(formData.apptableName)" required>
+                                <option class="displaynone" value="">{{'label.selectone' | translate}}</option>
+                                <option value="m_client">{{'label.client' | translate}}</option>
+                                <option value="m_group">{{'label.group' | translate}}</option>
+                                <option value="m_center">{{'label.center' | translate}}</option>
+                                <option value="m_loan">{{'label.loan' | translate}}</option>
+                                <option value="m_office">{{'label.office' | translate}}</option>
+                                <option value="m_savings_account">{{'label.savingsaccount' | translate}}</option>
     		                </select>
     		            </div>
-    		            <div class="col-sm-3">
-    		                <form-validate valattributeform="createdatatableform" valattribute="apptable"/>
-    		            </div>
+						<div class="col-sm-5" ng-show="showLegalForm">
+						      <label class="control-label col-sm-2" for="entitySubType">{{ 'label.input.legalForm' | translate }}<span class="required">*</span></label>
+						      <div class="col-sm-7">
+						         <select id="entitySubType" ng-model="formData.entitySubType" name="entitySubType" class="form-control" required>
+                                  <option class="width100" value="">{{'label.selectone' | translate}}</option>
+							       <option value="ENTITY">{{'label.entity' | translate}}</option>
+                                  <option value="PERSON">{{'label.person' | translate}}</option>
+						         </select>
+						       </div>
+						</div>
+						<div class="col-sm-3">
+							<form-validate valattributeform="createdatatableform" valattribute="apptable"/>
+						</div>
     		        </div>
     		        <div class="form-group">
     		            <label class="control-label col-sm-2">{{ 'label.input.multirow' | translate }}</label>

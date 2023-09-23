@@ -1,0 +1,113 @@
+<div class="content-container" ng-controller="CreateClientCollateralController">
+    <div class="card">
+        <div class="content">
+        <div class="toolbar">
+            <h4>{{ 'label.heading.createcollateral' | translate }}</h4>
+        </div>
+        <br/>
+        <form name="createcollateralform" class="form-horizontal" ng-submit="submit()">
+            <api-validate></api-validate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="collateralId">{{ 'label.input.collateralSelection' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <select id="collateralId" ng-model="formData.collateralId" class="form-control"
+                                ng-options="collateral.id as collateral.name for collateral in collaterals"
+                                value="{{collateral.id}}" ng-change="collateralProductChange(formData.collateralId)"></select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="disabled == false">
+                    <label class="control-label col-sm-2" for="name">{{ 'label.input.name' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="name" name="name" type="text" class="form-control" ng-model="formData.name" required disabled>
+                    </div>
+                
+                </div>
+
+                <div class="form-group" ng-if="disabled == false">
+                    <label class="control-label col-sm-2" for="type">{{ 'label.input.type' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="type" name="type" type="text" class="form-control" ng-model="formData.type" disabled>
+                    </div>               
+                </div>
+
+                <div class="form-group" ng-if="disabled == false">
+                    <label class="control-label col-sm-2" for="unitType">{{ 'label.input.unittype' | translate }}<span
+                        class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="unitType" class="form-control" ng-model="formData.unitType" disabled>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="disabled == false">
+                    <label class="control-label col-sm-2" for="basePrice">{{'label.input.baseprice' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="basePrice" name="basePrice" type="text" ng-model="formData.basePrice" class="form-control" number-format disabled/>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="disabled == false">
+                    <label class="control-label col-sm-2" for="pctToBase">{{'label.input.pcttobase' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="pctToBase" name="pctToBase" type="text" ng-model="formData.pctToBase" class="form-control" number-format disabled/>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="disabled == false">
+                    <label class="control-label col-sm-2" for="quantity">{{'label.input.quantity' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="quantity" name="quantity" type="text" ng-model="formData.quantity" ng-change="updateValues()" class="form-control" number-format required late-Validate/>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createcollateralform" valattribute="quantity"/>
+                    </div>
+
+                </div>
+
+                <div class="form-group" ng-if="disabled == false">
+                    <label class="control-label col-sm-2" for="total">{{'label.input.total' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="total" name="total" type="text" ng-model="formData.total" class="form-control" number-format required disabled/>
+                    </div>
+
+                </div>
+
+                <div class="form-group" ng-if="disabled == false">
+                    <label class="control-label col-sm-2" for="totalCollateral">{{'label.input.totalCollateralValue' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="totalCollateral" name="totalCollateral" type="text" ng-model="formData.totalCollateral" class="form-control" number-format required disabled/>
+                    </div>
+
+                </div>
+                
+                <div class="col-md-offset-3" ng-if="disabled == false">
+                    <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate
+                        }}
+                    </button>
+                    <button id="save" type="submit" has-permission='CREATE_CLIENT_COLLATERAL' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
+                </div>
+
+            </fieldset>
+        </form> 
+        </div>
+    </div>
+</div>

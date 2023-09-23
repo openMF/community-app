@@ -22,15 +22,19 @@
           
 
 
-                for(var i=0;i<data.length;i++)
-                {
-                    data[i].field='$scope.'+data[i].field;
-                    eval(data[i].field+"="+data[i].is_enabled);
+                   for(var i=0;i<data.length;i++)
+                        {
+                            data[i].field='$scope.'+data[i].field;
+                            if(data[i].is_enabled == undefined) {
+                                //For dev.mifos.io or demo.mifos.io
+                                eval(data[i].field+"="+data[i].isEnabled);
+                            } else {
+                                //For fineract server
+                                eval(data[i].field+"="+data[i].is_enabled);
+                            }
+                        }
 
-                }
-
-
-            })
+                    })
             $scope.routeTo=function()
             {
                 location.path('/viewclient/'+clientId);

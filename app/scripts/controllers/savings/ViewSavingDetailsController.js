@@ -11,7 +11,7 @@
             scope.savingaccountdetails = [];
             scope.isDebit = function (savingsTransactionType) {
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true
-                    || savingsTransactionType.overdraftInterest == true || savingsTransactionType.withholdTax == true;
+                    || savingsTransactionType.overdraftInterest == true || savingsTransactionType.withholdTax == true || savingsTransactionType.amountHold == true;
             };
 
             scope.routeTo = function (savingsAccountId, transactionId, accountTransfer, transferId) {
@@ -123,6 +123,11 @@
                     case "postInterestAsOn":
                         location.path('/savingaccount/' + accountId + '/postInterestAsOn');
                         break;
+                    case "hold":
+                        location.path('/savingaccount/'+accountId+ '/hold');
+                    case "unhold":
+                        location.path('/savingaccount/'+accountId+ '/hold');
+                        break;
 
                 }
             };
@@ -130,7 +135,7 @@
 
             resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
-                scope.savingaccountdetails.availableBalance = scope.savingaccountdetails.enforceMinRequiredBalance?(scope.savingaccountdetails.summary.accountBalance - scope.savingaccountdetails.minRequiredOpeningBalance):scope.savingaccountdetails.summary.accountBalance;
+                scope.savingaccountdetails.availableBalance = scope.savingaccountdetails.enforceMinRequiredBalance?((!scope.savingaccountdetails.lienAllowed)?(scope.savingaccountdetails.summary.accountBalance - scope.savingaccountdetails.minRequiredBalance):scope.savingaccountdetails.summary.availableBalance):scope.savingaccountdetails.summary.availableBalance;
                 scope.convertDateArrayToObject('date');
                 if(scope.savingaccountdetails.groupId) {
                     resourceFactory.groupResource.get({groupId: scope.savingaccountdetails.groupId}, function (data) {
@@ -233,6 +238,11 @@
                             name: "button.calculateInterest",
                             icon: "fa fa-table",
                             taskPermissionName:"CALCULATEINTEREST_SAVINGSACCOUNT"
+                        },
+                        {
+                            name: "button.hold",
+                            icon: "fa fa-stop",
+                            taskPermissionName:"HOLD_SAVINGSACCOUNT" //
                         }
                     ],
                         options: [
@@ -281,6 +291,17 @@
                             });
                         }
                     }
+                }
+                if (data.subStatus.value == "Block") {
+                    scope.buttons = { singlebuttons: [
+                            {
+                                name: "button.unhold",
+                                icon: "icon-arrow-stop",
+                                taskPermissionName: "UNHOLD_SAVINGSACCOUNT"
+
+                            }
+                            ]
+                    };
                 }
                 if (data.annualFee) {
                     var annualdueDate = [];

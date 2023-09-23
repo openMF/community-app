@@ -1,0 +1,55 @@
+<div class="col-md-12" ng-controller="EditRateController">
+    <api-validate></api-validate>
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/rates">{{'label.anchor.rates' | translate}}</a></li>
+        <li class="active">{{'label.anchor.editcharge' | translate}}</li>
+    </ul>
+    <form name="editrateform" novalidate class="form-horizontal well" rc-submit="submit()">
+        <fieldset>
+            <legend>{{'label.anchor.editrate' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.heading.rateappliesto' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="productApply" ng-model="formData.productApply" value="{{formData.productApply | translate}}"
+                           ng-disabled="true" class="form-control" />
+                </div>
+            </div>
+            <hr/>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input name="name" ng-autofocus="true" type="text" id="name" ng-model="formData.name" class="form-control" ng-disabled="true"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.percentage' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input name="percentage" ng-autofocus="true" type="text" id="percentage" number-format ng-model="formData.percentage" class="form-control" required
+                           late-Validate/>
+                    <form-validate valattributeform="editrateform" valattribute="percentage"/>
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="active">{{'label.input.active' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <label class="checkbox">
+                        <input id="active" type="checkbox" ng-model="formData.active">
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/viewrate/{{formData.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_RATE'>{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

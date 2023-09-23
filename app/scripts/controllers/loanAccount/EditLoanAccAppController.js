@@ -9,6 +9,7 @@
             scope.collaterals = [];
             scope.restrictDate = new Date();
             scope.date = {};
+            scope.rateFlag = false;
 
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.loanaccountinfo = data;
@@ -44,13 +45,18 @@
                 scope.formData.externalId = data.externalId;
 
                 //update collaterals
-                if (scope.loanaccountinfo.collateral) {
-                    for (var i in scope.loanaccountinfo.collateral) {
-                        scope.collaterals.push({type: scope.loanaccountinfo.collateral[i].type.id, name: scope.loanaccountinfo.collateral[i].type.name, value: scope.loanaccountinfo.collateral[i].value, description: scope.loanaccountinfo.collateral[i].description});
+                resourceFactory.clientcollateralTemplateResource.getAllCollaterals({clientId: scope.clientId}, function(data) {
+                    scope.collateralsData = data;
+                    if (scope.loanaccountinfo.collateral) {
+                        for (var i in scope.loanaccountinfo.collateral) {
+                            scope.collateralsData = scope.collateralsData.filter((x) => x.collateralId !== scope.loanaccountinfo.collateral[i].clientCollateralId);
+                        }
                     }
-                }
+                });
+
 
                 scope.previewClientLoanAccInfo();
+                scope.ratesEnabled= scope.loanaccountinfo.isRatesEnabled;
 
             });
 
@@ -68,7 +74,6 @@
 
                 resourceFactory.loanResource.get(inparams, function (data) {
                     scope.loanaccountinfo = data;
-                    scope.collaterals = [];
                     scope.previewClientLoanAccInfo();
                 });
 
@@ -76,6 +81,27 @@
                     scope.collateralOptions = data.loanCollateralOptions || [];
                 });
             }
+
+            scope.collateralAddedDataArray = [];
+
+            scope.addCollateral = function () {
+                scope.collateralAddedDataArray.push(scope.collateralsData.filter((collateral) => scope.collateralFormData.collateralId == collateral.collateralId)[0]);
+                scope.collateralsData = scope.collateralsData.filter((collateral) => scope.collateralFormData.collateralId != collateral.collateralId);
+                scope.collaterals.push({collateralId: scope.collateralFormData.collateralId, quantity: scope.collateralFormData.quantity, total: scope.collateralFormData.total, totalCollateral: scope.collateralFormData.totalCollateral});
+            };
+
+            scope.updateValues = function() {
+                scope.collateralObject = scope.collateralsData.filter((collateral) => collateral.collateralId == scope.collateralFormData.collateralId)[0];
+                scope.collateralFormData.total = scope.collateralFormData.quantity * scope.collateralObject.basePrice;
+                scope.collateralFormData.totalCollateral = scope.collateralFormData.total * scope.collateralObject.pctToBase / 100.0;
+            }
+
+            scope.deleteCollateral = function (index) {
+                scope.collateralId = scope.collaterals[index].collateralId;
+                scope.collateralObject = scope.collateralAddedDataArray.filter((collateral) => collateral.collateralId == scope.collateralId)[0];
+                scope.collateralsData.push(scope.collateralObject);
+                scope.collaterals.splice(index, 1);
+            };
 
             scope.previewClientLoanAccInfo = function () {
                 scope.previewRepayment = false;
@@ -130,6 +156,7 @@
                 scope.formData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
                 scope.formData.interestRateFrequencyType = scope.loanaccountinfo.interestRateFrequencyType.id;
                 scope.formData.amortizationType = scope.loanaccountinfo.amortizationType.id;
+                scope.formData.fixedPrincipalPercentagePerInstallment = scope.loanaccountinfo.fixedPrincipalPercentagePerInstallment;
                 scope.formData.interestType = scope.loanaccountinfo.interestType.id;
                 scope.formData.isEqualAmortization = scope.loanaccountinfo.isEqualAmortization;
                 scope.formData.interestCalculationPeriodType = scope.loanaccountinfo.interestCalculationPeriodType.id;
@@ -162,7 +189,66 @@
                 }
                 scope.formData.interestRateDifferential = scope.loanaccountinfo.interestRateDifferential ;
                 scope.formData.isFloatingInterestRate = scope.loanaccountinfo.isFloatingInterestRate ;
-            }
+                //Load Rates information
+                scope.formData.rates = scope.loanaccountinfo.rates;
+                scope.firstChange = false;
+                scope.rateOptions = scope.loanaccountinfo.product.rates.filter(function(rate){
+                    var exist = false;
+                    scope.formData.rates.forEach(function(addedRate){
+                        if(rate.id === addedRate.id){
+                            exist = true;
+                        }
+                    });
+                    return !exist;
+                });
+                if (scope.formData.rates && scope.formData.rates.length>0){
+                    scope.rateFlag=true;
+                }else{
+                    scope.rateFlag=false;
+                }
+            };
+
+            //Rate
+            scope.rateSelected = function(currentRate){
+                if(currentRate && !scope.checkIfRateAlreadyExist(currentRate)){
+                    scope.rateFlag=true;
+                    scope.formData.rates.push(currentRate);
+                    scope.rateOptions.splice(scope.rateOptions.indexOf(currentRate),1);
+                    scope.currentRate = '';
+                    currentRate = '';
+                    scope.calculateRates();
+                }
+            };
+
+            scope.checkIfRateAlreadyExist = function(currentRate){
+                var exist = false;
+                scope.formData.rates.forEach(function(rate){
+                    if(rate.id === currentRate.id){
+                        exist = true;
+                    }
+                });
+                return exist;
+            };
+
+            scope.calculateRates = function(){
+                var total = 0;
+                scope.formData.rates.forEach(function(rate){
+                    total += rate.percentage;
+                });
+                if (total===0){
+                    scope.rateFlag=false;
+                    total=undefined;
+                }
+                scope.formData.interestRatePerPeriod = total;
+
+
+            };
+
+            scope.deleteRate = function (index){
+                scope.rateOptions.push(scope.formData.rates[index]);
+                scope.formData.rates.splice(index,1);
+                scope.calculateRates();
+            };
 
             scope.addCharge = function () {
                 if (scope.chargeFormData.chargeId) {
@@ -201,19 +287,6 @@
                 }
             };
 
-            scope.addCollateral = function () {
-                if (scope.collateralFormData.collateralIdTemplate && scope.collateralFormData.collateralValueTemplate) {
-                    scope.collaterals.push({type: scope.collateralFormData.collateralIdTemplate.id, name: scope.collateralFormData.collateralIdTemplate.name, value: scope.collateralFormData.collateralValueTemplate, description: scope.collateralFormData.collateralDescriptionTemplate});
-                    scope.collateralFormData.collateralIdTemplate = undefined;
-                    scope.collateralFormData.collateralValueTemplate = undefined;
-                    scope.collateralFormData.collateralDescriptionTemplate = undefined;
-                }
-            };
-
-            scope.deleteCollateral = function (index) {
-                scope.collaterals.splice(index, 1);
-            };
-
             scope.previewRepayments = function () {
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
@@ -230,14 +303,6 @@
                     for (var i in scope.formData.disbursementData) {
                         scope.formData.disbursementData[i].expectedDisbursementDate = dateFilter(scope.formData.disbursementData[i].expectedDisbursementDate,  scope.df);
                     }
-                }
-
-                if (scope.collaterals.length > 0) {
-                    scope.formData.collateral = [];
-                    for (var i in scope.collaterals) {
-                        scope.formData.collateral.push({type: scope.collaterals[i].type, value: scope.collaterals[i].value, description: scope.collaterals[i].description});
-                    }
-
                 }
 
                 if (this.formData.syncRepaymentsWithMeeting) {
@@ -288,12 +353,17 @@
                     }
                 }
 
-                scope.formData.collateral = [];
                 if (scope.collaterals.length > 0) {
+                    scope.formData.collateral = [];
                     for (var i in scope.collaterals) {
-                        scope.formData.collateral.push({type: scope.collaterals[i].type, value: scope.collaterals[i].value, description: scope.collaterals[i].description});
+                        scope.formData.collateral.push({clientCollateralId: scope.collaterals[i].collateralId, quantity: scope.collaterals[i].quantity * 1.0});
                     }
-                    ;
+                    if (scope.loanaccountinfo.collateral) {
+                        for (var i in scope.loanaccountinfo.collateral) {
+                            scope.collateralsData = scope.collateralsData.filter((x) => x.collateralId !== scope.loanaccountinfo.collateral[i].clientCollateralId);
+                            scope.formData.collateral.push({clientCollateralId: scope.loanaccountinfo.collateral[i].clientCollateralId, id: scope.loanaccountinfo.collateral[i].id, quantity: scope.loanaccountinfo.collateral[i].quantity});
+                        }
+                    }
                 }
 
                 if (this.formData.syncRepaymentsWithMeeting) {

@@ -1,0 +1,55 @@
+<div class="content-container" ng-controller="ViewCollateralController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/collaterals">{{'label.anchor.collaterals' | translate}}</a></li>
+        <li class="active">{{collateralId}}</li>
+    </ul>
+    <div class="card well">
+        <h3 class="bolder">{{collateral.name}}
+            <div class="form-group pull-right">
+             <a href="#/editcollateral/{{collateralId}}" class="btn btn-primary" has-permission='UPDATE_COLLATERAL_PRODUCT'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
+             <button type="button" data-ng-click="deleteCollateral()" class="btn btn-danger" has-permission='DELETE_COLLATERAL_PRODUCT'><i
+                     class="fa fa-trash-o"></i>&nbsp;&nbsp;{{'label.button.delete' | translate}}
+             </button>
+         </div>
+        </h3>
+        <hr>
+    <script type="text/ng-template" id="deletecollateralprod.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td>{{'label.heading.name' | translate}}</td>
+                    <td>{{collateral.name}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.quality' | translate}}</td>
+                    <td>{{collateral.quality}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.basePrice' | translate}}</td>
+                    <td>{{collateral.basePrice}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.pctToBase' | translate}}</td>
+                    <td>{{collateral.pctToBase}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.unitType' | translate}}</td>
+                    <td>{{collateral.unitType}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </div>
+</div>

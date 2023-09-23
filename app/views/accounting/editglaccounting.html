@@ -1,14 +1,12 @@
-<div ng-controller="AccEditGLAccountController" class="col-md-12">
-    <div>
-        <ul class="breadcrumb">
-            <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
-            <li><a href="#/accounting_coa">{{'label.anchor.coa' | translate}}</a></li>
-            <li><a href="#/viewglaccount/{{glAccountId}}">{{formData.name}}</a></li>
-            <li class="active">{{'label.anchor.editglaccount' | translate}}</li>
-        </ul>
-    </div>
+<div ng-controller="AccEditGLAccountController" class="content-container">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li><a href="#/accounting_coa">{{'label.anchor.coa' | translate}}</a></li>
+        <li><a href="#/viewglaccount/{{glAccountId}}">{{formData.name}}</a></li>
+        <li class="active">{{'label.anchor.editglaccount' | translate}}</li>
+    </ul>
     <api-validate></api-validate>
-    <form name="editglaccountingform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+    <form name="editglaccountingform" novalidate="" class="card form-horizontal well" rc-submit="submit()">
         <fieldset>
             <legend>{{'label.heading.editglaccount' | translate}}</legend>
 			<div class="form-group">
@@ -53,8 +51,9 @@
 				<label class="control-label col-sm-2 " for="usage">{{'label.input.accountusage' | translate}}</label>
 
 				<div class="col-sm-2">
-					<select id="usage" ng-model="formData.usage" class="form-control">
-						<option ng-repeat="usageType in usageTypes" value="{{usageType.id}}">{{''+usageType.code+'' | translate}}</option>
+					<select id="usage" ng-model="formData.usage" class="form-control"
+						ng-options="usageType.id as usageType.code | translate for usageType in usageTypes" value="{{usageType.id}}"
+							 required="required">
 					</select>
 				</div>
 				<label class="control-label col-sm-4 " for="tagId">{{'label.input.tag' | translate}}</label>

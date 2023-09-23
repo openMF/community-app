@@ -18,6 +18,19 @@
                     </div>
                 </div>
             </div>
+            <br/>
+            <div class = "row">
+                <div class="pull-right">
+                    <div class="col-md-12">
+                        <form>
+                            <input type="radio" id="radio_active" ng-model="showActive" ng-value="true" style="margin:5px">
+                            <label for="radio_active"style="margin-right:25px"> Active </label>
+                            <input type="radio" id="radio_inactive" ng-model="showActive" ng-value="false" style="margin:5px">
+                            <label for="radio_inactive" style="margin-right:75px"> Inactive </label>
+                        </form>
+                    </div>
+                </div>
+            </div>
             </div>
             <br/>
             <table class="table">
@@ -30,7 +43,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="pointer-main" dir-paginate="employee in employees | filter:filterText |  itemsPerPage: EmployeesPerPage">
+                
+                <tr class="pointer-main" dir-paginate="employee in employees | filter:{displayName:filterText} | filter:{isActive:showActive} | itemsPerPage: EmployeesPerPage">
                     <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.displayName}}</td>
                     <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.isLoanOfficer}}</td>
                     <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.officeName}}</td>

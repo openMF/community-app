@@ -289,7 +289,24 @@
                                    ng-model="formData.minOverdraftForInterestCalculation">
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">{{'label.input.lienallowed' | translate}}
+                            <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.lienallowed' | translate}}" tooltip-append-to-body="true"></i>
+                        </label>
+                        <div class="col-sm-2">
+                            <input id="lienAllowed" type="checkbox" ng-model="formData.lienAllowed"
+                                   ng-true-value="true"
+                                   ng-false-value="false">
+                        </div>
+                        <div ng-show="formData.lienAllowed">
+                            <label class="control-label col-sm-2">{{'label.input.maxallowedlienlimit' | translate}}
+                                <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.maxallowedlienlimit' | translate}}" tooltip-append-to-body="true"></i>
+                            </label>
+                            <div class="col-sm-2">
+                                <input id="maxAllowedLienLimit"  type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty" number-format="" ng-model="formData.maxAllowedLienLimit" >
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="control-label col-sm-3">{{ 'label.input.withholdtax' | translate }}
                             <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.withholdtax' | translate}}" tooltip-append-to-body="true"></i>
@@ -785,6 +802,14 @@
                         <tr>
                             <td>{{'label.heading.minbalanceforinterestcalculation' | translate}}</td>
                             <td colspan="3">{{savingproduct.minBalanceForInterestCalculation|number}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.lienAllowed' | translate}}</td>
+                            <td colspan="3">{{savingproduct.lienAllowed}}</td>
+                        </tr>
+                        <tr ng-show="savingproduct.lienAllowed">
+                            <td>{{'label.heading.maxAllowedLienLimit' | translate}}</td>
+                            <td colspan="3">{{savingproduct.maxAllowedLienLimit |number}}</td>
                         </tr>
                         <tr>
                             <td>{{'label.heading.enforceMinRequiredBalance' | translate}}</td>

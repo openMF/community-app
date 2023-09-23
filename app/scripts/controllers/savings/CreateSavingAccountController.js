@@ -125,6 +125,8 @@
                     scope.formData.overdraftLimit = data.overdraftLimit;
                     scope.formData.nominalAnnualInterestRateOverdraft = data.nominalAnnualInterestRateOverdraft;
                     scope.formData.minOverdraftForInterestCalculation = data.minOverdraftForInterestCalculation;
+                    scope.formData.lienAllowed = data.lienAllowed;
+                    scope.formData.maxAllowedLienLimit = data.maxAllowedLienLimit;
                     scope.formData.enforceMinRequiredBalance = data.enforceMinRequiredBalance;
                     scope.formData.minRequiredBalance = data.minRequiredBalance;
                     scope.formData.withHoldTax = data.withHoldTax;
@@ -140,6 +142,10 @@
                     scope.disabled = false;
                     scope.savingdetails = angular.copy(scope.formData);
                     scope.savingdetails.productName = scope.formValue(scope.products,scope.formData.productId,'id','name');
+                    scope.savingdetails.interestCompoundingPeriodTypeValue = scope.formValue(data.interestCompoundingPeriodTypeOptions,scope.formData.interestCompoundingPeriodType);
+                    scope.savingdetails.interestPostingPeriodTypeValue = scope.formValue(data.interestPostingPeriodTypeOptions,scope.formData.interestPostingPeriodType);
+                    scope.savingdetails.interestCalculationTypeValue = scope.formValue(data.interestCalculationTypeOptions,scope.formData.interestCalculationType);
+                    scope.savingdetails.interestCalculationDaysInYearTypeValue = scope.formValue(data.interestCalculationDaysInYearTypeOptions,scope.formData.interestCalculationDaysInYearType);
                 });
             };
 

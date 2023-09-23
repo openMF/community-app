@@ -51,6 +51,10 @@
                         <td>{{savingaccountdetails.fieldOfficerName}}<span data-ng-hide="savingaccountdetails.fieldOfficerName">{{'label.unassigned' | translate}}</span>
                         </td>
                     <tr>
+                    <tr>
+                        <th>{{'label.heading.externalid' | translate}}</th>
+                        <td><span>{{savingaccountdetails.externalId}}</span><span ng-hide="savingaccountdetails.externalId">{{'label.heading.notprovided' | translate}}</span></td></td>
+                    </tr>
                         <th>{{'label.heading.activationdate' | translate}}</th>
                         <td>{{savingaccountdetails.timeline.activatedOnDate | DateFormat}}</td>
                     </tr>
@@ -77,6 +81,18 @@
                     <tr data-ng-show="savingaccountdetails.withHoldTax">
                         <th class="active fontnormal"> {{'label.heading.withholdtaxgroup' | translate}}</th>
                         <td><span class="padded-td">{{savingaccountdetails.taxGroup.name}}</span></td>
+                    </tr>
+                    <tr ng-if="savingaccountdetails.onAccountClosure && savingaccountdetails.onAccountClosure.id ">
+                        <th class="active fontnormal">{{'label.input.maturity.instruction' | translate}}
+                        </th>
+                        <td><span
+                                class="padded-td">{{savingaccountdetails.onAccountClosure.value}}
+                                <span ng-if="savingaccountdetails.onAccountClosure.id == 1 || savingaccountdetails.onAccountClosure.id == 2">
+                                    (Re-Invest) </span>  
+                                <span ng-if="savingaccountdetails.onAccountClosure.id == 200">
+                                    (to) {{savingaccountdetails.transferToSavingsAccount.accountNo}}</span> 
+                            </span>
+                        </td>
                     </tr>
                 </table>
                 <br>
@@ -110,13 +126,6 @@
                             translate}}
                         </th>
                         <td><span class="padded-td">{{savingaccountdetails.interestCalculationType.value}}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="active fontnormal">{{'label.noofdaysinyear' | translate}}
-                        </th>
-                        <td><span
-                                class="padded-td">{{savingaccountdetails.interestCalculationDaysInYearType.value}}</span>
                         </td>
                     </tr>
                     <tr ng-show="savingaccountdetails.preClosurePenalApplicable">
@@ -257,6 +266,18 @@
                                     </td>
                                     <td><span
                                             class="padded-td">{{savingaccountdetails.interestCalculationDaysInYearType.value}}</span>
+                                    </td>
+                                </tr>
+                                <tr ng-if="savingaccountdetails.onAccountClosure && savingaccountdetails.onAccountClosure.id ">
+                                    <td class="active fontnormal">{{'label.input.maturity.instruction' | translate}}
+                                    </td>
+                                    <td><span
+                                            class="padded-td">{{savingaccountdetails.onAccountClosure.value}}
+                                            <span ng-if="savingaccountdetails.onAccountClosure.id == 300|| savingaccountdetails.onAccountClosure.id == 400">
+                                                (Re-Invest) </span> 
+                                            <span ng-if="savingaccountdetails.onAccountClosure.id == 200">
+                                                    (to) {{savingaccountdetails.transferToSavingsAccount.accountNo}}</span>                  
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr ng-show="savingaccountdetails.preClosurePenalApplicable">
