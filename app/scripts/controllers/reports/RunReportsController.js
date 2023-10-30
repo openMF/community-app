@@ -24,7 +24,9 @@
             scope.reportId = routeParams.reportId;
             scope.pentahoReportParameters = [];
             scope.type = "pie";
-
+            scope.reportsPerPage = 10;
+            scope.formData.isPaginationAllowed = false;
+            scope.iteratedReportDataSize = 0;
             scope.highlight = function (id) {
                 var i = document.getElementById(id);
                 if (i.className == 'selected-row') {
@@ -62,7 +64,6 @@
                     }
                 }
             });
-
             if (scope.reportType == 'Pentaho') {
                 resourceFactory.reportsResource.get({id: scope.reportId, fields: 'reportParameters'}, function (data) {
                     scope.pentahoReportParameters = data.reportParameters || [];
@@ -286,6 +287,39 @@
                 }
                 return false;
             };
+            scope.getResultsPage = function (pageNumber) {
+                if(scope.searchText){
+                    var startPosition = (pageNumber - 1) * scope.reportsPerPage;
+                    scope.clients = scope.actualReports.slice(startPosition, startPosition + scope.reportsPerPage);
+                    return;
+                }
+                scope.formData.reportSource = scope.reportName;
+                scope.searchText = "";
+                scope.formData.offset =  (pageNumber - 1); 
+                resourceFactory.runReportsResource.getReport(scope.formData, function (data) {
+                    scope.csvData = [];
+                    scope.reportData.columnHeaders = data.columnHeaders;
+                    scope.reportData.data = data.data;
+                    scope.totalItems = data.totalItems;
+
+                    // scope.iteratedReportDataSize = pageNumber*data.recordsPerPage;
+                    if(pageNumber*data.recordsPerPage < scope.totalItems){
+                        scope.iteratedReportDataSize = pageNumber*data.recordsPerPage;
+                    }
+                    else{
+                        scope.lastPageReportDiff = pageNumber*data.recordsPerPage - scope.totalItems;
+                        scope.iteratedReportDataSize = (pageNumber*data.recordsPerPage)-scope.lastPageReportDiff;
+                    }
+                    for (var i in data.columnHeaders) {
+                        scope.row.push(data.columnHeaders[i].columnName);
+                    }
+                    scope.csvData.push(scope.row);
+                    for (var k in data.data) {
+                        scope.csvData.push(data.data[k].row);
+                    }
+                });
+            }
+           
             scope.runReport = function () {
                 //clear the previous errors
                 scope.errorDetails = [];
@@ -310,11 +344,22 @@
                             scope.hidePentahoReport = true;
                             scope.hideChart = true;
                             scope.formData.reportSource = scope.reportName;
+                            scope.searchText = "";
+                            scope.formData.offset = 0;
                             resourceFactory.runReportsResource.getReport(scope.formData, function (data) {
                                 //clear the csvData array for each request
                                 scope.csvData = [];
                                 scope.reportData.columnHeaders = data.columnHeaders;
                                 scope.reportData.data = data.data;
+                                scope.totalItems = data.totalItems;
+                                scope.reportDataSize = scope.reportData.data.length;
+                                if(scope.formData.isPaginationAllowed){
+                                    scope.reportsPerPage = data.recordsPerPage;
+                                    scope.iteratedReportDataSize = data.recordsPerPage;
+                                }else{
+                                    scope.reportsPerPage = data.totalItems;
+                                }
+                                
                                 for (var i in data.columnHeaders) {
                                     scope.row.push(data.columnHeaders[i].columnName);
                                 }
