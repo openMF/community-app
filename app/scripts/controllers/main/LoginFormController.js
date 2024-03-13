@@ -4,6 +4,8 @@
             scope.loginCredentials = {};
             scope.passwordDetails = {};
             scope.authenticationFailed = false;
+            scope.forgotPasswordFailure = false;
+            scope.forgotPasswordSuccess = false;
             scope.load = false;
 
             scope.twoFactorRequired = false;
@@ -13,6 +15,7 @@
             scope.otpToken = null;
             scope.selectedDeliveryMethodName = null;
             scope.twofactorRememberMe = false;
+            scope.isforgotpassword = false;
 
             scope.login = function () {
                 scope.authenticationFailed = false;
@@ -111,7 +114,32 @@
                 }
                 scope.otpTokenError = true;
             });
+            scope.forgotpassword = function () {
+                authenticationService.forgotPassword(scope.loginCredentials);
+                delete scope.loginCredentials.username;
+            };
 
+            scope.$on("UserForgotPasswordFailureEvent", function (event, data, status) {
+                scope.forgotPasswordFailure = true;
+                scope.forgotPasswordSuccess = false;
+                scope.authenticationFailed = false;
+                scope.load = false;
+                if(status == 404) {
+                    scope.forgotPasswordMessage = 'error.msg.username.not.found';
+                } else {
+                   scope.forgotPasswordMessage = 'error.connection.failed';
+                }
+            });
+
+            scope.$on("UserForgotPasswordSuccessEvent", function (event, data) {
+                scope.load = false;
+                scope.forgotPasswordSuccess = true;
+                scope.forgotPasswordFailure = false;
+                scope.authenticationFailed = false;
+                scope.forgotPasswordMessage  = 'success.forgot.password.reset';
+                scope.loginCredentials.username='';
+                scope.load = false;
+             });
 
         }
     });

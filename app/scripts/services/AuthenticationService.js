@@ -154,6 +154,24 @@
 
                 httpService.post(apiVer + "/twofactor/invalidate", '{"token": "' + twoFactorAccessToken + '"}');
             });
+
+            this.forgotPassword = function (credentials) {
+                    httpService.post(apiVer + "/password/forgot-password", { "username": credentials.username})
+                    .then(onForgotPasswordSuccess)
+                    .catch(onForgotPasswordFailure);
+            };
+
+
+            var onForgotPasswordSuccess = function (response) {
+                var data = response.data;
+                scope.$broadcast("UserForgotPasswordSuccessEvent", data);
+            };
+
+            var onForgotPasswordFailure = function (response) {
+                var data = response.data;
+                var status = response.status;
+                scope.$broadcast("UserForgotPasswordFailureEvent", data, status);
+            };
         }
     });
     mifosX.ng.services.service('AuthenticationService', ['$rootScope', 'HttpService', 'SECURITY', 'localStorageService','$timeout','webStorage', mifosX.services.AuthenticationService]).run(function ($log) {

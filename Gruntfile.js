@@ -349,24 +349,19 @@ module.exports = function(grunt) {
       }
     },
 
-    devcode: {
-      options: {
-        html: true,        // html files parsing?
-        js: true,          // javascript files parsing?
-        css: false,         // css files parsing?
-        clean: true,       // removes devcode comments even if code was not removed
-        block: {
-          open: 'devcode', // with this string we open a block of code
-          close: 'endcode' // with this string we close a block of code
-        },
-        dest: 'dist'       // default destination which overwrittes environment variable
-      },
-      dist : {             // settings for task used with 'devcode:dist'
+    preprocess: {
+
+      dist: {
+        src: ['dist/**/*.js','dist/**/*.html','dist/*.js','dist/*.html'],
+        dst: ['dist/'],
         options: {
-            source: 'dist/',
-            dest: 'dist/',
-            env: 'production'
+            inline: true,
+            context: {
+              DEBUG: false,
+              NODE_ENV: 'production'
+            }
         }
+
       }
     },
 
@@ -425,7 +420,7 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['clean', 'jshint', 'copy:dev']);
-  grunt.registerTask('prod', ['clean:dist', 'clean:server', 'compass:dist', 'copy:prod', 'copy:tests', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
+  grunt.registerTask('prod', ['clean:dist', 'clean:server', 'compass:dist', 'copy:prod', 'copy:tests', 'concat', 'uglify:prod', 'preprocess:dist', 'hashres', 'replace']);
   grunt.registerTask('dev', ['clean', 'compass:dev', 'copy:dev']);
   grunt.registerTask('test', ['karma']);
   grunt.registerTask('deploy', ['prod', 'gh-pages']);
