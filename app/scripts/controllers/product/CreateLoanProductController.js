@@ -64,7 +64,7 @@
                 scope.formData.amortizationType = scope.product.amortizationType.id;
                 scope.formData.interestType = scope.product.interestType.id;
                 scope.formData.interestCalculationPeriodType = scope.product.interestCalculationPeriodType.id;
-                scope.formData.transactionProcessingStrategyId = scope.product.transactionProcessingStrategyOptions[0].id;
+                scope.formData.transactionProcessingStrategyCode = scope.product.transactionProcessingStrategyOptions[0].code;
                 scope.formData.principalVariationsForBorrowerCycle = scope.product.principalVariationsForBorrowerCycle;
                 scope.formData.interestRateVariationsForBorrowerCycle = scope.product.interestRateVariationsForBorrowerCycle;
                 scope.formData.numberOfRepaymentVariationsForBorrowerCycle = scope.product.numberOfRepaymentVariationsForBorrowerCycle;
@@ -360,7 +360,7 @@
                 scope.selectedConfigurableAttributes =
                 {amortizationType:scope.amortization,
                     interestType:scope.interestMethod,
-                    transactionProcessingStrategyId:scope.transactionProcessingStrategy,
+                    transactionProcessingStrategyCode:scope.transactionProcessingStrategy,
                     interestCalculationPeriodType:scope.interestCalcPeriod,
                     inArrearsTolerance:scope.arrearsTolerance,
                     repaymentEvery:scope.repaymentFrequency,
@@ -377,6 +377,7 @@
                 this.formData.startDate = reqFirstDate;
                 this.formData.closeDate = reqSecondDate;
                 this.formData.rates = scope.rates;
+                this.formData.transactionProcessingStrategyCode = scope.formData.transactionProcessingStrategyCode;
 
                 //Interest recalculation data
                 if (this.formData.isInterestRecalculationEnabled) {
