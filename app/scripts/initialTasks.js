@@ -5,11 +5,15 @@
         var baseApiUrl = "https://demo.mifos.io";
         var host = "";
         var portNumber = "";
+
+        // Extract the last two parts of the hostname
+        var lastTwoParts = mainLink.hostname.split('.').slice(-2).join('.');
+
         //accessing from openmf server
-        if (mainLink.hostname.indexOf('mifos.io') >= 0) {
-            var hostname = window.location.hostname;
+        if (lastTwoParts === 'mifos.io') {
+            var hostname = mainLink.hostname;
             console.log('hostname---' + hostname);
-            domains = hostname.split('.');
+            var domains = hostname.split('.');
             console.log('domains---' + domains);
             // For multi tenant hosting
             if (domains[0] == "demo") {
