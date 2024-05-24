@@ -77,7 +77,7 @@
                     interestCalculationPeriodType: scope.product.interestCalculationPeriodType.id,
                     allowPartialPeriodInterestCalcualtion:scope.product.allowPartialPeriodInterestCalcualtion,
                     inArrearsTolerance: scope.product.inArrearsTolerance,
-                    transactionProcessingStrategyId: scope.product.transactionProcessingStrategyId,
+                    transactionProcessingStrategyCode: scope.product.transactionProcessingStrategyCode,
                     graceOnPrincipalPayment: scope.product.graceOnPrincipalPayment,
                     graceOnInterestPayment: scope.product.graceOnInterestPayment,
                     graceOnInterestCharged: scope.product.graceOnInterestCharged,
@@ -143,7 +143,7 @@
                     scope.interestMethod = scope.product.allowAttributeOverrides.interestType;
                     scope.graceOnPrincipalAndInterest = scope.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment;
                     scope.repaymentFrequency = scope.product.allowAttributeOverrides.repaymentEvery;
-                    scope.transactionProcessingStrategy = scope.product.allowAttributeOverrides.transactionProcessingStrategyId;
+                    scope.transactionProcessingStrategy = scope.product.allowAttributeOverrides.transactionProcessingStrategyCode;
                 }
                 if(scope.amortization || scope.arrearsTolerance || scope.graceOnArrearsAgeing ||
                 scope.interestCalcPeriod || scope.interestMethod || scope.graceOnPrincipalAndInterest ||
@@ -512,7 +512,7 @@
                 scope.selectedConfigurableAttributes = 
 		{amortizationType:scope.amortization,
                     interestType:scope.interestMethod,
-                    transactionProcessingStrategyId:scope.transactionProcessingStrategy,
+                    transactionProcessingStrategyCode:scope.transactionProcessingStrategy,
                     interestCalculationPeriodType:scope.interestCalcPeriod,
                     inArrearsTolerance:scope.arrearsTolerance,
                     repaymentEvery:scope.repaymentFrequency,

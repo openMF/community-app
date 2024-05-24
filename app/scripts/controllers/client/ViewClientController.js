@@ -282,7 +282,7 @@
 
 
             scope.entitySubTypeFilter = function (datatable) {
-                if (datatable.entitySubType === scope.entitySubType) {
+                if (datatable.entitySubType.toLowerCase() === scope.entitySubType.toLowerCase()) {
                     return true;
                 }
             }
