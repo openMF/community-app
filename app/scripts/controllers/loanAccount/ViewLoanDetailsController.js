@@ -395,7 +395,7 @@
                     ]
                     };
                 }
-                if (data.status.value == "Closed (written off)") {
+                if ((data.status.value == "Closed (written off)") && (data.summary.totalWrittenOff > 0)) {
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.recoverypayment",
