@@ -79,6 +79,21 @@
 			        </select>
 				</div>
 	        </div>
+			<div class="form-group info" ng-show = "reportType == 'Table'">
+	            <label class="control-label col-sm-2" for="isPaginationAllowed">{{ 'label.input.pagination' | translate }}</label>
+
+	            <div class="col-sm-1">
+	                <input id="isPaginationAllowed" class="form-check-input" type="checkbox" ng-true-value="true"
+					ng-false-value="false" ng-model="formData.isPaginationAllowed" />
+	            </div>
+	        </div>
+			<div class="form-group info" ng-show="formData.isPaginationAllowed">
+	            <label class="control-label col-sm-2" for="paginationOrderBy">{{ 'label.input.orderby' | translate }}</label>
+
+	            <div class="col-sm-3">
+	                <input style="width: 257px" id="paginationOrderBy" class="form-control" type="number" ng-model="formData.paginationOrderBy" />
+	            </div>
+	        </div>
 
 	        <span class="col-md-offset-3 paddedleft52px"><a id="run" ng-click="runReport()" class="btn btn-primary control"></i>
 	            &nbsp;&nbsp;{{ 'label.button.runreport' | translate }}</a></span>
@@ -143,17 +158,37 @@
 	                    <th ng-repeat="columnHeader in reportData.columnHeaders">{{columnHeader.columnName}}</th>
 	                </tr>
 	                </thead>
-	                <tbody>
+	                <tbody *ngIf="false; else isPaginationNotAllowed" >
 	                <!-- http://www.anujgakhar.com/2013/06/15/duplicates-in-a-repeater-are-not-allowed-in-angularjs/ -->
-	                <tr id="{{$index}}" data-ng-click="highlight($index)" ng-repeat="row in reportData.data track by $index">
-						<td ng-repeat="col in row.row track by $index">
+					<!-- dir-paginate="row in reportData.data track by $index | itemsPerPage: reportsPerPage"  -->
+	                <!-- <tr id="{{$index}}" data-ng-click="highlight($index)" ng-repeat="row in reportData.data track by $index"> -->
+					<tr pagination-id="reportData" data-ng-click="highlight($index)" total-items="totalItems"  dir-paginate='row in reportData.data | itemsPerPage : reportsPerPage' class="pointer-main">
+						<td class="pointer" data-ng-click="routeTo(row.id)" ng-repeat="col in row.row track by $index">
 							<span ng-show="isDecimal($index)">{{col | FormatNumber:decimalsChoice}}</span>
 							<span ng-hide="isDecimal($index)">{{col}}</span>
 						</td>
 	                </tr>
 	                </tbody>
+					<ng-template #isPaginationNotAllowed>
+						<tbody>
+						<tr id="{{$index}}" data-ng-click="highlight($index)" ng-repeat="row in reportData.data track by $index"></tr>
+							<td class="pointer" data-ng-click="routeTo(row.id)" ng-repeat="col in row.row track by $index">
+								<span ng-show="isDecimal($index)">{{col | FormatNumber:decimalsChoice}}</span>
+								<span ng-hide="isDecimal($index)">{{col}}</span>
+							</td>
+						</tr>
+					</tbody>
+					</ng-template>
 	            </table>
-	        </div>
+				<dir-pagination-controls align="center" boundary-links="true"
+						template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"
+						on-page-change="getResultsPage(newPageNumber)" pagination-id="reportData">
+				</dir-pagination-controls>
+				<div ng-show="formData.isPaginationAllowed">
+					<i><span> {{iteratedReportDataSize}} </span><span class="text-muted"> of </span><span> {{totalItems}} </span></i>
+				</div>
+				
+	        </div> 
 	    </div>
 	    <div uib-collapse="hidePentahoReport" class="row alert-block span tab-content">
 	        <br>
