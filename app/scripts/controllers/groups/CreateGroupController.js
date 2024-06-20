@@ -118,7 +118,7 @@
             scope.changeOffice = function (officeId) {
                 scope.addedClients = [];
                 scope.clientData.available = [];
-                resourceFactory.groupTemplateResource.get({staffInSelectedOfficeOnly: false, officeId: officeId,staffInSelectedOfficeOnly:true
+                resourceFactory.groupTemplateResource.get({officeId: officeId,staffInSelectedOfficeOnly:true
                 }, function (data) {
                     scope.staffs = data.staffOptions;
                 });
