@@ -47,17 +47,48 @@
             <button class="btn btn-primary" ng-click="enableRoles()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
+    <script type="text/ng-template" id="editName.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.edit' | translate}}</h3>
+			<api-validate></api-validate>
+		</div>
+		<div class="modal-body">
+			<textarea rows="1" class="form-control marginbottom0px" id="textarea" placeholder="{{'label.heading.newname' | translate}}" ng-model="this.editData.editName">  </textarea>
+		</div>
+		<div class="modal-footer">
+			<span class="pull-right">
+				<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+				<button class="btn btn-primary" ng-click="editName()">{{'label.button.confirm' | translate}}</button>
+			</span>
+		</div>
+	</script>
+	<script type="text/ng-template" id="editDesc.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.edit' | translate}}</h3>
+			<api-validate></api-validate>
+		</div>
+		<div class="modal-body">
+			<textarea rows="1" class="form-control marginbottom0px" id="textarea" placeholder="{{'label.input.description' | translate}}" ng-model="this.editData.editDesc">  </textarea>
+		</div>
+		<div class="modal-footer">
+			<span class="pull-right">
+				<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+				<button class="btn btn-primary" ng-click="editDesc()">{{'label.button.confirm' | translate}}</button>
+			</span>
+		</div>
+	</script>
+	
     <api-validate></api-validate>
     <form name="editroleform" class="card well" ng-submit="submit()">
         <div>
             <table width="100%">
                 <tr>
                     <td width="20%">{{'label.heading.name' | translate}}</td>
-                    <td width="80%">{{role.name}}</td>
+                    <td width="80%">{{role.name}} <a class="fa fa-edit" ng-click="showEditName()" has-permission='EDIT_ROLENAME' uib-tooltip="{{'label.tooltip.editrolename' | translate}}"></a></td>
                 </tr>
                 <tr>
                     <td>{{'label.heading.description' | translate}}</td>
-                    <td>{{role.description}}</td>
+                    <td>{{role.description}} <a class="fa fa-edit" ng-click="showEditDesc()" has-permission='EDIT_ROLEDESCRIPTION' uib-tooltip="{{'label.tooltip.editroledesc' | translate}}"></a></td>
                 </tr>
             </table>
         </div>
