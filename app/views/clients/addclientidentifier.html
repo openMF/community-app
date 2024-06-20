@@ -15,7 +15,14 @@
                 <div class="col-sm-3">
                     <select id="documentTypeId" ng-model="formData.documentTypeId"
                             ng-options="documenttype.id as documenttype.name for documenttype in documenttypes"
-                            value="{{documenttype.id}}" required="required" class="form-control">
+                            value="{{documenttype.id}}" data-ng-change="displayDocumentValue()" required="required" class="form-control">
+                    </select>
+                </div>
+                <div class="col-sm-3" ng-show="showCountry">
+                    <select id="legalFormId" ng-model="formData.documentIssueCountryCode" class="form-control"
+                            ng-options="country.countryCode as country.countryName for country in documentPassportCountries"
+                            value="{{country.countryCode}}">
+                        <option style="display:none" value="">{{'label.menu.country' | translate}}
                     </select>
                 </div>
             </div>

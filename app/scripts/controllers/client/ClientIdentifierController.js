@@ -4,6 +4,7 @@
             scope.clientId = routeParams.clientId;
             scope.formData = {};
             scope.documenttypes = [];
+            scope.showCountry = true;
             scope.statusTypes = [{
                 id: 1,
                 label: 'Active'
@@ -15,11 +16,22 @@
                 scope.documenttypes = data.allowedDocumentTypes;
                 scope.formData.documentTypeId = data.allowedDocumentTypes[0].id;
             });
-
+            resourceFactory.countryValueResource.getAllCountryValues({locale: scope.optlang.code}, function (data) {
+                scope.documentPassportCountries = data;
+            });
+            
             scope.submit = function () {
                 resourceFactory.clientIdenfierResource.save({clientId: scope.clientId}, this.formData, function (data) {
                     location.path('/viewclient/' + data.clientId);
                 });
+            };
+            scope.displayDocumentValue = function () {
+                if (this.formData.documentTypeId == 1) {
+                    scope.showCountry = true;
+                }
+                else{
+                    scope.showCountry = false;
+                }
             };
 
         }
