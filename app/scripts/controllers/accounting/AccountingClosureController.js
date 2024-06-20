@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AccountingClosureController: function (scope, resourceFactory, location, anchorScroll, translate, routeParams, dateFilter) {
+        AccountingClosureController: function (scope, resourceFactory, location, translate, routeParams, dateFilter, anchorScroll) {
             scope.first = {};
             scope.formData = {};
             scope.first.date = new Date();
@@ -55,7 +55,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('AccountingClosureController', ['$scope', 'ResourceFactory', '$location', '$translate', '$routeParams', 'dateFilter','$anchorScroll', mifosX.controllers.AccountingClosureController]).run(function ($log) {
+    mifosX.ng.application.controller('AccountingClosureController', ['$scope', 'ResourceFactory', '$location', '$translate', '$routeParams', 'dateFilter', '$anchorScroll', mifosX.controllers.AccountingClosureController]).run(function ($log) {
         $log.info("AccountingClosureController initialized");
     });
 }(mifosX.controllers || {}));
